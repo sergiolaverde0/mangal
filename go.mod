@@ -24,7 +24,7 @@ require (
 	github.com/samber/mo v1.7.0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/smartystreets/goconvey v1.7.2
-	github.com/spf13/afero v1.9.3
+	github.com/spf13/afero v1.9.5
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.14.0
 	github.com/yuin/gopher-lua v1.1.0
