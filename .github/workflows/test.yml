@@ -18,10 +18,11 @@ jobs:
     env:
       GOFLAGS: -mod=readonly
 
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+    steps:
       - uses: actions/checkout@v3
 
       - name: Set up Go
