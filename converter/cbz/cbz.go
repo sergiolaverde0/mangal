@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"encoding/xml"
+	"github.com/metafates/mangal/converter/webp"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
@@ -51,7 +52,13 @@ func SaveTo(chapter *source.Chapter, to string) error {
 	zipWriter := zip.NewWriter(cbzFile)
 	defer util.Ignore(zipWriter.Close)
 
+	converter := webp.New()
+
 	for _, page := range chapter.Pages {
+		page, err := converter.CheckAndConvert(page)
+		if err != nil {
+			return err
+		}
 		if err = addToZip(zipWriter, page.Contents, page.Filename()); err != nil {
 			return err
 		}
