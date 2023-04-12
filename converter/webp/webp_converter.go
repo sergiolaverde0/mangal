@@ -37,6 +37,7 @@ func (converter *Converter) CheckAndConvert(page *source.Page) (*source.Page, er
 	}
 	page.Contents = converted
 	page.Extension = ".webp"
+	page.Size = uint64(converted.Len())
 	return page, nil
 }
 
