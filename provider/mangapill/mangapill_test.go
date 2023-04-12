@@ -2,11 +2,13 @@ package mangapill
 
 import (
 	"github.com/metafates/mangal/provider/generic"
+	"github.com/metafates/mangal/util"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
 func TestManganelo(t *testing.T) {
+	util.SkipCI(t)
 	Convey("Given a mangapill instance", t, func() {
 		mangapill := generic.New(Config)
 		Convey("When searching for a manga", func() {
