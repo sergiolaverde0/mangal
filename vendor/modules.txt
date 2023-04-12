@@ -30,6 +30,9 @@ github.com/aymanbagabas/go-osc52
 # github.com/cbroglie/mustache v1.4.0
 ## explicit; go 1.17
 github.com/cbroglie/mustache
+# github.com/chai2010/webp v1.1.1
+## explicit; go 1.17
+github.com/chai2010/webp
 # github.com/charmbracelet/bubbles v0.14.0
 ## explicit; go 1.13
 github.com/charmbracelet/bubbles/help
@@ -324,7 +327,7 @@ github.com/ysmood/leakless/pkg/utils
 # github.com/yuin/gluamapper v0.0.0-20150323120927-d836955830e7
 ## explicit
 github.com/yuin/gluamapper
-# github.com/yuin/gopher-lua v1.0.0
+# github.com/yuin/gopher-lua v1.1.0
 ## explicit; go 1.17
 github.com/yuin/gopher-lua
 github.com/yuin/gopher-lua/ast
