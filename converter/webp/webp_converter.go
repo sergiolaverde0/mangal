@@ -16,9 +16,16 @@ func New() *Converter {
 	return &Converter{}
 }
 
-// CheckAndConvert checks whether WebP conversion is enabled in the configuration, and if so,
-// invokes the convert method to convert the image to WebP format. If WebP conversion is disabled,
-// it returns the original image content without modification.
+// CheckAndConvert checks if the WebP conversion is enabled in the configuration and
+// converts the page contents to WebP format if it is. It uses the Converter's convert
+// method to perform the conversion with the specified WebP quality. It then updates the
+// page's contents and extension to reflect the conversion.
+//
+// If the conversion is disabled, the function returns the original page without any
+// modifications.
+//
+// Returns the modified page with the WebP contents and extension, or an error if the
+// conversion fails.
 func (converter *Converter) CheckAndConvert(page *source.Page) (*source.Page, error) {
 	if !viper.GetBool(key.WebpConversion) {
 		return page, nil
