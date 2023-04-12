@@ -1,10 +1,11 @@
 module github.com/metafates/mangal
 
-go 1.18
+go 1.20
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.6
 	github.com/PuerkitoBio/goquery v1.8.0
+	github.com/chai2010/webp v1.1.1
 	github.com/charmbracelet/bubbles v0.14.0
 	github.com/charmbracelet/bubbletea v0.23.1
 	github.com/charmbracelet/lipgloss v0.6.0

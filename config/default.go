@@ -203,7 +203,16 @@ Available options are: pdf, zip, cbz, plain`,
 		`Will skip images that can't be converted to the specified format 
 Example: if you want to export to pdf, but some images are gifs, they will be skipped`,
 	},
-
+	{
+		key.WebpConversion,
+		true,
+		`Convert the image to webp (not for PDF)`,
+	},
+	{
+		key.WebpQuality,
+		90,
+		`Quality for level for webp conversion`,
+	},
 	{
 		key.MetadataFetchAnilist,
 		true,
