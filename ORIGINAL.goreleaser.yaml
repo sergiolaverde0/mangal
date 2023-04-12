@@ -18,9 +18,9 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -X 'github.com/belphemur/mangal/constant.BuiltAt={{ .Date }}'
-      - -X 'github.com/belphemur/mangal/constant.BuiltBy={{ .Env.USER }}'
-      - -X 'github.com/belphemur/mangal/constant.Revision={{ .ShortCommit }}'
+      - -X 'github.com/metafates/mangal/constant.BuiltAt={{ .Date }}'
+      - -X 'github.com/metafates/mangal/constant.BuiltBy={{ .Env.USER }}'
+      - -X 'github.com/metafates/mangal/constant.Revision={{ .ShortCommit }}'
       - -s
       - -w
 
@@ -80,31 +80,84 @@ dockers:
   - goos: linux
     goarch: amd64
     image_templates:
-      - "belphemur/mangal:latest"
+      - "metafates/mangal:latest"
     skip_push: false
     use: docker
+
+brews:
+  - name: mangal
+
+    tap:
+      owner: metafates
+      name: homebrew-mangal
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    homepage: "https://github.com/metafates/mangal"
+    description: "The ultimate CLI manga downloader!"
+    license: "MIT"
+    skip_upload: false
+
+    test: |
+      system "#{bin}/mangal -v"
+
+    install: |-
+      bin.install "mangal"
+      bash_completion.install "completions/mangal.bash" => "mangal"
+      zsh_completion.install "completions/mangal.zsh" => "_mangal"
+      fish_completion.install "completions/mangal.fish"
+
+scoop:
+  bucket:
+    owner: metafates
+    name: scoop-metafates
+    branch: main
+    token: "{{ .Env.SCOOP_TAP_GITHUB_TOKEN }}"
+
+  folder: bucket
+
+  commit_author:
+    name: goreleaserbot
+    email: bot@goreleaser.com
+
+  commit_msg_template: "Scoop update for {{ .ProjectName }} version {{ .Tag }}"
+  homepage: "https://github.com/metafates/mangal"
+  description: "The ultimate CLI manga downloader!"
+  license: MIT
+  skip_upload: false
+
+
 release:
   github:
-    owner: belphemur
+    owner: metafates
     name: mangal
 
   name_template: "{{.ProjectName}} v{{.Version}}"
   header: |
+    To install:
+    ```sh
+    curl -sSL mangal.metafates.one/install | sh
+    ```
 
     ## What's new?
 
   footer: |
 
-    **Full Changelog**: https://github.com/belphemur/mangal/compare/{{ .PreviousTag }}...{{ .Tag }}
+    **Full Changelog**: https://github.com/metafates/mangal/compare/{{ .PreviousTag }}...{{ .Tag }}
 
     ---
 
-    Bugs? Suggestions? [Open an issue](https://github.com/belphemur/mangal/issues/new/choose)
+    Bugs? Suggestions? [Open an issue](https://github.com/metafates/mangal/issues/new/choose)
 
 nfpms:
   - file_name_template: "{{ .ConventionalFileName }}"
-    homepage: https://github.com/belphemur/mangal
-    maintainer: belphemur <mangal@aaflalo.me>
+    homepage: https://github.com/metafates/mangal
+    maintainer: metafates <fates@duck.com>
     description: |-
       The most advanced cli manga downloader in the entire universe!
 
