@@ -19,6 +19,9 @@ jobs:
       GOFLAGS: -mod=readonly
 
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action
+
       - uses: actions/checkout@v3
 
       - name: Set up Go
