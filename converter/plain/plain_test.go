@@ -4,9 +4,11 @@ import (
 	"bytes"
 	"github.com/metafates/mangal/config"
 	"github.com/metafates/mangal/filesystem"
+	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
 	"github.com/samber/lo"
 	. "github.com/smartystreets/goconvey/convey"
+	"github.com/spf13/viper"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -16,6 +18,7 @@ import (
 func init() {
 	lo.Must0(config.Setup())
 	filesystem.SetMemMapFs()
+	viper.Set(key.WebpConversion, false)
 }
 
 func Test(t *testing.T) {

@@ -2,6 +2,7 @@ package zip
 
 import (
 	"archive/zip"
+	"github.com/metafates/mangal/converter/webp"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/util"
@@ -39,7 +40,12 @@ func save(chapter *source.Chapter, temp bool) (path string, err error) {
 	zipWriter := zip.NewWriter(zipFile)
 	defer util.Ignore(zipWriter.Close)
 
+	converter := webp.New()
 	for _, page := range chapter.Pages {
+		page, err := converter.CheckAndConvert(page)
+		if err != nil {
+			return "", err
+		}
 		if err = addToZip(zipWriter, page.Contents, page.Filename()); err != nil {
 			return "", err
 		}
