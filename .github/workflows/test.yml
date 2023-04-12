@@ -19,7 +19,7 @@ jobs:
       GOFLAGS: -mod=readonly
 
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}-${{runner.os}}
+      group: ${{ github.workflow }}-${{ github.ref }}-${{matrix.os}}
       cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
     steps:
