@@ -27,7 +27,7 @@ require (
 	github.com/smartystreets/goconvey v1.8.0
 	github.com/spf13/afero v1.9.5
 	github.com/spf13/cobra v1.7.0
-	github.com/spf13/viper v1.14.0
+	github.com/spf13/viper v1.15.0
 	github.com/yuin/gopher-lua v1.1.0
 	golang.org/x/exp v0.0.0-20230113213754-f9f960f08ad4
 	golang.org/x/term v0.6.0
@@ -75,7 +75,6 @@ require (
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/termenv v0.14.0 // indirect
 	github.com/nwaples/rardecode v1.1.3 // indirect
-	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
