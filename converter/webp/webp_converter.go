@@ -15,6 +15,11 @@ type Converter struct{}
 func New() *Converter {
 	return &Converter{}
 }
+
+// CheckAndConvertChapter checks if WebP conversion is enabled and converts each page in the chapter
+// to WebP format using the convertPage method. It runs the conversion concurrently for each page
+// with a maximum number of goroutines defined by maxGoroutines. The function returns the updated chapter
+// object after the conversion is complete.
 func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*source.Chapter, error) {
 	if !viper.GetBool(key.WebpConversion) {
 		return chapter, nil
