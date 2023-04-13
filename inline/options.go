@@ -86,7 +86,8 @@ func ParseChaptersFilter(description string) (ChaptersFilter, error) {
 	}
 
 	return func(chapters []*source.Chapter) ([]*source.Chapter, error) {
-		if len(chapters) == 0 {
+		maxIndex := len(chapters) - 1
+		if maxIndex == 0 {
 			return chapters, nil
 		}
 
@@ -94,7 +95,7 @@ func ParseChaptersFilter(description string) (ChaptersFilter, error) {
 		case first:
 			return chapters[0:1], nil
 		case last:
-			return chapters[len(chapters)-1:], nil
+			return chapters[maxIndex:], nil
 		case all:
 			return chapters, nil
 		default:
@@ -107,7 +108,7 @@ func ParseChaptersFilter(description string) (ChaptersFilter, error) {
 			}
 
 			from := lo.Must(strconv.ParseUint(groups[from], 10, 16))
-			from = util.Min(from, uint64(len(chapters)))
+			from = util.Min(from, uint64(maxIndex))
 
 			n := groups[to]
 			if n == "" {
@@ -115,7 +116,7 @@ func ParseChaptersFilter(description string) (ChaptersFilter, error) {
 			}
 
 			to := lo.Must(strconv.ParseUint(n, 10, 16))
-			to = util.Min(to, uint64(len(chapters)))
+			to = util.Min(to, uint64(maxIndex))
 
 			if from > to {
 				from, to = to, from
