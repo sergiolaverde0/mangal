@@ -5,6 +5,9 @@ import (
 	"github.com/nickalie/go-webpbin"
 	"image"
 	"io"
+	"os"
+	"path/filepath"
+	"runtime"
 )
 
 // NewCWebP creates new CWebP instance.
@@ -17,8 +20,16 @@ func NewCWebP(folder string) *webpbin.CWebP {
 	return bin
 }
 
+// DefaultWebPDir for downloaded browser. For unix is "$HOME/.cache/webp/bin",
+// for Windows it's "%APPDATA%\webp\bin"
+var DefaultWebPDir = filepath.Join(map[string]string{
+	"windows": filepath.Join(os.Getenv("APPDATA")),
+	"darwin":  filepath.Join(os.Getenv("HOME"), ".cache"),
+	"linux":   filepath.Join(os.Getenv("HOME"), ".cache"),
+}[runtime.GOOS], "webp", "bin")
+
 func Encode(w io.Writer, m image.Image, quality uint) error {
-	return NewCWebP(".bin/webp").
+	return NewCWebP(DefaultWebPDir).
 		Quality(quality).
 		InputImage(m).
 		Output(w).
