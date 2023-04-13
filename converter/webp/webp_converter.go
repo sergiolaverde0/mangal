@@ -4,17 +4,14 @@ import (
 	"bytes"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
-	"github.com/nickalie/go-webpbin"
 	"github.com/spf13/viper"
 	"image"
 	"io"
-	"os"
 )
 
 type Converter struct{}
 
 func New() *Converter {
-	os.Setenv("LIBWEBP_VERSION", "1.3.0")
 	return &Converter{}
 }
 
@@ -54,8 +51,7 @@ func (converter *Converter) convert(content *bytes.Buffer, quality uint) (*bytes
 		return nil, err
 	}
 	var buf bytes.Buffer
-	encoder := &webpbin.Encoder{Quality: quality}
-	err = encoder.Encode(&buf, page)
+	err = Encode(&buf, page, quality)
 	if err != nil {
 		return nil, err
 	}
