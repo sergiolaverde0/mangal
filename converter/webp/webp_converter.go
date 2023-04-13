@@ -22,9 +22,10 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 	var wg sync.WaitGroup
 	maxGoroutines := 3
 	guard := make(chan struct{}, maxGoroutines)
+	wg.Add(len(chapter.Pages))
+
 	for i, page := range chapter.Pages {
 		guard <- struct{}{} // would block if guard channel is already filled
-		wg.Add(1)
 		go func(index int, page *source.Page) {
 			defer wg.Done()
 			convertedPage, err := converter.convertPage(page)
