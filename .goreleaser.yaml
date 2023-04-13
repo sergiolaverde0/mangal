@@ -5,7 +5,7 @@ before:
 
 builds:
   - env:
-      - CGO_ENABLED=0
+      - CGO_ENABLED=1
     goos:
       - linux
       - windows
@@ -21,7 +21,9 @@ builds:
       - -X 'github.com/belphemur/mangal/constant.Revision={{ .ShortCommit }}'
       - -s
       - -w
-
+    ignore:
+      - goos: windows
+        goarch: arm64
 archives:
   - replacements:
       darwin: Darwin
