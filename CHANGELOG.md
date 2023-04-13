@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.1.3
+
+- Fix mangadex chapter issue
+- Fix command line when giving chapter index bigger than max chapter
+
+## 4.1.0
+- Add chapter date support
+- Add WebP conversion
+
 ## 4.0.6
 
 - Update dependencies
