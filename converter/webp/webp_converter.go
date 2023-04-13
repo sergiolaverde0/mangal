@@ -7,12 +7,37 @@ import (
 	"github.com/spf13/viper"
 	"image"
 	"io"
+	"sync"
 )
 
 type Converter struct{}
 
 func New() *Converter {
 	return &Converter{}
+}
+func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*source.Chapter, error) {
+	if !viper.GetBool(key.WebpConversion) {
+		return chapter, nil
+	}
+	var wg sync.WaitGroup
+	maxGoroutines := 3
+	guard := make(chan struct{}, maxGoroutines)
+	for i, page := range chapter.Pages {
+		guard <- struct{}{} // would block if guard channel is already filled
+		wg.Add(1)
+		go func(index int, page *source.Page) {
+			defer wg.Done()
+			convertedPage, err := converter.convertPage(page)
+			if err == nil {
+				page = convertedPage
+			}
+			chapter.Pages[index] = page
+
+			<-guard
+		}(i, page)
+	}
+	wg.Wait()
+	return chapter, nil
 }
 
 // CheckAndConvert checks if the WebP conversion is enabled in the configuration and
@@ -30,6 +55,10 @@ func (converter *Converter) CheckAndConvert(page *source.Page) (*source.Page, er
 		return page, nil
 	}
 
+	return converter.convertPage(page)
+}
+
+func (converter *Converter) convertPage(page *source.Page) (*source.Page, error) {
 	converted, err := converter.convert(page.Contents, viper.GetUint(key.WebpQuality))
 	if err != nil {
 		return nil, err

@@ -39,6 +39,11 @@ func (p *Plain) save(chapter *source.Chapter, temp bool) (path string, err error
 		return
 	}
 
+	chapter, err = p.converter.CheckAndConvertChapter(chapter)
+	if err != nil {
+		return
+	}
+
 	wg := sync.WaitGroup{}
 	wg.Add(len(chapter.Pages))
 	for _, page := range chapter.Pages {
@@ -58,10 +63,6 @@ func (p *Plain) save(chapter *source.Chapter, temp bool) (path string, err error
 }
 
 func (p *Plain) savePage(page *source.Page, to string) error {
-	page, err := p.converter.CheckAndConvert(page)
-	if err != nil {
-		return err
-	}
 	file, err := filesystem.Api().Create(filepath.Join(to, page.Filename()))
 	if err != nil {
 		return err

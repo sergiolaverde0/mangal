@@ -55,11 +55,12 @@ func SaveTo(chapter *source.Chapter, to string) error {
 
 	converter := webp.New()
 
+	chapter, err = converter.CheckAndConvertChapter(chapter)
+	if err != nil {
+		return nil
+	}
+
 	for _, page := range chapter.Pages {
-		page, err := converter.CheckAndConvert(page)
-		if err != nil {
-			return err
-		}
 		if err = addToZip(zipWriter, page.Contents, page.Filename()); err != nil {
 			return err
 		}
