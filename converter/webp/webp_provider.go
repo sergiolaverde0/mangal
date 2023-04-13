@@ -50,7 +50,7 @@ func createBinWrapper(dest string) *binwrapper.BinWrapper {
 		Src(
 			binwrapper.NewSrc().
 				URL(base + "libwebp-" + libwebpVersion + "-mac-x86-64.tar.gz").
-				Os("linux").
+				Os("darwin").
 				Arch("x64")).
 		Src(
 			binwrapper.NewSrc().
