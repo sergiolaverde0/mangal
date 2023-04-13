@@ -41,11 +41,11 @@ func save(chapter *source.Chapter, temp bool) (path string, err error) {
 	defer util.Ignore(zipWriter.Close)
 
 	converter := webp.New()
+	chapter, err = converter.CheckAndConvertChapter(chapter)
+	if err != nil {
+		return
+	}
 	for _, page := range chapter.Pages {
-		page, err := converter.CheckAndConvert(page)
-		if err != nil {
-			return "", err
-		}
 		if err = addToZip(zipWriter, page.Contents, page.Filename()); err != nil {
 			return "", err
 		}
