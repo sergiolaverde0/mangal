@@ -11,6 +11,7 @@ import (
 	"github.com/metafates/mangal/util"
 	"github.com/spf13/viper"
 	"io"
+	"time"
 )
 
 type CBZ struct{}
@@ -78,8 +79,9 @@ func SaveTo(chapter *source.Chapter, to string) error {
 
 func addToZip(writer *zip.Writer, file io.Reader, name string) error {
 	header := &zip.FileHeader{
-		Name:   name,
-		Method: zip.Store,
+		Name:     name,
+		Method:   zip.Store,
+		Modified: time.Now(),
 	}
 
 	headerWriter, err := writer.CreateHeader(header)
