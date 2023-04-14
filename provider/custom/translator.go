@@ -57,10 +57,6 @@ func mangaFromTable(table *lua.LTable, index uint16) (manga *source.Manga, err e
 		"name":    {A: lua.LTString, B: true, C: func(v string) error { manga.Name = v; return nil }},
 		"url":     {A: lua.LTString, B: true, C: func(v string) error { manga.URL = v; return nil }},
 		"summary": {A: lua.LTString, B: false, C: func(v string) error { manga.Metadata.Summary = v; return nil }},
-		"translator": {A: lua.LTString, B: false, C: func(v string) error {
-			manga.Metadata.Staff.Translation = append(manga.Metadata.Staff.Translation, v)
-			return nil
-		}},
 		"cover": {A: lua.LTString, B: false, C: func(v string) error {
 			if v == "" {
 				return nil
@@ -98,6 +94,7 @@ func chapterFromTable(table *lua.LTable, manga *source.Manga, index uint16) (cha
 		"url":           {A: lua.LTString, B: true, C: func(v string) error { chapter.URL = v; return nil }},
 		"volume":        {A: lua.LTString, B: false, C: func(v string) error { chapter.Volume = v; return nil }},
 		"manga_summary": {A: lua.LTString, B: false, C: func(v string) error { manga.Metadata.Summary = v; return nil }},
+		"scanlation":    {A: lua.LTString, B: false, C: func(v string) error { chapter.Scanlation = v; return nil }},
 		"chapter_date": {A: lua.LTString, B: false, C: func(v string) error {
 			if v == "" {
 				return nil

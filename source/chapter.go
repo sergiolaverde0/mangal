@@ -35,6 +35,8 @@ type Chapter struct {
 	Pages []*Page `json:"pages" jsonschema:"description=Pages of the chapter"`
 	// Date when the chapter was released.
 	ChapterDate *time.Time `json:"chapter_date" jsonschema:"description=Date when the chapter was released"`
+	// Scanlation team that translated the chapter.
+	Scanlation string `json:"scanlation,omitempty" jsonschema:"description=Scanlation team that translated the chapter"`
 
 	isDownloaded mo.Option[bool]
 	size         uint64
