@@ -21,6 +21,8 @@ import (
 type Chapter struct {
 	// Name of the chapter
 	Name string `json:"name" jsonschema:"description=Name of the chapter"`
+	// Number represent the chapter number like 145.5 0.5
+	Number float32 `json:"number" jsonschema:"description=Number of the chapter as defined in its source"`
 	// URL of the chapter
 	URL string `json:"url" jsonschema:"description=URL of the chapter"`
 	// Index of the chapter in the manga.
