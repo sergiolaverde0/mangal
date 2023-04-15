@@ -2,6 +2,7 @@ package mangadex
 
 import (
 	"fmt"
+	"github.com/ahmetalpbalkan/go-linq"
 	"github.com/darylhjd/mangodex"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
@@ -44,7 +45,7 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 	language := viper.GetString(key.MangadexLanguage)
 
-	var chapterIndex uint16 = 0
+	var chapterIndex uint16 = 1
 
 	for {
 		params.Set("offset", strconv.Itoa(currOffset))
@@ -72,16 +73,21 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 				name = fmt.Sprintf("Chapter %s - %s", chapter.GetChapterNum(), name)
 			}
 
-			parsedCreatedDate, _ := time.Parse("2006-01-02T15:04:05-07:00", chapter.Attributes.CreatedAt)
+			parsedCreatedDate, _ := time.Parse("2006-01-02T15:04:05-07:00", chapter.Attributes.PublishAt)
 
 			var volume string
 			if chapter.Attributes.Volume != nil {
 				volume = fmt.Sprintf("Vol.%s", *chapter.Attributes.Volume)
 			}
+
+			scanlationGroup := linq.From(chapter.Relationships).FirstWithT(func(r mangodex.Relationship) bool {
+				return r.Type == mangodex.ScanlationGroupRel
+			}).(mangodex.Relationship).Attributes.(mangodex.ScanlationGroupAttributes).Name
+
 			chapters = append(chapters, &source.Chapter{
 				Name:        name,
 				Index:       chapterIndex,
-				Scanlation:  chapter.Attributes.Uploader,
+				Scanlation:  scanlationGroup,
 				ID:          chapter.ID,
 				URL:         fmt.Sprintf("https://mangadex.org/chapter/%s", chapter.ID),
 				Manga:       manga,
@@ -91,10 +97,6 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 			chapterIndex++
 		}
 		currOffset += 500
-		if currOffset >= list.Total {
-			break
-		}
-
 		if currOffset >= list.Total {
 			break
 		}
