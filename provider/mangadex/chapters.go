@@ -84,9 +84,14 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 				return r.Type == mangodex.ScanlationGroupRel
 			}).(mangodex.Relationship).Attributes.(mangodex.ScanlationGroupAttributes).Name
 
+			chapterNumber, err := strconv.ParseFloat(chapter.GetChapterNum(), 32)
+			if err != nil {
+				chapterNumber = 0
+			}
 			chapters = append(chapters, &source.Chapter{
 				Name:        name,
 				Index:       chapterIndex,
+				Number:      float32(chapterNumber),
 				Scanlation:  scanlationGroup,
 				ID:          chapter.ID,
 				URL:         fmt.Sprintf("https://mangadex.org/chapter/%s", chapter.ID),

@@ -106,6 +106,15 @@ func chapterFromTable(table *lua.LTable, manga *source.Manga, index uint16) (cha
 			chapter.ChapterDate = &parsedTime
 			return nil
 		}},
+		"number": {A: lua.LTString, B: false, C: func(v string) error {
+			chapterNumber, err := strconv.ParseFloat(v, 32)
+			if err != nil {
+				chapterNumber = 0
+			}
+			chapter.Number = float32(chapterNumber)
+			return nil
+		}},
+
 		"manga_genres": {A: lua.LTString, B: false, C: func(v string) error {
 			manga.Metadata.Genres = lo.Map(strings.Split(v, ","), func(genre string, _ int) string {
 				return strings.TrimSpace(genre)
