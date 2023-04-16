@@ -111,7 +111,7 @@ func chapterFromTable(table *lua.LTable, manga *source.Manga, index uint16) (cha
 			chapter.ChapterDate = &parsedTime
 			return nil
 		}},
-		"number": {A: lua.LTString, B: false, C: func(v string) error {
+		"number": {A: lua.LTNumber, B: false, C: func(v string) error {
 			chapterNumber, err := strconv.ParseFloat(v, 32)
 			if err != nil {
 				chapterNumber = 0
