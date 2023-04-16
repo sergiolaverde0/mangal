@@ -10,6 +10,6 @@ var (
 	ErrorTitle = NewColored(color.Red, color.HiBg).Padding(0, 1).Render
 )
 
-func Tag(foreground, background lipgloss.Color) func(string) string {
+func Tag(foreground, background lipgloss.Color) func(...string) string {
 	return NewColored(foreground, background).Padding(0, 1).Render
 }
