@@ -13,20 +13,6 @@ import (
 	"time"
 )
 
-func removeDuplicate(chapters []*source.Chapter) ([]*source.Chapter, error) {
-	if !viper.GetBool(key.MangadexAvoidDuplicateChapters) {
-		return chapters, nil
-	}
-
-	uniqueChapters := lo.UniqBy(chapters, func(item *source.Chapter) float32 {
-		return item.Number
-	})
-
-	return lo.Map(uniqueChapters, func(item *source.Chapter, index int) *source.Chapter {
-		item.Index = uint16(index + 1)
-		return item
-	}), nil
-}
 func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 	if cached, ok := m.cache.chapters.Get(manga.URL).Get(); ok {
 		for _, chapter := range cached {
@@ -135,11 +121,6 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 	slices.SortFunc(chapters, func(a, b *source.Chapter) bool {
 		return a.Index < b.Index
 	})
-
-	chapters, err := removeDuplicate(chapters)
-	if err != nil {
-		return nil, err
-	}
 
 	manga.Chapters = chapters
 	_ = m.cache.chapters.Set(manga.URL, chapters)
