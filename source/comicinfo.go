@@ -10,7 +10,7 @@ type ComicInfo struct {
 	// General
 	Title      string `xml:"Title,omitempty"`
 	Series     string `xml:"Series,omitempty"`
-	Number     int    `xml:"Number,omitempty"`
+	Number     string `xml:"Number,omitempty"`
 	Web        string `xml:"Web,omitempty"`
 	Genre      string `xml:"Genre,omitempty"`
 	PageCount  int    `xml:"PageCount,omitempty"`

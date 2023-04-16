@@ -188,7 +188,7 @@ func (c *Chapter) ComicInfo() *ComicInfo {
 
 		Title:      c.Name,
 		Series:     c.Manga.Name,
-		Number:     int(c.Index),
+		Number:     strings.TrimSuffix(fmt.Sprintf("%.1f", c.Number), ".0"),
 		Web:        c.URL,
 		Genre:      strings.Join(c.Manga.Metadata.Genres, ","),
 		PageCount:  len(c.Pages),
