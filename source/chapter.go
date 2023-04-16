@@ -204,6 +204,7 @@ func (c *Chapter) ComicInfo() *ComicInfo {
 		Translator: strings.Join(c.Manga.Metadata.Staff.Translation, ","),
 		Tags:       strings.Join(c.Manga.Metadata.Tags, ","),
 		Notes:      "Downloaded with Mangal. https://github.com/metafates/mangal",
+		Teams:      strings.Join(c.Scanlations, ", "),
 		Manga:      "YesAndRightToLeft",
 	}
 }

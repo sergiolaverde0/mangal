@@ -27,4 +27,5 @@ type ComicInfo struct {
 	Tags       string `xml:"Tags,omitempty"`
 	Notes      string `xml:"Notes,omitempty"`
 	Manga      string `xml:"Manga,omitempty"`
+	Teams      string `xml:"Teams,omitempty"`
 }
