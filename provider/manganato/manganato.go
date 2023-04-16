@@ -23,7 +23,7 @@ var Config = &generic.Configuration{
 		template := "https://chapmanganato.com/https://manganato.com/search/story/%s"
 		return fmt.Sprintf(template, query)
 	},
-	MangaExtractor: &generic.Extractor{
+	MangaExtractor: &generic.MangaExtractor{
 		Selector: "div.search-story-item",
 		Name: func(selection *goquery.Selection) string {
 			return strings.TrimSpace(selection.Find("a.item-title").Text())
@@ -35,7 +35,7 @@ var Config = &generic.Configuration{
 			return selection.Find("img").AttrOr("src", "")
 		},
 	},
-	ChapterExtractor: &generic.Extractor{
+	ChapterExtractor: &generic.ChapterExtractor{
 		Selector: "li.a-h",
 		Name: func(selection *goquery.Selection) string {
 			name := selection.Find("a").Text()
@@ -57,7 +57,7 @@ var Config = &generic.Configuration{
 			return ""
 		},
 	},
-	PageExtractor: &generic.Extractor{
+	PageExtractor: &generic.PageExtractor{
 		Selector: ".container-chapter-reader img",
 		URL: func(selection *goquery.Selection) string {
 			return selection.AttrOr("src", "")

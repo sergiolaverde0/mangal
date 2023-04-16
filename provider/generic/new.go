@@ -100,12 +100,17 @@ func New(conf *Configuration) source.Source {
 				}
 			}
 
+			var chapterDate *time.Time
+			if s.config.ChapterExtractor.Date != nil {
+				chapterDate = s.config.ChapterExtractor.Date(selection)
+			}
+
 			chapter := source.Chapter{
 				Name:        name,
 				URL:         url,
 				Index:       uint16(e.Index),
 				Number:      chapterNumber,
-				ChapterDate: s.config.ChapterExtractor.Date(selection),
+				ChapterDate: chapterDate,
 				Pages:       make([]*source.Page, 0),
 				ID:          filepath.Base(url),
 				Manga:       manga,
