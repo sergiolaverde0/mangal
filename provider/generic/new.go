@@ -7,6 +7,8 @@ import (
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/where"
 	"path/filepath"
+	"regexp"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -82,15 +84,27 @@ func New(conf *Configuration) source.Source {
 		path := e.Request.AbsoluteURL(e.Request.URL.Path)
 		s.chapters[path] = make([]*source.Chapter, elements.Length())
 		manga := e.Request.Ctx.GetAny("manga").(*source.Manga)
+		chapterNumberRegex := regexp.MustCompile(`(?m)(\d+\.\d+|\d+)`)
 
 		elements.Each(func(i int, selection *goquery.Selection) {
 			link := s.config.ChapterExtractor.URL(selection)
 			url := e.Request.AbsoluteURL(link)
+			name := s.config.ChapterExtractor.Name(selection)
+
+			match := chapterNumberRegex.FindString(name)
+			var chapterNumber float32
+			if match != "" {
+				number, err := strconv.ParseFloat(match, 32)
+				if err == nil {
+					chapterNumber = float32(number)
+				}
+			}
 
 			chapter := source.Chapter{
-				Name:   s.config.ChapterExtractor.Name(selection),
+				Name:   name,
 				URL:    url,
 				Index:  uint16(e.Index),
+				Number: chapterNumber,
 				Pages:  make([]*source.Page, 0),
 				ID:     filepath.Base(url),
 				Manga:  manga,
