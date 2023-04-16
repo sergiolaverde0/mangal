@@ -71,8 +71,8 @@ func (t *listItem) Description() (description string) {
 	switch e := t.internal.(type) {
 	case *source.Chapter:
 		var sb = strings.Builder{}
-		if e.Scanlation != "" {
-			sb.WriteString(style.Italic(e.Scanlation))
+		if len(e.Scanlations) != 0 {
+			sb.WriteString(style.Italic(strings.Join(e.Scanlations, ", ")))
 			sb.WriteString(": ")
 		}
 		sb.WriteString(e.URL)

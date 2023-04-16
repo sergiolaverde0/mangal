@@ -5,7 +5,6 @@ go 1.20
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.6
 	github.com/PuerkitoBio/goquery v1.8.1
-	github.com/ahmetalpbalkan/go-linq v3.0.0+incompatible
 	github.com/charmbracelet/bubbles v0.15.0
 	github.com/charmbracelet/bubbletea v0.23.2
 	github.com/charmbracelet/lipgloss v0.6.0
