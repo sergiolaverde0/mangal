@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.1
+- Fix issue with the number of the chapter being the wrong type in custom source
+
 ## 4.2.0
 - Add scanlation support
 - Update manganelo to provide chapter date
