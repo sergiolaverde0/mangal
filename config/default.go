@@ -323,6 +323,11 @@ Use "any" to show all languages`,
 		"Show chapters that cannot be downloaded",
 	},
 	{
+		key.MangadexAvoidDuplicateChapters,
+		false,
+		"Avoid duplicated chapter when multiple scanlation team translated them",
+	},
+	{
 		key.InstallerUser,
 		"metafates",
 		"Custom scrapers repository owner",

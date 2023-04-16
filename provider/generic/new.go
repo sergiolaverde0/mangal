@@ -7,9 +7,13 @@ import (
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/where"
 	"path/filepath"
+	"regexp"
+	"strconv"
 	"strings"
 	"time"
 )
+
+var chapterNumberRegex = regexp.MustCompile(`(?m)(\d+\.\d+|\d+)`)
 
 // New generates a new scraper with given configuration
 func New(conf *Configuration) source.Source {
@@ -86,15 +90,32 @@ func New(conf *Configuration) source.Source {
 		elements.Each(func(i int, selection *goquery.Selection) {
 			link := s.config.ChapterExtractor.URL(selection)
 			url := e.Request.AbsoluteURL(link)
+			name := s.config.ChapterExtractor.Name(selection)
+
+			match := chapterNumberRegex.FindString(name)
+			var chapterNumber float32
+			if match != "" {
+				number, err := strconv.ParseFloat(match, 32)
+				if err == nil {
+					chapterNumber = float32(number)
+				}
+			}
+
+			var chapterDate *time.Time
+			if s.config.ChapterExtractor.Date != nil {
+				chapterDate = s.config.ChapterExtractor.Date(selection)
+			}
 
 			chapter := source.Chapter{
-				Name:   s.config.ChapterExtractor.Name(selection),
-				URL:    url,
-				Index:  uint16(e.Index),
-				Pages:  make([]*source.Page, 0),
-				ID:     filepath.Base(url),
-				Manga:  manga,
-				Volume: s.config.ChapterExtractor.Volume(selection),
+				Name:        name,
+				URL:         url,
+				Index:       uint16(e.Index),
+				Number:      chapterNumber,
+				ChapterDate: chapterDate,
+				Pages:       make([]*source.Page, 0),
+				ID:          filepath.Base(url),
+				Manga:       manga,
+				Volume:      s.config.ChapterExtractor.Volume(selection),
 			}
 			s.chapters[path][i] = &chapter
 		})

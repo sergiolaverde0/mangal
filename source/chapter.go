@@ -21,6 +21,8 @@ import (
 type Chapter struct {
 	// Name of the chapter
 	Name string `json:"name" jsonschema:"description=Name of the chapter"`
+	// Number represent the chapter number like 145.5 0.5
+	Number float32 `json:"number" jsonschema:"description=Number of the chapter as defined in its source"`
 	// URL of the chapter
 	URL string `json:"url" jsonschema:"description=URL of the chapter"`
 	// Index of the chapter in the manga.
@@ -35,6 +37,8 @@ type Chapter struct {
 	Pages []*Page `json:"pages" jsonschema:"description=Pages of the chapter"`
 	// Date when the chapter was released.
 	ChapterDate *time.Time `json:"chapter_date" jsonschema:"description=Date when the chapter was released"`
+	// Scanlations team that translated the chapter.
+	Scanlations []string `json:"scanlation,omitempty" jsonschema:"description=Scanlations team(s) that translated the chapter"`
 
 	isDownloaded mo.Option[bool]
 	size         uint64
@@ -200,6 +204,7 @@ func (c *Chapter) ComicInfo() *ComicInfo {
 		Translator: strings.Join(c.Manga.Metadata.Staff.Translation, ","),
 		Tags:       strings.Join(c.Manga.Metadata.Tags, ","),
 		Notes:      "Downloaded with Mangal. https://github.com/metafates/mangal",
+		Teams:      strings.Join(c.Scanlations, ", "),
 		Manga:      "YesAndRightToLeft",
 	}
 }
