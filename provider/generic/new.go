@@ -13,6 +13,8 @@ import (
 	"time"
 )
 
+var chapterNumberRegex = regexp.MustCompile(`(?m)(\d+\.\d+|\d+)`)
+
 // New generates a new scraper with given configuration
 func New(conf *Configuration) source.Source {
 	s := Scraper{
@@ -84,7 +86,6 @@ func New(conf *Configuration) source.Source {
 		path := e.Request.AbsoluteURL(e.Request.URL.Path)
 		s.chapters[path] = make([]*source.Chapter, elements.Length())
 		manga := e.Request.Ctx.GetAny("manga").(*source.Manga)
-		chapterNumberRegex := regexp.MustCompile(`(?m)(\d+\.\d+|\d+)`)
 
 		elements.Each(func(i int, selection *goquery.Selection) {
 			link := s.config.ChapterExtractor.URL(selection)
