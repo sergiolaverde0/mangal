@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-var hoursAgoRegex = regexp.MustCompile(`(?m)(?P<hours>\d{1,2}) hour ago`)
+var timeAgoRegex = regexp.MustCompile(`(?m)((?P<hours>\d{1,2}) hour ago)|((?P<mins>\d{1,2}) mins ago)`)
 var Config = &generic.Configuration{
 	Name:            "Manganelo",
 	Delay:           50 * time.Millisecond,
@@ -64,15 +64,28 @@ var Config = &generic.Configuration{
 			publishedDate := strings.TrimSpace(selection.Find(".chapter-time").Text())
 			date, err := time.Parse(layout, publishedDate)
 			if err != nil {
-				dateMatch := util.ReGroups(hoursAgoRegex, publishedDate)
+				dateMatch := util.ReGroups(timeAgoRegex, publishedDate)
 				if len(dateMatch) == 0 {
 					return nil
 				}
-				hours, err := strconv.ParseInt(dateMatch["hours"], 10, 8)
+				var timeUnit time.Duration
+				var timeToParse string
+
+				if dateMatch["hours"] != "" {
+					timeUnit = time.Hour
+					timeToParse = dateMatch["hours"]
+				} else if dateMatch["mins"] != "" {
+					timeUnit = time.Minute
+					timeToParse = dateMatch["mins"]
+				} else {
+					return nil
+				}
+
+				timeAgo, err := strconv.ParseInt(timeToParse, 10, 8)
 				if err != nil {
 					return nil
 				}
-				date = time.Now().Add(time.Duration(-hours) * time.Hour)
+				date = time.Now().Add(time.Duration(-timeAgo) * timeUnit)
 			}
 			return &date
 		},
