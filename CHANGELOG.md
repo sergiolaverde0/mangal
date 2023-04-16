@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.0
+- Add scanlation support
+- Update manganelo to provide chapter date
+- Add feature to mangadex to skip duplicated chapter
+  - When the same chapter is translated by multiple team
+- Use the published date for mangadex for the chapter date
+- Update ComicInfo.xml to contain the Scanlation teams
+- Support setting Scanlation team from Lua
+- Deps update
+
 ## 4.1.4
 
 - Optimize the speed of conversion of a chapter to webp
