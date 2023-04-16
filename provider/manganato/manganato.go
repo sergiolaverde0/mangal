@@ -4,10 +4,15 @@ import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/metafates/mangal/provider/generic"
+	"github.com/metafates/mangal/util"
 	"net/url"
+	"regexp"
+	"strconv"
 	"strings"
 	"time"
 )
+
+var timeAgoRegex = regexp.MustCompile(`(?m)((?P<hours>\d{1,2}) hour ago)|((?P<mins>\d{1,2}) mins ago)`)
 
 var Config = &generic.Configuration{
 	Name:            "Manganato",
@@ -55,6 +60,36 @@ var Config = &generic.Configuration{
 				return splitted[0]
 			}
 			return ""
+		},
+		Date: func(selection *goquery.Selection) *time.Time {
+			layout := "Jan 02,06"
+			publishedDate := strings.TrimSpace(selection.Find(".chapter-time").Text())
+			date, err := time.Parse(layout, publishedDate)
+			if err != nil {
+				dateMatch := util.ReGroups(timeAgoRegex, publishedDate)
+				if len(dateMatch) == 0 {
+					return nil
+				}
+				var timeUnit time.Duration
+				var timeToParse string
+
+				if dateMatch["hours"] != "" {
+					timeUnit = time.Hour
+					timeToParse = dateMatch["hours"]
+				} else if dateMatch["mins"] != "" {
+					timeUnit = time.Minute
+					timeToParse = dateMatch["mins"]
+				} else {
+					return nil
+				}
+
+				timeAgo, err := strconv.ParseInt(timeToParse, 10, 8)
+				if err != nil {
+					return nil
+				}
+				date = time.Now().Add(time.Duration(-timeAgo) * timeUnit)
+			}
+			return &date
 		},
 	},
 	PageExtractor: &generic.PageExtractor{
