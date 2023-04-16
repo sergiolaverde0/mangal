@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.2
+- Use the chapter number of the chapter for the comicinfo.xml file
+
 ## 4.2.1
 - Fix issue with the number of the chapter being the wrong type in custom source
 
