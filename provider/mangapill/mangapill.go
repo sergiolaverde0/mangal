@@ -22,7 +22,7 @@ var Config = &generic.Configuration{
 		template := "https://mangapill.com/search?q=%s&type=&status="
 		return fmt.Sprintf(template, url.QueryEscape(query))
 	},
-	MangaExtractor: &generic.Extractor{
+	MangaExtractor: &generic.MangaExtractor{
 		Selector: "body > div.container.py-3 > div.my-3.grid.justify-end.gap-3.grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-5 > div",
 		Name: func(selection *goquery.Selection) string {
 			return strings.TrimSpace(selection.Find("div a div.leading-tight").Text())
@@ -30,14 +30,11 @@ var Config = &generic.Configuration{
 		URL: func(selection *goquery.Selection) string {
 			return selection.Find("div a:first-child").AttrOr("href", "")
 		},
-		Volume: func(selection *goquery.Selection) string {
-			return ""
-		},
 		Cover: func(selection *goquery.Selection) string {
 			return selection.Find("img").AttrOr("data-src", "")
 		},
 	},
-	ChapterExtractor: &generic.Extractor{
+	ChapterExtractor: &generic.ChapterExtractor{
 		Selector: "div[data-filter-list] a",
 		Name: func(selection *goquery.Selection) string {
 			return strings.TrimSpace(selection.Text())
@@ -49,7 +46,7 @@ var Config = &generic.Configuration{
 			return ""
 		},
 	},
-	PageExtractor: &generic.Extractor{
+	PageExtractor: &generic.PageExtractor{
 		Selector: "picture img",
 		URL: func(selection *goquery.Selection) string {
 			return selection.AttrOr("data-src", "")
