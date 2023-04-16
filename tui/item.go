@@ -70,7 +70,14 @@ func (t *listItem) Title() (title string) {
 func (t *listItem) Description() (description string) {
 	switch e := t.internal.(type) {
 	case *source.Chapter:
-		description = e.URL
+		var sb = strings.Builder{}
+		if e.Scanlation != "" {
+			sb.WriteString(style.Italic(e.Scanlation))
+			sb.WriteString(": ")
+		}
+		sb.WriteString(e.URL)
+
+		description = sb.String()
 	case *source.Manga:
 		description = e.URL
 	case *installer.Scraper:
