@@ -82,7 +82,7 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 			scanlationGroup := linq.From(chapter.Relationships).FirstWithT(func(r mangodex.Relationship) bool {
 				return r.Type == mangodex.ScanlationGroupRel
-			}).(mangodex.Relationship).Attributes.(mangodex.ScanlationGroupAttributes).Name
+			}).(mangodex.Relationship).Attributes.(*mangodex.ScanlationGroupAttributes).Name
 
 			chapterNumber, err := strconv.ParseFloat(chapter.GetChapterNum(), 32)
 			if err != nil {
