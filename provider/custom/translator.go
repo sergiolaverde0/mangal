@@ -94,7 +94,12 @@ func chapterFromTable(table *lua.LTable, manga *source.Manga, index uint16) (cha
 		"url":           {A: lua.LTString, B: true, C: func(v string) error { chapter.URL = v; return nil }},
 		"volume":        {A: lua.LTString, B: false, C: func(v string) error { chapter.Volume = v; return nil }},
 		"manga_summary": {A: lua.LTString, B: false, C: func(v string) error { manga.Metadata.Summary = v; return nil }},
-		"scanlation":    {A: lua.LTString, B: false, C: func(v string) error { chapter.Scanlation = v; return nil }},
+		"scanlation": {A: lua.LTString, B: false, C: func(v string) error {
+			chapter.Scanlations = lo.Map(strings.Split(v, ","), func(team string, _ int) string {
+				return strings.TrimSpace(team)
+			})
+			return nil
+		}},
 		"chapter_date": {A: lua.LTString, B: false, C: func(v string) error {
 			if v == "" {
 				return nil

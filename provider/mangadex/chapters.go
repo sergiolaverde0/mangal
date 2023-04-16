@@ -2,10 +2,10 @@ package mangadex
 
 import (
 	"fmt"
-	"github.com/ahmetalpbalkan/go-linq"
 	"github.com/darylhjd/mangodex"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
+	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"
 	"net/url"
@@ -80,9 +80,12 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 				volume = fmt.Sprintf("Vol.%s", *chapter.Attributes.Volume)
 			}
 
-			scanlationGroup := linq.From(chapter.Relationships).FirstWithT(func(r mangodex.Relationship) bool {
-				return r.Type == mangodex.ScanlationGroupRel
-			}).(mangodex.Relationship).Attributes.(*mangodex.ScanlationGroupAttributes).Name
+			scanlations := lo.Filter(chapter.Relationships, func(item mangodex.Relationship, index int) bool {
+				return item.Type == mangodex.ScanlationGroupRel
+			})
+			scanlationNames := lo.Map(scanlations, func(item mangodex.Relationship, index int) string {
+				return item.Attributes.(*mangodex.ScanlationGroupAttributes).Name
+			})
 
 			chapterNumber, err := strconv.ParseFloat(chapter.GetChapterNum(), 32)
 			if err != nil {
@@ -92,7 +95,7 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 				Name:        name,
 				Index:       chapterIndex,
 				Number:      float32(chapterNumber),
-				Scanlation:  scanlationGroup,
+				Scanlations: scanlationNames,
 				ID:          chapter.ID,
 				URL:         fmt.Sprintf("https://mangadex.org/chapter/%s", chapter.ID),
 				Manga:       manga,
