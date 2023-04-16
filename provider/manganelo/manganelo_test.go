@@ -37,6 +37,7 @@ func TestManganelo(t *testing.T) {
 										So(chapter.Name, ShouldNotBeEmpty)
 										So(chapter.URL, ShouldNotBeEmpty)
 										So(chapter.Manga, ShouldEqual, mangas[0])
+										So(chapter.ChapterDate, ShouldNotBeEmpty)
 										So(chapter.Number, ShouldBeGreaterThanOrEqualTo, 0)
 									}
 								})

@@ -101,14 +101,15 @@ func New(conf *Configuration) source.Source {
 			}
 
 			chapter := source.Chapter{
-				Name:   name,
-				URL:    url,
-				Index:  uint16(e.Index),
-				Number: chapterNumber,
-				Pages:  make([]*source.Page, 0),
-				ID:     filepath.Base(url),
-				Manga:  manga,
-				Volume: s.config.ChapterExtractor.Volume(selection),
+				Name:        name,
+				URL:         url,
+				Index:       uint16(e.Index),
+				Number:      chapterNumber,
+				ChapterDate: s.config.ChapterExtractor.Date(selection),
+				Pages:       make([]*source.Page, 0),
+				ID:          filepath.Base(url),
+				Manga:       manga,
+				Volume:      s.config.ChapterExtractor.Volume(selection),
 			}
 			s.chapters[path][i] = &chapter
 		})
