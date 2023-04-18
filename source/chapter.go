@@ -6,6 +6,7 @@ import (
 	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/key"
+	"github.com/metafates/mangal/log"
 	"github.com/metafates/mangal/style"
 	"github.com/metafates/mangal/util"
 	"github.com/samber/mo"
@@ -51,6 +52,11 @@ func (c *Chapter) String() string {
 // DownloadPages downloads the Pages contents of the Chapter.
 // Pages needs to be set before calling this function.
 func (c *Chapter) DownloadPages(temp bool, progress func(string)) (err error) {
+	if c.Pages == nil || len(c.Pages) == 0 {
+		log.Error("Couldn't find any pages")
+		return fmt.Errorf("couldn't find pages to download for chapter %d", c.Index)
+	}
+
 	c.size = 0
 	status := func() string {
 		return fmt.Sprintf(
