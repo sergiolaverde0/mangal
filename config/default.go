@@ -142,6 +142,8 @@ Path forbidden symbols will be replaced with "_"
 Available variables:
 {index}          - index of the chapters
 {padded-index}   - same as index but padded with leading zeros
+{number}         - chapter number (like 13, 13.5)
+{padded-number}  - same as chapter but padded with leading zeros
 {chapters-count} - total number of chapters
 {chapter}        - name of the chapter
 {manga}          - name of the manga
