@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.4
+- Return an error when no pages are found for a chapter
+
 ## 4.2.3
 - Fix not having consistent chapter index
 - Add number to the format for the chapter file (like 13, 13.5)
