@@ -112,8 +112,8 @@ func (c *Chapter) formattedName() (name string) {
 	for variable, value := range map[string]string{
 		"manga":          c.Manga.Name,
 		"chapter":        c.Name,
-		"index":          fmt.Sprintf("%d", c.Index),
-		"padded-index":   fmt.Sprintf("%04d", c.Index),
+		"index":          strings.TrimSuffix(fmt.Sprintf("%.1f", c.Number), ".0"),
+		"padded-index":   strings.TrimSuffix(fmt.Sprintf("%04.1f", c.Number), ".0"),
 		"chapters-count": fmt.Sprintf("%d", len(c.Manga.Chapters)),
 		"volume":         c.Volume,
 		"source":         sourceName,

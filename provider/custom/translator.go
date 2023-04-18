@@ -114,7 +114,7 @@ func chapterFromTable(table *lua.LTable, manga *source.Manga, index uint16) (cha
 		"number": {A: lua.LTNumber, B: false, C: func(v string) error {
 			chapterNumber, err := strconv.ParseFloat(v, 32)
 			if err != nil {
-				chapterNumber = 0
+				chapterNumber = float64(index)
 			}
 			chapter.Number = float32(chapterNumber)
 			return nil

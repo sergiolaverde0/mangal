@@ -93,7 +93,7 @@ func New(conf *Configuration) source.Source {
 			name := s.config.ChapterExtractor.Name(selection)
 
 			match := chapterNumberRegex.FindString(name)
-			var chapterNumber float32
+			var chapterNumber = float32(e.Index)
 			if match != "" {
 				number, err := strconv.ParseFloat(match, 32)
 				if err == nil {

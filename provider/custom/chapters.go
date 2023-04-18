@@ -4,6 +4,7 @@ import (
 	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/source"
 	lua "github.com/yuin/gopher-lua"
+	"golang.org/x/exp/slices"
 	"strconv"
 )
 
@@ -48,6 +49,13 @@ func (s *luaSource) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 		chapters = append(chapters, chapter)
 	})
+	slices.SortFunc(chapters, func(a, b *source.Chapter) bool {
+		return a.Number < b.Number
+	})
+
+	for i, chapter := range chapters {
+		chapter.Index = uint16(i + 1)
+	}
 
 	_ = s.cache.chapters.Set(manga.URL, chapters)
 	return chapters, nil
