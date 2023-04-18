@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.3
+- Fix not having consistent chapter index
+- Add number to the format for the chapter file (like 13, 13.5)
+
 ## 4.2.2
 - Use the chapter number of the chapter for the comicinfo.xml file
 
