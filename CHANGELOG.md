@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.5
+- Improve creation of CBZ to avoid Komga from finding 0 Bytes files
+
 ## 4.2.4
 - Return an error when no pages are found for a chapter
 
