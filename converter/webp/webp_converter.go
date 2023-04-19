@@ -25,7 +25,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 		return chapter, nil
 	}
 	var wg sync.WaitGroup
-	maxGoroutines := 3
+	maxGoroutines := 5
 	guard := make(chan struct{}, maxGoroutines)
 	wg.Add(len(chapter.Pages))
 
