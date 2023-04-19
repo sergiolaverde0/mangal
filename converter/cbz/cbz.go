@@ -11,6 +11,8 @@ import (
 	"github.com/metafates/mangal/util"
 	"github.com/spf13/viper"
 	"io"
+	"os"
+	"syscall"
 	"time"
 )
 
@@ -43,7 +45,8 @@ func save(chapter *source.Chapter, temp bool) (path string, err error) {
 }
 
 func SaveTo(chapter *source.Chapter, to string) error {
-	cbzFile, err := filesystem.Api().Create(to)
+	fs := filesystem.Api()
+	cbzFile, err := fs.OpenFile(to, syscall.O_WRONLY|syscall.O_CREAT|syscall.O_TRUNC, os.ModeExclusive)
 	if err != nil {
 		return err
 	}
@@ -52,6 +55,13 @@ func SaveTo(chapter *source.Chapter, to string) error {
 
 	zipWriter := zip.NewWriter(cbzFile)
 	defer util.Ignore(zipWriter.Close)
+
+	defer func(name string, mode os.FileMode) {
+		e := fs.Chmod(name, mode)
+		if e != nil {
+			err = e
+		}
+	}(to, 0644)
 
 	converter := webp.New()
 
@@ -73,6 +83,9 @@ func SaveTo(chapter *source.Chapter, to string) error {
 			buf := bytes.NewBuffer(marshalled)
 			err = addToZip(zipWriter, buf, "ComicInfo.xml")
 		}
+	}
+	if err != nil {
+		return err
 	}
 
 	return err
