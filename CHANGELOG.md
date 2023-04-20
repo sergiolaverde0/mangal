@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## 4.2.6
 - Start by converting to webp then create the zip/cbz file
+- Fix when there are multiple space in the chapter name from Custom sources
 
 ## 4.2.5
 - Improve creation of CBZ to avoid Komga from finding 0 Bytes files
