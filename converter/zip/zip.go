@@ -25,6 +25,12 @@ func (*ZIP) SaveTemp(chapter *source.Chapter) (string, error) {
 }
 
 func save(chapter *source.Chapter, temp bool) (path string, err error) {
+	chapter, err = webp.New().CheckAndConvertChapter(chapter)
+
+	if err != nil {
+		return
+	}
+
 	path, err = chapter.Path(temp)
 	if err != nil {
 		return
@@ -40,11 +46,6 @@ func save(chapter *source.Chapter, temp bool) (path string, err error) {
 	zipWriter := zip.NewWriter(zipFile)
 	defer util.Ignore(zipWriter.Close)
 
-	converter := webp.New()
-	chapter, err = converter.CheckAndConvertChapter(chapter)
-	if err != nil {
-		return
-	}
 	for _, page := range chapter.Pages {
 		if err = addToZip(zipWriter, page.Contents, page.Filename()); err != nil {
 			return "", err
