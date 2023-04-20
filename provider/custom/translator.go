@@ -90,7 +90,14 @@ func chapterFromTable(table *lua.LTable, manga *source.Manga, index uint16) (cha
 	}
 
 	mappings := map[string]mapping{
-		"name":          {A: lua.LTString, B: true, C: func(v string) error { chapter.Name = strings.TrimSpace(v); return nil }},
+		"name": {A: lua.LTString, B: true, C: func(v string) error {
+			trimmed := strings.TrimSpace(v)
+			// Split the input string around one or more consecutive white space characters
+			fields := strings.Fields(trimmed)
+			// Concatenate the substrings with a single space separator
+			chapter.Name = strings.Join(fields, " ")
+			return nil
+		}},
 		"url":           {A: lua.LTString, B: true, C: func(v string) error { chapter.URL = v; return nil }},
 		"volume":        {A: lua.LTString, B: false, C: func(v string) error { chapter.Volume = v; return nil }},
 		"manga_summary": {A: lua.LTString, B: false, C: func(v string) error { manga.Metadata.Summary = v; return nil }},
