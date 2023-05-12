@@ -3,7 +3,6 @@ package plain
 import (
 	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/source"
 	"io"
 	"os"
@@ -12,11 +11,10 @@ import (
 )
 
 type Plain struct {
-	converter *packer.Packer
 }
 
 func (p *Plain) SupportedConversion() []constant.ConversionFormat {
-	return []constant.ConversionFormat{constant.WebP}
+	return []constant.ConversionFormat{constant.ImageFormatWebP}
 }
 
 func New() *Plain {

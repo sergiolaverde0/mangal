@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/metafates/mangal/color"
+	"github.com/metafates/mangal/constant"
+	"github.com/metafates/mangal/converter"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/history"
 	"github.com/metafates/mangal/key"
@@ -11,6 +13,7 @@ import (
 	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/style"
+	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"os"
 	"path/filepath"
@@ -87,21 +90,42 @@ func Download(chapter *source.Chapter, progress func(string)) (string, error) {
 		}
 	}
 
-	log.Info("getting " + viper.GetString(key.FormatsUse) + " converter")
-	progress(fmt.Sprintf(
-		"Converting %d pages to %s %s",
-		len(pages),
-		style.Fg(color.Yellow)(viper.GetString(key.FormatsUse)),
-		style.Faint(chapter.SizeHuman())),
-	)
-	conv, err := packer.Get(viper.GetString(key.FormatsUse))
+	pack, err := packer.Get(viper.GetString(key.FormatsUse))
 	if err != nil {
 		log.Error(err)
 		return "", err
 	}
 
+	conversionFormat := constant.ConversionFormat(viper.GetString(key.ImageConversion))
+	if conversionFormat != constant.ImageFormatUnknown && conversionFormat != constant.ImageFormatNone && lo.Contains(pack.SupportedConversion(), conversionFormat) {
+		log.Info("getting " + conversionFormat + " converter")
+		progress(fmt.Sprintf(
+			"Converting %d pages to %s",
+			len(pages),
+			style.Fg(color.Yellow)(string(conversionFormat))),
+		)
+		conv, err := converter.Get(conversionFormat)
+		if err != nil {
+			log.Error(err)
+			return "", err
+		}
+		chapter, err = conv.ConvertChapter(chapter)
+		if err != nil {
+			log.Error(err)
+			return "", err
+		}
+	}
+
+	log.Info("getting " + viper.GetString(key.FormatsUse) + " packer")
+	progress(fmt.Sprintf(
+		"Packing %d pages to %s %s",
+		len(pages),
+		style.Fg(color.Yellow)(viper.GetString(key.FormatsUse)),
+		style.Faint(chapter.SizeHuman())),
+	)
+
 	log.Info("converting " + viper.GetString(key.FormatsUse))
-	path, err = conv.Save(chapter)
+	path, err = pack.Save(chapter)
 	if err != nil {
 		log.Error(err)
 		return "", err
