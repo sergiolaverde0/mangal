@@ -8,10 +8,10 @@ import (
 	"github.com/oliamb/cutter"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"
+	_ "golang.org/x/image/webp"
 	"image"
 	_ "image/jpeg"
 	"image/png"
-	_ "image/png"
 	"io"
 	"sync"
 )
@@ -77,14 +77,15 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 		go func(page *source.Page) {
 			defer wgPages.Done()
 
-			splitNeeded, img, err := converter.checkPageNeedsSplit(page)
+			splitNeeded, img, format, err := converter.checkPageNeedsSplit(page)
 			if err != nil {
 				fmt.Println(err)
 				return
 			}
+
 			if !splitNeeded {
 				wgConvertedPages.Add(1)
-				pagesChan <- NewContainer(page)
+				pagesChan <- NewContainer(page, img, format)
 				return
 			}
 			images, err := converter.cropImage(img)
@@ -96,7 +97,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 			for i, img := range images {
 				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL, Extension: page.Extension, Contents: page.Contents, Size: page.Size}
 				wgConvertedPages.Add(1)
-				pagesChan <- NewContainerWithImage(page, img)
+				pagesChan <- NewContainer(page, img, "N/A")
 			}
 		}(page)
 
@@ -150,19 +151,25 @@ func (converter *Converter) cropImage(img image.Image) ([]image.Image, error) {
 	return parts, nil
 }
 
-func (converter *Converter) checkPageNeedsSplit(page *source.Page) (bool, image.Image, error) {
+func (converter *Converter) checkPageNeedsSplit(page *source.Page) (bool, image.Image, string, error) {
 	reader := io.Reader(bytes.NewBuffer(page.Contents.Bytes()))
-	img, _, err := image.Decode(reader)
+	img, format, err := image.Decode(reader)
 	if err != nil {
-		return false, nil, err
+		return false, nil, format, err
+	}
+	if format == "webp" {
+		return false, img, format, nil
 	}
 	bounds := img.Bounds()
 	height := bounds.Dy()
 
-	return height >= converter.maxHeight, img, nil
+	return height >= converter.maxHeight, img, format, nil
 }
 
 func (converter *Converter) convertPage(container *PageContainer) (*PageContainer, error) {
+	if container.Format == "webp" {
+		return container, nil
+	}
 	converted, err := converter.convert(container.Image, viper.GetUint(key.WebpQuality))
 	if err != nil {
 		return nil, err
