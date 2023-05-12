@@ -5,10 +5,8 @@ import (
 	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/converter/none"
 	"github.com/metafates/mangal/converter/webp"
-	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
 	"github.com/samber/lo"
-	"github.com/spf13/viper"
 	"strings"
 )
 
@@ -19,11 +17,11 @@ type Converter interface {
 	//  using the convertPage method. It runs the conversion concurrently for each page
 	// with a maximum number of goroutines defined by maxGoroutines. The function returns the updated chapter
 	// object after the conversion is complete.
-	ConvertChapter(chapter *source.Chapter) (*source.Chapter, error)
+	ConvertChapter(chapter *source.Chapter, quality uint8) (*source.Chapter, error)
 }
 
 var converters = map[constant.ConversionFormat]Converter{
-	constant.ImageFormatWebP: webp.New(uint8(viper.GetUint(key.ImageConversionQuality))),
+	constant.ImageFormatWebP: webp.New(),
 	constant.ImageFormatNone: none.Converter{},
 }
 
