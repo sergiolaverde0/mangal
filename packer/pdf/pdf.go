@@ -1,6 +1,7 @@
 package pdf
 
 import (
+	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
@@ -13,6 +14,10 @@ import (
 )
 
 type PDF struct{}
+
+func (p *PDF) SupportedConversion() (formats []constant.ConversionFormat) {
+	return []constant.ConversionFormat{}
+}
 
 func New() *PDF {
 	return &PDF{}

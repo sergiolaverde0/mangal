@@ -1,8 +1,9 @@
 package plain
 
 import (
-	"github.com/metafates/mangal/converter/webp"
+	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/filesystem"
+	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/source"
 	"io"
 	"os"
@@ -11,13 +12,15 @@ import (
 )
 
 type Plain struct {
-	converter *webp.Converter
+	converter *packer.Packer
+}
+
+func (p *Plain) SupportedConversion() []constant.ConversionFormat {
+	return []constant.ConversionFormat{constant.WebP}
 }
 
 func New() *Plain {
-	return &Plain{
-		converter: webp.New(),
-	}
+	return &Plain{}
 }
 
 func (p *Plain) Save(chapter *source.Chapter) (string, error) {
@@ -35,11 +38,6 @@ func (p *Plain) save(chapter *source.Chapter, temp bool) (path string, err error
 	}
 
 	err = filesystem.Api().Mkdir(path, os.ModePerm)
-	if err != nil {
-		return
-	}
-
-	chapter, err = p.converter.CheckAndConvertChapter(chapter)
 	if err != nil {
 		return
 	}

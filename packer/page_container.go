@@ -1,4 +1,4 @@
-package webp
+package packer
 
 import (
 	"github.com/metafates/mangal/source"

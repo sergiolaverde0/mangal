@@ -2,7 +2,7 @@ package zip
 
 import (
 	"archive/zip"
-	"github.com/metafates/mangal/converter/webp"
+	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/util"
@@ -11,6 +11,10 @@ import (
 )
 
 type ZIP struct{}
+
+func (z *ZIP) SupportedConversion() (formats []constant.ConversionFormat) {
+	return []constant.ConversionFormat{constant.WebP}
+}
 
 func New() *ZIP {
 	return &ZIP{}
@@ -25,12 +29,6 @@ func (*ZIP) SaveTemp(chapter *source.Chapter) (string, error) {
 }
 
 func save(chapter *source.Chapter, temp bool) (path string, err error) {
-	chapter, err = webp.New().CheckAndConvertChapter(chapter)
-
-	if err != nil {
-		return
-	}
-
 	path, err = chapter.Path(temp)
 	if err != nil {
 		return

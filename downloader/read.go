@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"github.com/metafates/mangal/color"
 	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/converter"
 	"github.com/metafates/mangal/history"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/log"
 	"github.com/metafates/mangal/open"
+	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/style"
 	"github.com/spf13/viper"
@@ -47,7 +47,7 @@ func Read(chapter *source.Chapter, progress func(string)) error {
 	}
 
 	log.Info("getting " + viper.GetString(key.FormatsUse) + " converter")
-	conv, err := converter.Get(viper.GetString(key.FormatsUse))
+	conv, err := packer.Get(viper.GetString(key.FormatsUse))
 	if err != nil {
 		log.Error(err)
 		return err
