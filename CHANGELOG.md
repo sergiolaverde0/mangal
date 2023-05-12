@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.9
+- Improve the speed and quality of splitting large images
+
 ## 4.2.8
 - Improve the speed of converting to webp and splitting large images
 
