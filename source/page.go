@@ -10,6 +10,7 @@ import (
 	"github.com/metafates/mangal/util"
 	_ "image/gif"
 	"io"
+	"mime"
 	"net/http"
 )
 
@@ -42,6 +43,7 @@ func (p *Page) request() (*http.Request, error) {
 
 	req.Header.Set("Referer", p.Chapter.URL)
 	req.Header.Set("User-Agent", constant.UserAgent)
+	req.Header.Set("Accept", "image/webp,image/png,image/jpeg,*/*;q=0.8")
 	return req, nil
 }
 
@@ -79,6 +81,21 @@ func (p *Page) Download() error {
 		return err
 	}
 
+	contentType := resp.Header.Get("Content-Type")
+
+	if contentType == "" {
+		err = errors.New("http error: no content type returned")
+		log.Error(err)
+		return err
+	}
+
+	extensions, err := mime.ExtensionsByType(contentType)
+	if err != nil {
+		err = errors.New("http error: can't map contentType to extension")
+		log.Error(err)
+		return err
+	}
+
 	var (
 		buf           []byte
 		contentLength int64
@@ -100,6 +117,7 @@ func (p *Page) Download() error {
 
 	p.Contents = bytes.NewBuffer(buf)
 	p.Size = uint64(util.Max(contentLength, 0))
+	p.Extension = extensions[0]
 
 	log.Tracef("Page #%d downloaded", p.Index)
 	return nil
