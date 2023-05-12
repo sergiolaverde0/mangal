@@ -13,7 +13,7 @@ import (
 type ZIP struct{}
 
 func (z *ZIP) SupportedConversion() (formats []constant.ConversionFormat) {
-	return []constant.ConversionFormat{constant.WebP}
+	return []constant.ConversionFormat{constant.ImageFormatWebP}
 }
 
 func New() *ZIP {

@@ -9,7 +9,7 @@ type Converter struct {
 }
 
 func (c Converter) Format() (format constant.ConversionFormat) {
-	return constant.None
+	return constant.ImageFormatNone
 }
 
 func (c Converter) ConvertChapter(chapter *source.Chapter) (*source.Chapter, error) {

@@ -23,25 +23,13 @@ type Converter interface {
 }
 
 var converters = map[constant.ConversionFormat]Converter{
-	constant.WebP: webp.New(uint8(viper.GetUint(key.ImageConversionQuality))),
-	constant.None: none.Converter{},
+	constant.ImageFormatWebP: webp.New(uint8(viper.GetUint(key.ImageConversionQuality))),
+	constant.ImageFormatNone: none.Converter{},
 }
 
 // Available returns a list of available converters.
 func Available() []constant.ConversionFormat {
 	return lo.Keys(converters)
-}
-
-// GetFromString returns a packer from its name
-func GetFromString(name string) (Converter, error) {
-	enum := constant.ConversionFormat(name)
-	if enum == constant.Unknown {
-		return nil, fmt.Errorf("unkown converter \"%s\", available options are %s", name, strings.Join(lo.Map(Available(), func(item constant.ConversionFormat, index int) string {
-			return string(item)
-		}), ", "))
-	}
-	return Get(enum)
-
 }
 
 // Get returns a packer by name.

@@ -1,7 +1,7 @@
 package constant
 
 var (
-	BuiltAt  = "Unknown"
-	BuiltBy  = "Unknown"
-	Revision = "Unknown"
+	BuiltAt  = "ImageFormatUnknown"
+	BuiltBy  = "ImageFormatUnknown"
+	Revision = "ImageFormatUnknown"
 )

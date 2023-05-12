@@ -19,7 +19,7 @@ import (
 type CBZ struct{}
 
 func (c *CBZ) SupportedConversion() (formats []constant.ConversionFormat) {
-	return []constant.ConversionFormat{constant.WebP}
+	return []constant.ConversionFormat{constant.ImageFormatWebP}
 }
 
 func New() *CBZ {
