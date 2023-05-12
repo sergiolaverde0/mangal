@@ -7,7 +7,7 @@ import (
 
 type PageContainer struct {
 	Page  *source.Page
-	Image *image.Image
+	Image image.Image
 }
 
 func NewContainer(page *source.Page) *PageContainer {
@@ -15,9 +15,9 @@ func NewContainer(page *source.Page) *PageContainer {
 	if err != nil {
 		return nil
 	}
-	return &PageContainer{page, &decoded}
+	return &PageContainer{page, decoded}
 }
 
-func NewContainerWithImage(Page *source.Page, img *image.Image) *PageContainer {
+func NewContainerWithImage(Page *source.Page, img image.Image) *PageContainer {
 	return &PageContainer{Page: Page, Image: img}
 }

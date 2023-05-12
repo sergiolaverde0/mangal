@@ -53,11 +53,9 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 			go func(pageToConvert *PageContainer) {
 				defer wgConvertedPages.Done()
 				convertedPage, err := converter.convertPage(pageToConvert)
-				if err == nil {
-					convertedPage = pageToConvert
-				} else {
+				if err != nil {
 					buffer := new(bytes.Buffer)
-					err := png.Encode(buffer, *pageToConvert.Image)
+					err := png.Encode(buffer, pageToConvert.Image)
 					if err != nil {
 						<-guard
 						return
@@ -98,7 +96,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 			for i, img := range images {
 				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL, Extension: page.Extension, Contents: page.Contents, Size: page.Size}
 				wgConvertedPages.Add(1)
-				pagesChan <- NewContainerWithImage(page, &img)
+				pagesChan <- NewContainerWithImage(page, img)
 			}
 		}(page)
 
@@ -165,7 +163,7 @@ func (converter *Converter) checkPageNeedsSplit(page *source.Page) (bool, image.
 }
 
 func (converter *Converter) convertPage(container *PageContainer) (*PageContainer, error) {
-	converted, err := converter.convert(*container.Image, viper.GetUint(key.WebpQuality))
+	converted, err := converter.convert(container.Image, viper.GetUint(key.WebpQuality))
 	if err != nil {
 		return nil, err
 	}
