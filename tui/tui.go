@@ -9,7 +9,7 @@ type Options struct {
 	Install  bool
 }
 
-func Run(options *Options) error {
+func Run(options *Options) (tea.Model, error) {
 
 	bubble := newBubble()
 
@@ -18,7 +18,7 @@ func Run(options *Options) error {
 	} else if options.Continue {
 		_, err := bubble.loadHistory()
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		bubble.newState(historyState)
@@ -26,5 +26,5 @@ func Run(options *Options) error {
 		bubble.newState(sourcesState)
 	}
 
-	return tea.NewProgram(bubble, tea.WithAltScreen()).Start()
+	return tea.NewProgram(bubble, tea.WithAltScreen()).Run()
 }
