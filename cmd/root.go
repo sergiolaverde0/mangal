@@ -90,7 +90,8 @@ var rootCmd = &cobra.Command{
 		options := tui.Options{
 			Continue: lo.Must(cmd.Flags().GetBool("continue")),
 		}
-		handleErr(tui.Run(&options))
+		_, err := tui.Run(&options)
+		handleErr(err)
 	},
 }
 
