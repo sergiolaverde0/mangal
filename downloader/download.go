@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/converter"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/history"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/log"
+	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/style"
 	"github.com/spf13/viper"
@@ -94,7 +94,7 @@ func Download(chapter *source.Chapter, progress func(string)) (string, error) {
 		style.Fg(color.Yellow)(viper.GetString(key.FormatsUse)),
 		style.Faint(chapter.SizeHuman())),
 	)
-	conv, err := converter.Get(viper.GetString(key.FormatsUse))
+	conv, err := packer.Get(viper.GetString(key.FormatsUse))
 	if err != nil {
 		log.Error(err)
 		return "", err

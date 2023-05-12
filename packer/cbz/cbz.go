@@ -4,7 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"encoding/xml"
-	"github.com/metafates/mangal/converter/webp"
+	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
@@ -17,6 +17,10 @@ import (
 )
 
 type CBZ struct{}
+
+func (c *CBZ) SupportedConversion() (formats []constant.ConversionFormat) {
+	return []constant.ConversionFormat{constant.WebP}
+}
 
 func New() *CBZ {
 	return &CBZ{}
@@ -45,11 +49,6 @@ func save(chapter *source.Chapter, temp bool) (path string, err error) {
 }
 
 func SaveTo(chapter *source.Chapter, to string) error {
-
-	chapter, err := webp.New().CheckAndConvertChapter(chapter)
-	if err != nil {
-		return nil
-	}
 
 	fs := filesystem.Api()
 	cbzFile, err := fs.OpenFile(to, syscall.O_WRONLY|syscall.O_CREAT|syscall.O_TRUNC, os.ModeExclusive)

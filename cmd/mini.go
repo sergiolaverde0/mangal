@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/metafates/mangal/converter"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/mini"
+	"github.com/metafates/mangal/packer"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -24,7 +24,7 @@ var miniCmd = &cobra.Command{
 	Long: `Launch mangal in the mini mode.
 Will try to mimic ani-cli.`,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if _, err := converter.Get(viper.GetString(key.FormatsUse)); err != nil {
+		if _, err := packer.Get(viper.GetString(key.FormatsUse)); err != nil {
 			handleErr(err)
 		}
 	},

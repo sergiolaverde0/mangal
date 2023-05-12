@@ -1,4 +1,4 @@
-package converter
+package packer
 
 import (
 	"github.com/metafates/mangal/constant"
@@ -7,14 +7,14 @@ import (
 )
 
 func TestGet(t *testing.T) {
-	Convey("When trying to get a valid converter", t, func() {
+	Convey("When trying to get a valid packer", t, func() {
 		_, err := Get(constant.FormatCBZ)
 		Convey("Then no error should be returned", func() {
 			So(err, ShouldBeNil)
 		})
 	})
 
-	Convey("When trying to get an invalid converter", t, func() {
+	Convey("When trying to get an invalid packer", t, func() {
 		_, err := Get("kek")
 		Convey("Then an error should be returned", func() {
 			So(err, ShouldNotBeNil)
@@ -23,11 +23,11 @@ func TestGet(t *testing.T) {
 }
 
 func TestAvailable(t *testing.T) {
-	Convey("When getting the available converters", t, func() {
-		converters := Available()
-		Convey("Then the available converters should be returned", func() {
-			So(converters, ShouldNotBeNil)
-			So(len(converters), ShouldEqual, 4)
+	Convey("When getting the available packers", t, func() {
+		packers := Available()
+		Convey("Then the available packers should be returned", func() {
+			So(packers, ShouldNotBeNil)
+			So(len(packers), ShouldEqual, 4)
 		})
 	})
 }

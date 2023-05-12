@@ -3,7 +3,9 @@ package webp
 import (
 	"bytes"
 	"fmt"
+	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/key"
+	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/source"
 	"github.com/oliamb/cutter"
 	"github.com/spf13/viper"
@@ -18,6 +20,10 @@ import (
 
 type Converter struct {
 	maxHeight int
+}
+
+func (converter *Converter) Format() (format constant.ConversionFormat) {
+	return constant.WebP
 }
 
 func New() *Converter {
@@ -38,7 +44,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 	var wgConvertedPages sync.WaitGroup
 	maxGoroutines := 6
 
-	pagesChan := make(chan *PageContainer, maxGoroutines*2)
+	pagesChan := make(chan *packer.PageContainer, maxGoroutines*2)
 
 	var wgPages sync.WaitGroup
 	wgPages.Add(len(chapter.Pages))
@@ -50,7 +56,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 	go func() {
 		for page := range pagesChan {
 			guard <- struct{}{} // would block if guard channel is already filled
-			go func(pageToConvert *PageContainer) {
+			go func(pageToConvert *packer.PageContainer) {
 				defer wgConvertedPages.Done()
 				convertedPage, err := converter.convertPage(pageToConvert)
 				if err != nil {
@@ -85,7 +91,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 
 			if !splitNeeded {
 				wgConvertedPages.Add(1)
-				pagesChan <- NewContainer(page, img, format)
+				pagesChan <- packer.NewContainer(page, img, format)
 				return
 			}
 			images, err := converter.cropImage(img)
@@ -97,7 +103,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 			for i, img := range images {
 				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL, Extension: page.Extension, Contents: page.Contents, Size: page.Size}
 				wgConvertedPages.Add(1)
-				pagesChan <- NewContainer(page, img, "N/A")
+				pagesChan <- packer.NewContainer(page, img, "N/A")
 			}
 		}(page)
 
@@ -166,7 +172,7 @@ func (converter *Converter) checkPageNeedsSplit(page *source.Page) (bool, image.
 	return height >= converter.maxHeight, img, format, nil
 }
 
-func (converter *Converter) convertPage(container *PageContainer) (*PageContainer, error) {
+func (converter *Converter) convertPage(container *packer.PageContainer) (*packer.PageContainer, error) {
 	if container.Format == "webp" {
 		return container, nil
 	}

@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"github.com/invopop/jsonschema"
 	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/converter"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/inline"
 	"github.com/metafates/mangal/key"
+	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/provider"
 	"github.com/metafates/mangal/query"
 	"github.com/metafates/mangal/source"
@@ -81,7 +81,7 @@ When using the json flag manga selector could be omitted. That way, it will sele
 			lo.Must0(cmd.MarkFlagRequired("json"))
 		}
 
-		if _, err := converter.Get(viper.GetString(key.FormatsUse)); err != nil {
+		if _, err := packer.Get(viper.GetString(key.FormatsUse)); err != nil {
 			handleErr(err)
 		}
 	},

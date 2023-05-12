@@ -5,10 +5,10 @@ import (
 	cc "github.com/ivanpirog/coloredcobra"
 	"github.com/metafates/mangal/color"
 	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/converter"
 	"github.com/metafates/mangal/icon"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/log"
+	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/provider"
 	"github.com/metafates/mangal/style"
 	"github.com/metafates/mangal/tui"
@@ -27,7 +27,7 @@ func init() {
 
 	rootCmd.PersistentFlags().StringP("format", "F", "", "output format")
 	lo.Must0(rootCmd.RegisterFlagCompletionFunc("format", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
-		return converter.Available(), cobra.ShellCompDirectiveDefault
+		return packer.Available(), cobra.ShellCompDirectiveDefault
 	}))
 	lo.Must0(viper.BindPFlag(key.FormatsUse, rootCmd.PersistentFlags().Lookup("format")))
 
@@ -77,7 +77,7 @@ var rootCmd = &cobra.Command{
 	Long: constant.AsciiArtLogo + "\n" +
 		style.New().Italic(true).Foreground(color.HiRed).Render("    - The ultimate cli manga downloader"),
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if _, err := converter.Get(viper.GetString(key.FormatsUse)); err != nil {
+		if _, err := packer.Get(viper.GetString(key.FormatsUse)); err != nil {
 			handleErr(err)
 		}
 	},
