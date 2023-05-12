@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.7
+- Fix issue with WEBP when converting image that are too big (height > 16383px).
+- Automatically split large vertical image before converting them to WEBP
+
 ## 4.2.6
 - Start by converting to webp then create the zip/cbz file
 - Fix when there are multiple space in the chapter name from Custom sources
