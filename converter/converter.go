@@ -5,8 +5,10 @@ import (
 	"github.com/metafates/mangal/constant"
 	"github.com/metafates/mangal/converter/none"
 	"github.com/metafates/mangal/converter/webp"
+	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
 	"github.com/samber/lo"
+	"github.com/spf13/viper"
 	"strings"
 )
 
@@ -21,7 +23,7 @@ type Converter interface {
 }
 
 var converters = map[constant.ConversionFormat]Converter{
-	constant.WebP: webp.New(),
+	constant.WebP: webp.New(uint8(viper.GetUint(key.ImageConversionQuality))),
 	constant.None: none.Converter{},
 }
 

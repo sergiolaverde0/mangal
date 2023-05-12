@@ -21,8 +21,8 @@ const (
 const (
 	FormatsUse                   = "formats.use"
 	FormatsSkipUnsupportedImages = "formats.skip_unsupported_images"
-	WebpConversion               = "formats.webp_convert"
-	WebpQuality                  = "formats.webp_quality"
+	ImageConversion              = "formats.image_conversion_format"
+	ImageConversionQuality       = "formats.image_conversion_quality"
 )
 
 const (

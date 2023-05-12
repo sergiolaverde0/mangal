@@ -20,7 +20,6 @@ func init() {
 	filesystem.SetMemMapFs()
 	lo.Must0(config.Setup())
 	viper.Set(key.FormatsUse, constant.FormatCBZ)
-	viper.Set(key.WebpConversion, false)
 }
 
 func TestCBZ(t *testing.T) {
