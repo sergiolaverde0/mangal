@@ -9,7 +9,9 @@ import (
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"
 	"image"
+	_ "image/jpeg"
 	"image/png"
+	_ "image/png"
 	"io"
 	"sync"
 )
@@ -36,7 +38,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 	var wgConvertedPages sync.WaitGroup
 	maxGoroutines := 6
 
-	pagesChan := make(chan *source.Page, maxGoroutines*2)
+	pagesChan := make(chan *PageContainer, maxGoroutines*2)
 
 	var wgPages sync.WaitGroup
 	wgPages.Add(len(chapter.Pages))
@@ -48,14 +50,24 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 	go func() {
 		for page := range pagesChan {
 			guard <- struct{}{} // would block if guard channel is already filled
-			go func(pageToConvert *source.Page) {
+			go func(pageToConvert *PageContainer) {
 				defer wgConvertedPages.Done()
 				convertedPage, err := converter.convertPage(pageToConvert)
 				if err == nil {
-					pageToConvert = convertedPage
+					convertedPage = pageToConvert
+				} else {
+					buffer := new(bytes.Buffer)
+					err := png.Encode(buffer, *pageToConvert.Image)
+					if err != nil {
+						<-guard
+						return
+					}
+					pageToConvert.Page.Contents = buffer
+					pageToConvert.Page.Extension = ".png"
+					pageToConvert.Page.Size = uint64(buffer.Len())
 				}
 				pagesMutex.Lock()
-				pages = append(pages, pageToConvert)
+				pages = append(pages, convertedPage.Page)
 				pagesMutex.Unlock()
 				<-guard
 			}(page)
@@ -74,7 +86,7 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 			}
 			if !splitNeeded {
 				wgConvertedPages.Add(1)
-				pagesChan <- page
+				pagesChan <- NewContainer(page)
 				return
 			}
 			images, err := converter.cropImage(img)
@@ -84,15 +96,9 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 			}
 
 			for i, img := range images {
-				buffer, err := convertImageToPngBytes(img)
-				if err != nil {
-					fmt.Println(err)
-					return
-				}
-
-				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL, Extension: ".png", Contents: buffer, Size: uint64(buffer.Len())}
+				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL, Extension: page.Extension, Contents: page.Contents, Size: page.Size}
 				wgConvertedPages.Add(1)
-				pagesChan <- page
+				pagesChan <- NewContainerWithImage(page, &img)
 			}
 		}(page)
 
@@ -158,42 +164,26 @@ func (converter *Converter) checkPageNeedsSplit(page *source.Page) (bool, image.
 	return height >= converter.maxHeight, img, nil
 }
 
-func (converter *Converter) convertPage(page *source.Page) (*source.Page, error) {
-	converted, err := converter.convert(page.Contents.Bytes(), viper.GetUint(key.WebpQuality))
+func (converter *Converter) convertPage(container *PageContainer) (*PageContainer, error) {
+	converted, err := converter.convert(*container.Image, viper.GetUint(key.WebpQuality))
 	if err != nil {
 		return nil, err
 	}
-	page.Contents = converted
-	page.Extension = ".webp"
-	page.Size = uint64(converted.Len())
-	return page, nil
+	container.Page.Contents = converted
+	container.Page.Extension = ".webp"
+	container.Page.Size = uint64(converted.Len())
+	return container, nil
 }
 
 // convert converts an image to the WebP format. It decodes the image from the input buffer,
 // encodes it as a WebP file using the webp.Encode() function, and returns the resulting WebP
 // file as a bytes.Buffer.
-func (converter *Converter) convert(content []byte, quality uint) (*bytes.Buffer, error) {
-
-	reader := io.Reader(bytes.NewBuffer(content))
-	page, _, err := image.Decode(reader)
-	if err != nil {
-		return nil, err
-	}
+func (converter *Converter) convert(image image.Image, quality uint) (*bytes.Buffer, error) {
 	var buf bytes.Buffer
-	err = Encode(&buf, page, quality)
+	err := Encode(&buf, image, quality)
 	if err != nil {
 		return nil, err
 	}
 
 	return &buf, nil
-}
-
-func convertImageToPngBytes(img image.Image) (*bytes.Buffer, error) {
-	buffer := new(bytes.Buffer)
-	err := png.Encode(buffer, img)
-	if err != nil {
-		return nil, fmt.Errorf("error writing image data to buffer: %v", err)
-	}
-
-	return buffer, nil
 }
