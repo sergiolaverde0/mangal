@@ -111,7 +111,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter) (*source.Cha
 		}
 		return a.Index < b.Index
 	})
-	chapter.Pages = pages
+	chapter.UpdatePages(pages)
 
 	return chapter, nil
 }
