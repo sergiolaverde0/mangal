@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.3.0
+- Refactor the conversion code to support multiple image conversion. Currently only webp or none.
+- Refactor the packaging code to easily whitelist what conversion are compatible with it. PDF = no conversion.
+
 ## 4.2.11
 - Try to download pages directly as webp if available
 - Recognize the actual format of the page from the HTTP response Content-Type header
