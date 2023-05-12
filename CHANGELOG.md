@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.2.11
+- Try to download pages directly as webp if available
+- Recognize the actual format of the page from the HTTP response Content-Type header
+
 ## 4.2.10
 - Improve the speed and quality of splitting large images
 
