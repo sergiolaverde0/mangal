@@ -34,20 +34,32 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 	}
 
 	var wgConvertedPages sync.WaitGroup
-	pagesChan := make(chan *source.Page, 5)
-	var pages []*source.Page
+	maxGoroutines := 6
+
+	pagesChan := make(chan *source.Page, maxGoroutines*2)
 
 	var wgPages sync.WaitGroup
 	wgPages.Add(len(chapter.Pages))
 
+	guard := make(chan struct{}, maxGoroutines)
+	pagesMutex := sync.Mutex{}
+	var pages []*source.Page
+
 	go func() {
 		for page := range pagesChan {
-			convertedPage, err := converter.convertPage(page)
-			if err == nil {
-				page = convertedPage
-			}
-			pages = append(pages, page)
-			wgConvertedPages.Done()
+			guard <- struct{}{} // would block if guard channel is already filled
+			go func(pageToConvert *source.Page) {
+				defer wgConvertedPages.Done()
+				convertedPage, err := converter.convertPage(pageToConvert)
+				if err == nil {
+					pageToConvert = convertedPage
+				}
+				pagesMutex.Lock()
+				pages = append(pages, pageToConvert)
+				pagesMutex.Unlock()
+				<-guard
+			}(page)
+
 		}
 	}()
 
@@ -61,8 +73,8 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 				return
 			}
 			if !splitNeeded {
-				pagesChan <- page
 				wgConvertedPages.Add(1)
+				pagesChan <- page
 				return
 			}
 			images, err := converter.cropImage(img)
@@ -79,8 +91,8 @@ func (converter *Converter) CheckAndConvertChapter(chapter *source.Chapter) (*so
 				}
 
 				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL, Extension: ".png", Contents: buffer, Size: uint64(buffer.Len())}
-				pagesChan <- page
 				wgConvertedPages.Add(1)
+				pagesChan <- page
 			}
 		}(page)
 
