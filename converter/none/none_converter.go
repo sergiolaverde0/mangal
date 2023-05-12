@@ -12,6 +12,6 @@ func (c Converter) Format() (format constant.ConversionFormat) {
 	return constant.ImageFormatNone
 }
 
-func (c Converter) ConvertChapter(chapter *source.Chapter) (*source.Chapter, error) {
+func (c Converter) ConvertChapter(chapter *source.Chapter, quality uint8) (*source.Chapter, error) {
 	return chapter, nil
 }

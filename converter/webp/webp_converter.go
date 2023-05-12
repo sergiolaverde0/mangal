@@ -18,21 +18,19 @@ import (
 
 type Converter struct {
 	maxHeight int
-	quality   uint8
 }
 
 func (converter *Converter) Format() (format constant.ConversionFormat) {
 	return constant.ImageFormatWebP
 }
 
-func New(quality uint8) *Converter {
+func New() *Converter {
 	return &Converter{
 		maxHeight: 16383 / 2,
-		quality:   quality,
 	}
 }
 
-func (converter *Converter) ConvertChapter(chapter *source.Chapter) (*source.Chapter, error) {
+func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint8) (*source.Chapter, error) {
 	var wgConvertedPages sync.WaitGroup
 	maxGoroutines := 6
 
@@ -50,7 +48,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter) (*source.Cha
 			guard <- struct{}{} // would block if guard channel is already filled
 			go func(pageToConvert *packer.PageContainer) {
 				defer wgConvertedPages.Done()
-				convertedPage, err := converter.convertPage(pageToConvert)
+				convertedPage, err := converter.convertPage(pageToConvert, quality)
 				if err != nil {
 					buffer := new(bytes.Buffer)
 					err := png.Encode(buffer, pageToConvert.Image)
@@ -164,11 +162,11 @@ func (converter *Converter) checkPageNeedsSplit(page *source.Page) (bool, image.
 	return height >= converter.maxHeight, img, format, nil
 }
 
-func (converter *Converter) convertPage(container *packer.PageContainer) (*packer.PageContainer, error) {
+func (converter *Converter) convertPage(container *packer.PageContainer, quality uint8) (*packer.PageContainer, error) {
 	if container.Format == "webp" {
 		return container, nil
 	}
-	converted, err := converter.convert(container.Image, uint(converter.quality))
+	converted, err := converter.convert(container.Image, uint(quality))
 	if err != nil {
 		return nil, err
 	}
