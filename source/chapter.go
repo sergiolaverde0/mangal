@@ -9,6 +9,7 @@ import (
 	"github.com/metafates/mangal/log"
 	"github.com/metafates/mangal/style"
 	"github.com/metafates/mangal/util"
+	"github.com/samber/lo"
 	"github.com/samber/mo"
 	"github.com/spf13/viper"
 	"os"
@@ -47,6 +48,13 @@ type Chapter struct {
 
 func (c *Chapter) String() string {
 	return c.Name
+}
+
+func (c *Chapter) UpdatePages(pages []*Page) {
+	c.Pages = pages
+	c.size = lo.SumBy(pages, func(item *Page) uint64 {
+		return item.Size
+	})
 }
 
 // DownloadPages downloads the Pages contents of the Chapter.
