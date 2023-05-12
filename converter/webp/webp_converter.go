@@ -4,11 +4,9 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/packer"
 	"github.com/metafates/mangal/source"
 	"github.com/oliamb/cutter"
-	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"
 	_ "golang.org/x/image/webp"
 	"image"
@@ -20,15 +18,17 @@ import (
 
 type Converter struct {
 	maxHeight int
+	quality   uint8
 }
 
 func (converter *Converter) Format() (format constant.ConversionFormat) {
 	return constant.WebP
 }
 
-func New() *Converter {
+func New(quality uint8) *Converter {
 	return &Converter{
 		maxHeight: 16383 / 2,
+		quality:   quality,
 	}
 }
 
@@ -168,7 +168,7 @@ func (converter *Converter) convertPage(container *packer.PageContainer) (*packe
 	if container.Format == "webp" {
 		return container, nil
 	}
-	converted, err := converter.convert(container.Image, viper.GetUint(key.WebpQuality))
+	converted, err := converter.convert(container.Image, uint(converter.quality))
 	if err != nil {
 		return nil, err
 	}
