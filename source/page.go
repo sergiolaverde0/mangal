@@ -27,6 +27,10 @@ type Page struct {
 	Contents *bytes.Buffer `json:"-"`
 	// Chapter that the page belongs to.
 	Chapter *Chapter `json:"-"`
+	// IsSplitted tell us if the page was cropped to multiple pieces
+	IsSplitted bool `json:"is_cropped" jsonschema:"description=Was this page cropped."`
+	// SplitPartIndex represent the index of the crop if the page was cropped
+	SplitPartIndex uint16 `json:"crop_part_index" jsonschema:"description=Index of the crop if the image was cropped."`
 }
 
 func (p *Page) request() (*http.Request, error) {
@@ -120,8 +124,12 @@ func (p *Page) Read(b []byte) (int, error) {
 
 // Filename generates a filename for the page.
 func (p *Page) Filename() (filename string) {
-	filename = fmt.Sprintf("%d%s", p.Index, p.Extension)
-	filename = util.PadZero(filename, 10)
+	if p.IsSplitted {
+		filename = fmt.Sprintf("%d-%d%s", p.Index, p.SplitPartIndex, p.Extension)
+	} else {
+		filename = fmt.Sprintf("%d%s", p.Index, p.Extension)
+	}
+	filename = util.PadZero(filename, 12)
 
 	return
 }
