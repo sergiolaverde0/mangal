@@ -31,7 +31,7 @@ require (
 	github.com/spf13/viper v1.15.0
 	github.com/yuin/gopher-lua v1.1.0
 	golang.org/x/exp v0.0.0-20230113213754-f9f960f08ad4
-	golang.org/x/image v0.5.0
+	golang.org/x/image v0.7.0
 	golang.org/x/term v0.8.0
 )
 
