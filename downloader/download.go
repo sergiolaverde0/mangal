@@ -109,7 +109,7 @@ func Download(chapter *source.Chapter, progress func(string)) (string, error) {
 			log.Error(err)
 			return "", err
 		}
-		chapter, err = conv.ConvertChapter(chapter, uint8(viper.GetUint(key.ImageConversionQuality)))
+		chapter, err = conv.ConvertChapter(chapter, uint8(viper.GetUint(key.ImageConversionQuality)), progress)
 		if err != nil {
 			log.Error(err)
 			return "", err

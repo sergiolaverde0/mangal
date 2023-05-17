@@ -17,7 +17,7 @@ type Converter interface {
 	//  using the convertPage method. It runs the conversion concurrently for each page
 	// with a maximum number of goroutines defined by maxGoroutines. The function returns the updated chapter
 	// object after the conversion is complete.
-	ConvertChapter(chapter *source.Chapter, quality uint8) (*source.Chapter, error)
+	ConvertChapter(chapter *source.Chapter, quality uint8, progress func(string)) (*source.Chapter, error)
 }
 
 var converters = map[constant.ConversionFormat]Converter{
