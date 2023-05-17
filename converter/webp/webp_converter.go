@@ -14,6 +14,7 @@ import (
 	"image/png"
 	"io"
 	"sync"
+	"sync/atomic"
 )
 
 type Converter struct {
@@ -30,7 +31,7 @@ func New() *Converter {
 	}
 }
 
-func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint8) (*source.Chapter, error) {
+func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint8, progress func(string)) (*source.Chapter, error) {
 	var wgConvertedPages sync.WaitGroup
 	maxGoroutines := 6
 
@@ -42,6 +43,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 	guard := make(chan struct{}, maxGoroutines)
 	pagesMutex := sync.Mutex{}
 	var pages []*source.Page
+	var totalPages = uint32(len(chapter.Pages))
 
 	go func() {
 		for page := range pagesChan {
@@ -62,6 +64,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 				}
 				pagesMutex.Lock()
 				pages = append(pages, convertedPage.Page)
+				progress(fmt.Sprintf("Converted %d/%d pages to %s format", len(pages), totalPages, converter.Format()))
 				pagesMutex.Unlock()
 				<-guard
 			}(page)
@@ -90,6 +93,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 				return
 			}
 
+			atomic.AddUint32(&totalPages, uint32(len(images)-1))
 			for i, img := range images {
 				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL, Extension: page.Extension, Contents: page.Contents, Size: page.Size}
 				wgConvertedPages.Add(1)
