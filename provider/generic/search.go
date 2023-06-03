@@ -6,7 +6,7 @@ import (
 
 // Search for mangas by given title
 func (s *Scraper) Search(query string) ([]*source.Manga, error) {
-	address := s.config.GenerateSearchURL(query)
+	address := s.config.GenerateSearchURL(s.config.BaseURL, query)
 
 	if urls, ok := s.mangas[address]; ok {
 		return urls, nil
