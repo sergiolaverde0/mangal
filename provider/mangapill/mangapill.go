@@ -15,11 +15,11 @@ var Config = &generic.Configuration{
 	Parallelism:     50,
 	ReverseChapters: true,
 	BaseURL:         "https://mangapill.com",
-	GenerateSearchURL: func(query string) string {
+	GenerateSearchURL: func(baseUrl string, query string) string {
 		query = strings.ReplaceAll(query, " ", "+")
 		query = strings.ToLower(query)
 		query = strings.TrimSpace(query)
-		template := "https://mangapill.com/search?q=%s&type=&status="
+		template := baseUrl + "/search?q=%s&type=&status="
 		return fmt.Sprintf(template, url.QueryEscape(query))
 	},
 	MangaExtractor: &generic.MangaExtractor{

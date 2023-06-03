@@ -19,13 +19,13 @@ var Config = &generic.Configuration{
 	Delay:           50 * time.Millisecond,
 	Parallelism:     50,
 	ReverseChapters: true,
-	BaseURL:         "https://manganato.com/",
-	GenerateSearchURL: func(query string) string {
+	BaseURL:         "https://manganato.com",
+	GenerateSearchURL: func(baseUrl string, query string) string {
 		query = strings.ReplaceAll(query, " ", "_")
 		query = strings.TrimSpace(query)
 		query = strings.ToLower(query)
 		query = url.QueryEscape(query)
-		template := "https://chapmanganato.com/https://manganato.com/search/story/%s"
+		template := "https://chapmanganato.com/" + baseUrl + "/search/story/%s"
 		return fmt.Sprintf(template, query)
 	},
 	MangaExtractor: &generic.MangaExtractor{

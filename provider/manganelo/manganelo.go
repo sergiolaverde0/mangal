@@ -18,12 +18,12 @@ var Config = &generic.Configuration{
 	Delay:           50 * time.Millisecond,
 	Parallelism:     50,
 	ReverseChapters: true,
-	BaseURL:         "https://ww5.manganelo.tv/",
-	GenerateSearchURL: func(query string) string {
+	BaseURL:         "https://ww5.manganelo.tv",
+	GenerateSearchURL: func(baseUrl string, query string) string {
 		query = strings.TrimSpace(query)
 		query = strings.ToLower(query)
 		query = url.QueryEscape(query)
-		template := "https://ww5.manganelo.tv/search/%s"
+		template := baseUrl + "/search/%s"
 		return fmt.Sprintf(template, query)
 	},
 	MangaExtractor: &generic.MangaExtractor{
