@@ -54,14 +54,14 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 				convertedPage, err := converter.convertPage(pageToConvert, quality)
 				if err != nil {
 					buffer := new(bytes.Buffer)
-					err := png.Encode(buffer, pageToConvert.Image)
+					err := png.Encode(buffer, convertedPage.Image)
 					if err != nil {
 						<-guard
 						return
 					}
-					pageToConvert.Page.Contents = buffer
-					pageToConvert.Page.Extension = ".png"
-					pageToConvert.Page.Size = uint64(buffer.Len())
+					convertedPage.Page.Contents = buffer
+					convertedPage.Page.Extension = ".png"
+					convertedPage.Page.Size = uint64(buffer.Len())
 				}
 				pagesMutex.Lock()
 				pages = append(pages, convertedPage.Page)
@@ -85,6 +85,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 
 			if !splitNeeded {
 				wgConvertedPages.Add(1)
+				page.Contents = nil
 				pagesChan <- packer.NewContainer(page, img, format)
 				return
 			}
@@ -96,7 +97,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 
 			atomic.AddUint32(&totalPages, uint32(len(images)-1))
 			for i, img := range images {
-				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL, Extension: page.Extension, Contents: page.Contents, Size: page.Size}
+				page := &source.Page{Chapter: chapter, Index: page.Index, IsSplitted: true, SplitPartIndex: uint16(i), URL: page.URL}
 				wgConvertedPages.Add(1)
 				pagesChan <- packer.NewContainer(page, img, "N/A")
 			}
@@ -115,6 +116,8 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 		return a.Index < b.Index
 	})
 	chapter.UpdatePages(pages)
+
+	runtime.GC()
 
 	return chapter, nil
 }
