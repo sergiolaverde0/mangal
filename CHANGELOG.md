@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.3.2
+- Fix possible memory leaks
+- Reduce concurrency on converting to webp pages
+- Add flamescans as native provider
+
 ## 4.3.1
 - Add progress when converting pages
 
