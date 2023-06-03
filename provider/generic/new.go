@@ -14,6 +14,11 @@ import (
 )
 
 var chapterNumberRegex = regexp.MustCompile(`(?m)(\d+\.\d+|\d+)`)
+var newLineCharacters = regexp.MustCompile(`\r?\n`)
+
+func standardizeSpaces(s string) string {
+	return strings.Join(strings.Fields(s), " ")
+}
 
 // New generates a new scraper with given configuration
 func New(conf *Configuration) source.Source {
@@ -51,8 +56,9 @@ func New(conf *Configuration) source.Source {
 		elements.Each(func(i int, selection *goquery.Selection) {
 			link := s.config.MangaExtractor.URL(selection)
 			url := e.Request.AbsoluteURL(link)
+
 			manga := source.Manga{
-				Name:     s.config.MangaExtractor.Name(selection),
+				Name:     cleanName(s.config.MangaExtractor.Name(selection)),
 				URL:      url,
 				Index:    uint16(e.Index),
 				Chapters: make([]*source.Chapter, 0),
@@ -90,7 +96,7 @@ func New(conf *Configuration) source.Source {
 		elements.Each(func(i int, selection *goquery.Selection) {
 			link := s.config.ChapterExtractor.URL(selection)
 			url := e.Request.AbsoluteURL(link)
-			name := s.config.ChapterExtractor.Name(selection)
+			name := cleanName(s.config.ChapterExtractor.Name(selection))
 
 			match := chapterNumberRegex.FindString(name)
 			var chapterNumber = float32(e.Index)
@@ -169,4 +175,8 @@ func New(conf *Configuration) source.Source {
 	s.pagesCollector = pagesCollector
 
 	return &s
+}
+
+func cleanName(name string) string {
+	return standardizeSpaces(newLineCharacters.ReplaceAllString(name, " "))
 }
