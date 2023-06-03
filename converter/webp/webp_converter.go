@@ -13,6 +13,7 @@ import (
 	_ "image/jpeg"
 	"image/png"
 	"io"
+	"runtime"
 	"sync"
 	"sync/atomic"
 )
@@ -33,9 +34,9 @@ func New() *Converter {
 
 func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint8, progress func(string)) (*source.Chapter, error) {
 	var wgConvertedPages sync.WaitGroup
-	maxGoroutines := 6
+	maxGoroutines := runtime.NumCPU()
 
-	pagesChan := make(chan *packer.PageContainer, maxGoroutines*2)
+	pagesChan := make(chan *packer.PageContainer, maxGoroutines)
 
 	var wgPages sync.WaitGroup
 	wgPages.Add(len(chapter.Pages))
