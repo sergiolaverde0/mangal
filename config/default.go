@@ -194,6 +194,11 @@ Type "mangal sources list" to show available sources`,
 		`Whether to download manga cover or not`,
 	},
 	{
+		key.DownloaderWaitPageLoad,
+		true,
+		`[Advanced option] Set this to false if you run mangal in docker and have issue with AsuraScans`,
+	},
+	{
 		key.FormatsUse,
 		"pdf",
 		`Default format to export chapters

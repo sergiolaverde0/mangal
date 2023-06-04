@@ -4,9 +4,10 @@ import (
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
 	"github.com/go-rod/rod/lib/proto"
+	"github.com/metafates/mangal/key"
+	"github.com/spf13/viper"
 	"github.com/ysmood/gson"
 	"net/http"
-	"os"
 	"runtime"
 	"strings"
 	"time"
@@ -55,14 +56,15 @@ func (t Transport) RoundTrip(request *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	_, isSet := os.LookupEnv("NO_WAIT_PAGE_LOAD")
-	if isSet {
-		time.Sleep(2 * time.Second)
-	} else {
+	waitForPage := viper.GetBool(key.DownloaderWaitPageLoad)
+	if waitForPage {
 		err := page.WaitLoad()
 		if err != nil {
 			return nil, err
 		}
+
+	} else {
+		time.Sleep(2 * time.Second)
 	}
 
 	if err != nil {
