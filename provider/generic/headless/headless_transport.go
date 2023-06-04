@@ -3,6 +3,7 @@ package headless
 import (
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
+	"github.com/go-rod/rod/lib/launcher/flags"
 	"github.com/go-rod/rod/lib/proto"
 	"github.com/ysmood/gson"
 	"net/http"
@@ -15,7 +16,7 @@ type Transport struct {
 }
 
 func New() *Transport {
-	u := launcher.New().Leakless(runtime.GOOS == "linux").MustLaunch()
+	u := launcher.New().Leakless(runtime.GOOS == "linux").Revision(1131003).Set(flags.Headless, "new").MustLaunch()
 	browser := rod.New().ControlURL(u).MustConnect()
 	return &Transport{
 		browser: browser,
