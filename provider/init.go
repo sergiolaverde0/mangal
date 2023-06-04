@@ -1,6 +1,7 @@
 package provider
 
 import (
+	"github.com/metafates/mangal/provider/asurascans"
 	"github.com/metafates/mangal/provider/flamescans"
 	"github.com/metafates/mangal/provider/generic"
 	"github.com/metafates/mangal/provider/mangadex"
@@ -28,6 +29,7 @@ func init() {
 		manganato.Config,
 		mangapill.Config,
 		flamescans.Config,
+		asurascans.Config,
 	} {
 		conf := conf
 		builtinProviders = append(builtinProviders, &Provider{
