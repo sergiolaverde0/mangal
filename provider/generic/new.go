@@ -4,6 +4,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly/v2"
 	"github.com/metafates/mangal/constant"
+	"github.com/metafates/mangal/provider/generic/headless"
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/where"
 	"path/filepath"
@@ -29,6 +30,8 @@ func New(conf *Configuration) source.Source {
 		config:   conf,
 	}
 
+	var transport *headless.Transport = nil
+
 	collectorOptions := []colly.CollectorOption{
 		colly.AllowURLRevisit(),
 		colly.Async(true),
@@ -37,6 +40,10 @@ func New(conf *Configuration) source.Source {
 
 	baseCollector := colly.NewCollector(collectorOptions...)
 	baseCollector.SetRequestTimeout(20 * time.Second)
+	if conf.NeedsHeadlessBrowser {
+		transport = headless.New()
+		baseCollector.WithTransport(transport)
+	}
 
 	mangasCollector := baseCollector.Clone()
 	mangasCollector.OnRequest(func(r *colly.Request) {

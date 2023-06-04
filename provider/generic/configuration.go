@@ -53,6 +53,9 @@ type Configuration struct {
 	// ReverseChapters if true, chapters will be shown in reverse order
 	ReverseChapters bool
 
+	// NeedsHeadlessBrowser if true, a headless browser will be used to proxy any request
+	NeedsHeadlessBrowser bool
+
 	// BaseURL of the source
 	BaseURL string
 	// GenerateSearchURL function to create search URL from the query.
