@@ -10,7 +10,7 @@ require (
 	github.com/charmbracelet/lipgloss v0.7.1
 	github.com/darylhjd/mangodex v0.0.0-20211231093527-e4a91c518fa0
 	github.com/dustin/go-humanize v1.0.1
-	github.com/go-rod/rod v0.113.1
+	github.com/go-rod/rod v0.112.6
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/invopop/jsonschema v0.7.0
 	github.com/ivanpirog/coloredcobra v1.0.1
@@ -30,6 +30,7 @@ require (
 	github.com/spf13/afero v1.9.5
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
+	github.com/ysmood/gson v0.7.3
 	github.com/yuin/gopher-lua v1.1.0
 	golang.org/x/exp v0.0.0-20230113213754-f9f960f08ad4
 	golang.org/x/image v0.7.0
@@ -94,7 +95,6 @@ require (
 	github.com/ysmood/fetchup v0.2.3 // indirect
 	github.com/ysmood/goob v0.4.0 // indirect
 	github.com/ysmood/got v0.34.1 // indirect
-	github.com/ysmood/gson v0.7.3 // indirect
 	github.com/ysmood/leakless v0.8.0 // indirect
 	github.com/yuin/gluamapper v0.0.0-20150323120927-d836955830e7 // indirect
 	golang.org/x/net v0.10.0 // indirect
