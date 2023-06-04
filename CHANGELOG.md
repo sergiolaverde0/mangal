@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.4.0
+- Add support for headless browser for native sources
+- Add AsuraScans with native browser
+- Update Rod to latest version
+
 ## 4.3.3
 - Fix FlameScans chapter name with new line in them
 
