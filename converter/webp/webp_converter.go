@@ -90,7 +90,6 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 
 			if !splitNeeded {
 				wgConvertedPages.Add(1)
-				page.Contents = nil
 				pagesChan <- packer.NewContainer(page, img, format)
 				return
 			}
