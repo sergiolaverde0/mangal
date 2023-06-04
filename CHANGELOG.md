@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.4.4
+- Not found release
+- Fix issue with Headless by downgrading the library `rod`
+
 ## 4.4.3
 - Fix issue on docker and headless browser not returning page load
 
