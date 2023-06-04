@@ -4,13 +4,10 @@ import (
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
 	"github.com/go-rod/rod/lib/proto"
-	"github.com/metafates/mangal/key"
-	"github.com/spf13/viper"
 	"github.com/ysmood/gson"
 	"net/http"
 	"runtime"
 	"strings"
-	"time"
 )
 
 type Transport struct {
@@ -41,7 +38,8 @@ func setExtraHeaders(p *rod.Page, headers http.Header) (func(), error) {
 }
 
 func (t Transport) RoundTrip(request *http.Request) (*http.Response, error) {
-	page, err := t.browser.Context(request.Context()).Page(proto.TargetCreateTarget{URL: request.URL.String()})
+
+	page, err := t.browser.Context(request.Context()).Page(proto.TargetCreateTarget{URL: ""})
 
 	if err != nil {
 		return nil, err
@@ -56,16 +54,7 @@ func (t Transport) RoundTrip(request *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	waitForPage := viper.GetBool(key.DownloaderWaitPageLoad)
-	if waitForPage {
-		err := page.WaitLoad()
-		if err != nil {
-			return nil, err
-		}
-
-	} else {
-		time.Sleep(2 * time.Second)
-	}
+	err = page.WaitLoad()
 
 	if err != nil {
 		return nil, err
