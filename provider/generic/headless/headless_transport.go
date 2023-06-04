@@ -4,8 +4,10 @@ import (
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
 	"github.com/go-rod/rod/lib/proto"
+	"github.com/ysmood/gson"
 	"net/http"
 	"runtime"
+	"strings"
 )
 
 type Transport struct {
@@ -14,8 +16,9 @@ type Transport struct {
 
 func New() *Transport {
 	u := launcher.New().Leakless(runtime.GOOS == "linux").MustLaunch()
+	browser := rod.New().ControlURL(u).MustConnect()
 	return &Transport{
-		browser: rod.New().ControlURL(u).MustConnect(),
+		browser: browser,
 	}
 }
 
@@ -23,8 +26,33 @@ func (t Transport) Close() error {
 	return t.browser.Close()
 }
 
+// SetExtraHeaders whether to always send extra HTTP headers with the requests from this page.
+func setExtraHeaders(p *rod.Page, headers http.Header) (func(), error) {
+	gsonHeaders := proto.NetworkHeaders{}
+
+	for key, values := range headers {
+		gsonHeaders[key] = gson.New(strings.Join(values, ";"))
+	}
+
+	return p.EnableDomain(&proto.NetworkEnable{}), proto.NetworkSetExtraHTTPHeaders{Headers: gsonHeaders}.Call(p)
+}
+
 func (t Transport) RoundTrip(request *http.Request) (*http.Response, error) {
 	page, err := t.browser.Context(request.Context()).Page(proto.TargetCreateTarget{URL: request.URL.String()})
+
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = page.SetExtraHeaders([]string{"Referer", request.Header.Get("Referer")})
+	if err != nil {
+		return nil, err
+	}
+
+	err = page.Navigate(request.URL.String())
+	if err != nil {
+		return nil, err
+	}
 	err = page.WaitLoad()
 	if err != nil {
 		return nil, err
