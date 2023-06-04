@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
+## 4.4.1
+- Fix issue with page already in webp format
 
 ## 4.4.0
 - Add support for headless browser for native sources
