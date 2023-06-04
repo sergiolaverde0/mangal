@@ -11,13 +11,18 @@ import (
 )
 
 // NewCWebP creates new CWebP instance.
-func NewCWebP(folder string) *webpbin.CWebP {
+func newCWebP(folder string) *webpbin.CWebP {
 	bin := &webpbin.CWebP{
 		BinWrapper: createBinWrapper(folder),
 	}
 	bin.ExecPath("cwebp")
 
 	return bin
+}
+
+func PrepareEncoder() error {
+	container := newCWebP(DefaultWebPDir)
+	return container.BinWrapper.Run()
 }
 
 // DefaultWebPDir for downloaded browser. For unix is "$HOME/.cache/webp/bin",
@@ -29,7 +34,7 @@ var DefaultWebPDir = filepath.Join(map[string]string{
 }[runtime.GOOS], "webp", "bin")
 
 func Encode(w io.Writer, m image.Image, quality uint) error {
-	return NewCWebP(DefaultWebPDir).
+	return newCWebP(DefaultWebPDir).
 		Quality(quality).
 		InputImage(m).
 		Output(w).

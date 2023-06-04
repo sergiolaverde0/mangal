@@ -33,6 +33,11 @@ func New() *Converter {
 }
 
 func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint8, progress func(string)) (*source.Chapter, error) {
+	err := PrepareEncoder()
+	if err != nil {
+		return nil, err
+	}
+
 	var wgConvertedPages sync.WaitGroup
 	maxGoroutines := runtime.NumCPU()
 
