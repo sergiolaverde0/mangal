@@ -6,8 +6,10 @@ import (
 	"github.com/go-rod/rod/lib/proto"
 	"github.com/ysmood/gson"
 	"net/http"
+	"os"
 	"runtime"
 	"strings"
+	"time"
 )
 
 type Transport struct {
@@ -53,9 +55,14 @@ func (t Transport) RoundTrip(request *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = page.WaitLoad()
-	if err != nil {
-		return nil, err
+	_, isSet := os.LookupEnv("NO_WAIT_PAGE_LOAD")
+	if isSet {
+		time.Sleep(2 * time.Second)
+	} else {
+		err := page.WaitLoad()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if err != nil {
