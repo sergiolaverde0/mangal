@@ -24,7 +24,7 @@ func (t Transport) Close() error {
 }
 
 func (t Transport) RoundTrip(request *http.Request) (*http.Response, error) {
-	page, err := t.browser.Page(proto.TargetCreateTarget{URL: request.URL.String()})
+	page, err := t.browser.Context(request.Context()).Page(proto.TargetCreateTarget{URL: request.URL.String()})
 	err = page.WaitLoad()
 	if err != nil {
 		return nil, err
