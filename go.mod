@@ -25,7 +25,7 @@ require (
 	github.com/pdfcpu/pdfcpu v0.3.13
 	github.com/samber/lo v1.38.1
 	github.com/samber/mo v1.8.0
-	github.com/sirupsen/logrus v1.9.2
+	github.com/sirupsen/logrus v1.9.3
 	github.com/smartystreets/goconvey v1.8.0
 	github.com/spf13/afero v1.9.5
 	github.com/spf13/cobra v1.7.0
