@@ -8,6 +8,15 @@ import (
 
 // ChaptersOf given source.Manga
 func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
+	if chapters := s.cache.chapters.Get(manga.URL); chapters.IsPresent() {
+		c := chapters.MustGet()
+		for _, chapter := range c {
+			chapter.Manga = manga
+		}
+
+		return c, nil
+	}
+
 	if chapters, ok := s.chapters[manga.URL]; ok {
 		return chapters, nil
 	}
@@ -34,6 +43,7 @@ func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 		s.chapters[manga.URL] = reversed
 	}
+	_ = s.cache.chapters.Set(manga.URL, s.chapters[manga.URL])
 
 	return s.chapters[manga.URL], nil
 }

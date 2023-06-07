@@ -2,6 +2,7 @@ package generic
 
 import (
 	"github.com/gocolly/colly/v2"
+	"github.com/metafates/mangal/provider/cacher"
 	"github.com/metafates/mangal/source"
 )
 
@@ -14,6 +15,11 @@ type Scraper struct {
 	mangas   map[string][]*source.Manga
 	chapters map[string][]*source.Chapter
 	pages    map[string][]*source.Page
+
+	cache struct {
+		mangas   *cacher.Cacher[[]*source.Manga]
+		chapters *cacher.Cacher[[]*source.Chapter]
+	}
 
 	config *Configuration
 }
