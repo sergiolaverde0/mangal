@@ -1,4 +1,4 @@
-package custom
+package cacher
 
 import (
 	"github.com/metafates/gache"
@@ -10,21 +10,21 @@ import (
 	"time"
 )
 
-type cacher[T any] struct {
+type Cacher[T any] struct {
 	internal *gache.Cache[map[string]T]
 }
 
-func newCacher[T any](name string) *cacher[T] {
-	return &cacher[T]{
+func NewCacher[T any](name string, ttl time.Duration) *Cacher[T] {
+	return &Cacher[T]{
 		internal: gache.New[map[string]T](&gache.Options{
-			Lifetime:   time.Hour * 24,
+			Lifetime:   ttl,
 			Path:       filepath.Join(where.Cache(), util.SanitizeFilename(name)+".json"),
 			FileSystem: &filesystem.GacheFs{},
 		}),
 	}
 }
 
-func (c *cacher[T]) Get(key string) mo.Option[T] {
+func (c *Cacher[T]) Get(key string) mo.Option[T] {
 	data, expired, err := c.internal.Get()
 	if err != nil || expired || data == nil {
 		return mo.None[T]()
@@ -37,7 +37,7 @@ func (c *cacher[T]) Get(key string) mo.Option[T] {
 	return mo.None[T]()
 }
 
-func (c *cacher[T]) Set(key string, t T) error {
+func (c *Cacher[T]) Set(key string, t T) error {
 	data, expired, err := c.internal.Get()
 
 	if err != nil {

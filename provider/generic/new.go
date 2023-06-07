@@ -1,12 +1,13 @@
 package generic
 
 import (
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly/v2"
 	"github.com/metafates/mangal/constant"
+	"github.com/metafates/mangal/provider/cacher"
 	"github.com/metafates/mangal/provider/generic/headless"
 	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/where"
 	"path/filepath"
 	"regexp"
 	"strconv"
@@ -29,13 +30,14 @@ func New(conf *Configuration) source.Source {
 		pages:    make(map[string][]*source.Page),
 		config:   conf,
 	}
+	s.cache.mangas = cacher.NewCacher[[]*source.Manga](fmt.Sprintf("%s_%s", conf.Name, "mangas"), 6*time.Hour)
+	s.cache.chapters = cacher.NewCacher[[]*source.Chapter](fmt.Sprintf("%s_%s", conf.Name, "chapters"), 6*time.Hour)
 
 	var transport *headless.Transport = nil
 
 	collectorOptions := []colly.CollectorOption{
 		colly.AllowURLRevisit(),
 		colly.Async(true),
-		colly.CacheDir(where.Cache()),
 	}
 
 	baseCollector := colly.NewCollector(collectorOptions...)
