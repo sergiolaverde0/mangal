@@ -33,8 +33,6 @@ func New(conf *Configuration) source.Source {
 	s.cache.mangas = cacher.NewCacher[[]*source.Manga](fmt.Sprintf("%s_%s", conf.Name, "mangas"), 6*time.Hour)
 	s.cache.chapters = cacher.NewCacher[[]*source.Chapter](fmt.Sprintf("%s_%s", conf.Name, "chapters"), 6*time.Hour)
 
-	var transport *headless.Transport = nil
-
 	collectorOptions := []colly.CollectorOption{
 		colly.AllowURLRevisit(),
 		colly.Async(true),
@@ -43,7 +41,7 @@ func New(conf *Configuration) source.Source {
 	baseCollector := colly.NewCollector(collectorOptions...)
 	baseCollector.SetRequestTimeout(30 * time.Second)
 	if conf.NeedsHeadlessBrowser {
-		transport = headless.GetTransportSingleton()
+		transport := headless.GetTransportSingleton()
 		baseCollector.WithTransport(transport)
 	}
 

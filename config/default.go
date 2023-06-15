@@ -315,6 +315,18 @@ Available options are: emoji, kaomoji, plain, squares, nerd (nerd-font required)
 		`Preferred language for mangadex
 Use "any" to show all languages`,
 	},
+
+	{
+		key.SourceHeadlessUseFlaresolverr,
+		false,
+		"Use FlareSolvrr to bypass cloudflare protection for headless sources",
+	},
+	{
+		key.SourceHeadlessFlaresolverrURL,
+		"",
+		"FlareSolvrr server URL",
+	},
+
 	{
 		key.MangadexNSFW,
 		false,

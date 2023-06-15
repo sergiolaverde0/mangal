@@ -1,76 +1,55 @@
 package headless
 
 import (
-	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/launcher"
-	"github.com/go-rod/rod/lib/launcher/flags"
-	"github.com/go-rod/rod/lib/proto"
-	"github.com/ysmood/gson"
+	"github.com/metafates/mangal/key"
+	"github.com/spf13/viper"
 	"net/http"
-	"runtime"
-	"strings"
 	"sync"
 )
 
 var (
-	transportInstance *Transport
+	transportInstance TransportHeadless
 	once              sync.Once
 )
 
-type Transport struct {
-	browser *rod.Browser
+type TransportHeadless interface {
+	// RoundTrip executes a single HTTP transaction, returning
+	// a Response for the provided Request.
+	//
+	// RoundTrip should not attempt to interpret the response. In
+	// particular, RoundTrip must return err == nil if it obtained
+	// a response, regardless of the response's HTTP status code.
+	// A non-nil err should be reserved for failure to obtain a
+	// response. Similarly, RoundTrip should not attempt to
+	// handle higher-level protocol details such as redirects,
+	// authentication, or cookies.
+	//
+	// RoundTrip should not modify the request, except for
+	// consuming and closing the Request's Body. RoundTrip may
+	// read fields of the request in a separate goroutine. Callers
+	// should not mutate or reuse the request until the Response's
+	// Body has been closed.
+	//
+	// RoundTrip must always close the body, including on errors,
+	// but depending on the implementation may do so in a separate
+	// goroutine even after RoundTrip returns. This means that
+	// callers wanting to reuse the body for subsequent requests
+	// must arrange to wait for the Close call before doing so.
+	//
+	// The Request's URL and Header fields must be initialized.
+	RoundTrip(r *http.Request) (*http.Response, error)
+
+	// Close any cleanup when closing the transport
+	Close() error
 }
 
-func GetTransportSingleton() *Transport {
+func GetTransportSingleton() TransportHeadless {
 	once.Do(func() {
-		u := launcher.New().Leakless(runtime.GOOS == "linux").Revision(1131003).Set(flags.Headless, "new").MustLaunch()
-		browser := rod.New().ControlURL(u).MustConnect()
-		transportInstance = &Transport{
-			browser: browser,
+		if viper.GetBool(key.SourceHeadlessUseFlaresolverr) && viper.GetString(key.SourceHeadlessFlaresolverrURL) != "" {
+			transportInstance = NewFlareSolverr()
+			return
 		}
+		transportInstance = newRod()
 	})
 	return transportInstance
-}
-
-func (t Transport) Close() error {
-	return t.browser.Close()
-}
-
-// SetExtraHeaders whether to always send extra HTTP headers with the requests from this page.
-func setExtraHeaders(p *rod.Page, headers http.Header) (func(), error) {
-	gsonHeaders := proto.NetworkHeaders{}
-
-	for key, values := range headers {
-		gsonHeaders[key] = gson.New(strings.Join(values, ";"))
-	}
-
-	return p.EnableDomain(&proto.NetworkEnable{}), proto.NetworkSetExtraHTTPHeaders{Headers: gsonHeaders}.Call(p)
-}
-
-func (t Transport) RoundTrip(request *http.Request) (*http.Response, error) {
-
-	page, err := t.browser.Context(request.Context()).Page(proto.TargetCreateTarget{URL: ""})
-
-	if err != nil {
-		return nil, err
-	}
-
-	_, err = page.SetExtraHeaders([]string{"Referer", request.Header.Get("Referer")})
-	if err != nil {
-		return nil, err
-	}
-
-	err = page.Navigate(request.URL.String())
-	if err != nil {
-		return nil, err
-	}
-	err = page.WaitLoad()
-
-	if err != nil {
-		return nil, err
-	}
-	return &http.Response{Body: newPageReader(page),
-		StatusCode: 200,
-		Header:     map[string][]string{"Content-Type": {"text/html"}},
-	}, nil
 }

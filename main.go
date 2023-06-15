@@ -10,7 +10,7 @@ import (
 
 func main() {
 	transport := headless.GetTransportSingleton()
-	defer func(transport *headless.Transport) {
+	defer func(transport headless.TransportHeadless) {
 		_ = transport.Close()
 	}(transport)
 	lo.Must0(config.Setup())
