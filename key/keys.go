@@ -3,7 +3,7 @@ package key
 // DefinedFieldsCount is the number of fields defined in this package.
 // You have to manually update this number when you add a new field
 // to check later if every field has a defined default value
-const DefinedFieldsCount = 56
+const DefinedFieldsCount = 58
 
 const (
 	DownloaderPath                = "downloader.path"
@@ -66,6 +66,11 @@ const (
 	MangadexNSFW                    = "mangadex.nsfw"
 	MangadexShowUnavailableChapters = "mangadex.show_unavailable_chapters"
 	MangadexAvoidDuplicateChapters  = "mangadex.avoid_duplicated_chapters"
+)
+
+const (
+	SourceHeadlessUseFlaresolverr = "source.headless.use_flaresolverr"
+	SourceHeadlessFlaresolverrURL = "source.headless.flaresolverr_url"
 )
 
 const (
