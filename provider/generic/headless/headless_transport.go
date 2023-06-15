@@ -9,18 +9,27 @@ import (
 	"net/http"
 	"runtime"
 	"strings"
+	"sync"
+)
+
+var (
+	transportInstance *Transport
+	once              sync.Once
 )
 
 type Transport struct {
 	browser *rod.Browser
 }
 
-func New() *Transport {
-	u := launcher.New().Leakless(runtime.GOOS == "linux").Revision(1131003).Set(flags.Headless, "new").MustLaunch()
-	browser := rod.New().ControlURL(u).MustConnect()
-	return &Transport{
-		browser: browser,
-	}
+func GetTransportSingleton() *Transport {
+	once.Do(func() {
+		u := launcher.New().Leakless(runtime.GOOS == "linux").Revision(1131003).Set(flags.Headless, "new").MustLaunch()
+		browser := rod.New().ControlURL(u).MustConnect()
+		transportInstance = &Transport{
+			browser: browser,
+		}
+	})
+	return transportInstance
 }
 
 func (t Transport) Close() error {

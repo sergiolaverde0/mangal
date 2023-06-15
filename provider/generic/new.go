@@ -43,7 +43,7 @@ func New(conf *Configuration) source.Source {
 	baseCollector := colly.NewCollector(collectorOptions...)
 	baseCollector.SetRequestTimeout(30 * time.Second)
 	if conf.NeedsHeadlessBrowser {
-		transport = headless.New()
+		transport = headless.GetTransportSingleton()
 		baseCollector.WithTransport(transport)
 	}
 
