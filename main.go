@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
+	lo.Must0(config.Setup())
+	lo.Must0(log.Setup())
 	transport := headless.GetTransportSingleton()
 	defer func(transport headless.TransportHeadless) {
 		_ = transport.Close()
 	}(transport)
-	lo.Must0(config.Setup())
-	lo.Must0(log.Setup())
 	cmd.Execute()
 }

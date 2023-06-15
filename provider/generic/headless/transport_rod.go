@@ -9,22 +9,23 @@ import (
 	"net/http"
 	"runtime"
 	"strings"
+	"sync"
 )
 
 type TransportRod struct {
-	browser *rod.Browser
+	browser        *rod.Browser
+	browserBuilder sync.Once
 }
 
 func (t TransportRod) Close() error {
+	if t.browser == nil {
+		return nil
+	}
 	return t.browser.Close()
 }
 
 func newRod() *TransportRod {
-	u := launcher.New().Leakless(runtime.GOOS == "linux").Revision(1131003).Set(flags.Headless, "new").MustLaunch()
-	browser := rod.New().ControlURL(u).MustConnect()
-	return &TransportRod{
-		browser: browser,
-	}
+	return &TransportRod{}
 }
 
 // SetExtraHeaders whether to always send extra HTTP headers with the requests from this page.
@@ -40,6 +41,10 @@ func setExtraHeaders(p *rod.Page, headers http.Header) (func(), error) {
 
 func (t TransportRod) RoundTrip(request *http.Request) (*http.Response, error) {
 
+	t.browserBuilder.Do(func() {
+		u := launcher.New().Leakless(runtime.GOOS == "linux").Revision(1131003).Set(flags.Headless, "new").MustLaunch()
+		t.browser = rod.New().ControlURL(u).MustConnect()
+	})
 	page, err := t.browser.Context(request.Context()).Page(proto.TargetCreateTarget{URL: ""})
 
 	if err != nil {
