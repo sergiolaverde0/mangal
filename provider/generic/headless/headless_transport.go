@@ -2,6 +2,7 @@ package headless
 
 import (
 	"github.com/metafates/mangal/key"
+	"github.com/metafates/mangal/log"
 	"github.com/spf13/viper"
 	"net/http"
 	"sync"
@@ -46,6 +47,13 @@ type TransportHeadless interface {
 func GetTransportSingleton() TransportHeadless {
 	once.Do(func() {
 		if viper.GetBool(key.SourceHeadlessUseFlaresolverr) && viper.GetString(key.SourceHeadlessFlaresolverrURL) != "" {
+			result, err := http.Get(viper.GetString(key.SourceHeadlessFlaresolverrURL))
+			defer result.Body.Close()
+			if err != nil || result.StatusCode != 200 {
+				log.Error("Couldn't connect to flaresolverr, falling back to rod")
+				transportInstance = newRod()
+				return
+			}
 			transportInstance = NewFlareSolverr()
 			return
 		}
