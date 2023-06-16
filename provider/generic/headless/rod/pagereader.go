@@ -1,4 +1,4 @@
-package headless
+package rod
 
 import (
 	"github.com/go-rod/rod"
