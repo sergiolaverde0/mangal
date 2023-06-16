@@ -3,10 +3,10 @@ package version
 import (
 	"encoding/json"
 	"errors"
+	"github.com/belphemur/mangal/filesystem"
+	"github.com/belphemur/mangal/util"
+	"github.com/belphemur/mangal/where"
 	"github.com/metafates/gache"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/util"
-	"github.com/metafates/mangal/where"
 	"net/http"
 	"path/filepath"
 	"time"

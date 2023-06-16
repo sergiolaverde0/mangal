@@ -2,10 +2,10 @@ package converter
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/converter/none"
-	"github.com/metafates/mangal/converter/webp"
-	"github.com/metafates/mangal/source"
+	"github.com/belphemur/mangal/constant"
+	"github.com/belphemur/mangal/converter/none"
+	"github.com/belphemur/mangal/converter/webp"
+	"github.com/belphemur/mangal/source"
 	"github.com/samber/lo"
 	"strings"
 )

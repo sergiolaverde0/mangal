@@ -34,7 +34,7 @@ download() {
 }
 
 pre_run() {
-    RELEASES_URL="https://github.com/metafates/mangal/releases"
+    RELEASES_URL="https://github.com/belphemur/mangal/releases"
     FILE_BASENAME="mangal"
 
     info "Fetching latest version..."

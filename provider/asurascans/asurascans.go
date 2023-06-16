@@ -2,7 +2,7 @@ package asurascans
 
 import (
 	"github.com/PuerkitoBio/goquery"
-	"github.com/metafates/mangal/provider/generic"
+	"github.com/belphemur/mangal/provider/generic"
 	"strings"
 	"time"
 )

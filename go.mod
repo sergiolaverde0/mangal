@@ -1,4 +1,4 @@
-module github.com/metafates/mangal
+module github.com/belphemur/mangal
 
 go 1.20
 

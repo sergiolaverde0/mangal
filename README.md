@@ -46,7 +46,7 @@ curl -sSL mangal.metafates.one/run | sh
 - __Caching__ - Mangal will cache as much data as possible, so you don't have to wait for it to download the same data over and over again. 
 - __4 Different export formats__ - PDF, CBZ, ZIP and plain images
 - __TUI ✨__ - You already know how to use it! (ﾉ>ω<)ﾉ :｡･::･ﾟ’★,｡･:･ﾟ’☆
-- __Scriptable__ - You can use Mangal in your scripts, it's just a CLI app after all. [Examples](https://github.com/metafates/mangal/wiki/Inline-mode)
+- __Scriptable__ - You can use Mangal in your scripts, it's just a CLI app after all. [Examples](https://github.com/belphemur/mangal/wiki/Inline-mode)
 - __History__ - Resume your reading from where you left off!
 - __Fast?__ - YES.
 - __Monolith__ - ZERO runtime dependencies. Even Lua is built in. Easy to install and use.
@@ -57,7 +57,7 @@ curl -sSL mangal.metafates.one/run | sh
 
 ### Script (Linux, MacOS, Termux)
 
-Install using [this shell script](https://github.com/metafates/mangal/blob/main/scripts/install)
+Install using [this shell script](https://github.com/belphemur/mangal/blob/main/scripts/install)
 
 ```shell
 curl -sSL mangal.metafates.one/install | sh
@@ -150,10 +150,10 @@ make build # if you want to just build the binary
 
 ```shell
 # To build
-go build -ldflags "-X 'github.com/metafates/mangal/constant.BuiltAt=$(date -u)' -X 'github.com/metafates/mangal/constant.BuiltBy=$(whoami)' -X 'github.com/metafates/mangal/constant.Revision=$(git rev-parse --short HEAD)' -s -w"
+go build -ldflags "-X 'github.com/belphemur/mangal/constant.BuiltAt=$(date -u)' -X 'github.com/belphemur/mangal/constant.BuiltBy=$(whoami)' -X 'github.com/belphemur/mangal/constant.Revision=$(git rev-parse --short HEAD)' -s -w"
 
 # To install
-go install -ldflags "-X 'github.com/metafates/mangal/constant.BuiltAt=$(date -u)' -X 'github.com/metafates/mangal/constant.BuiltBy=$(whoami)' -X 'github.com/metafates/mangal/constant.Revision=$(git rev-parse --short HEAD)' -s -w"
+go install -ldflags "-X 'github.com/belphemur/mangal/constant.BuiltAt=$(date -u)' -X 'github.com/belphemur/mangal/constant.BuiltBy=$(whoami)' -X 'github.com/belphemur/mangal/constant.Revision=$(git rev-parse --short HEAD)' -s -w"
 ```
 
 </details>
@@ -168,7 +168,7 @@ GOOS=linux GOARCH=arm64 make build
 
 ### Pre-compiled
 
-Download the pre-compiled binaries from the [releases page](https://github.com/metafates/mangal/releases/latest)
+Download the pre-compiled binaries from the [releases page](https://github.com/belphemur/mangal/releases/latest)
 and copy them to the desired location.
 
 ## Usage
@@ -222,7 +222,7 @@ Inline mode is intended for use with other scripts.
 
 Type `mangal help inline` for more information.
 
-See [Wiki](https://github.com/metafates/mangal/wiki/Inline-mode) for more examples.
+See [Wiki](https://github.com/belphemur/mangal/wiki/Inline-mode) for more examples.
 
 <p align="center">
     <img alt="Mangal 4 Inline" src="assets/inline.gif">
@@ -286,7 +286,7 @@ Mangal also supports integration with anilist.
 Besides fetching metadata for each manga when downloading,
 mangal can also mark chapters as read on your Anilsit profile when you read them inside mangal.
 
-For more information see [wiki](https://github.com/metafates/mangal/wiki/Anilist-Integration)
+For more information see [wiki](https://github.com/belphemur/mangal/wiki/Anilist-Integration)
 
 ## Honorable mentions
 
@@ -318,7 +318,7 @@ For more information see [wiki](https://github.com/metafates/mangal/wiki/Anilist
 And of course, thanks to all contributors! You are awesome!
 
 <p align="center">
-<a href="https://github.com/metafates/mangal/graphs/contributors">
+<a href="https://github.com/belphemur/mangal/graphs/contributors">
   <img alt="Contributors" src="https://contrib.rocks/image?repo=metafates/mangal" />
 </a>
 </p>

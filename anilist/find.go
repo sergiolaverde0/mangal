@@ -2,9 +2,9 @@ package anilist
 
 import (
 	"fmt"
+	"github.com/belphemur/mangal/log"
+	"github.com/belphemur/mangal/util"
 	levenshtein "github.com/ka-weihe/fast-levenshtein"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/util"
 	"github.com/samber/lo"
 	"strings"
 )

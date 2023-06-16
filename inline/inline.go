@@ -1,10 +1,10 @@
 package inline
 
 import (
-	"github.com/metafates/mangal/downloader"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/source"
+	"github.com/belphemur/mangal/downloader"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/log"
+	"github.com/belphemur/mangal/source"
 	"github.com/spf13/viper"
 	"os"
 )

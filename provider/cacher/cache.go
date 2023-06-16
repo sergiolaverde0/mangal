@@ -1,10 +1,10 @@
 package cacher
 
 import (
+	"github.com/belphemur/mangal/filesystem"
+	"github.com/belphemur/mangal/util"
+	"github.com/belphemur/mangal/where"
 	"github.com/metafates/gache"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/util"
-	"github.com/metafates/mangal/where"
 	"github.com/samber/mo"
 	"path/filepath"
 	"time"

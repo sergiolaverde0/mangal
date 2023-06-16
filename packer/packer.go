@@ -2,12 +2,12 @@ package packer
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/packer/cbz"
-	"github.com/metafates/mangal/packer/pdf"
-	"github.com/metafates/mangal/packer/plain"
-	"github.com/metafates/mangal/packer/zip"
-	"github.com/metafates/mangal/source"
+	"github.com/belphemur/mangal/constant"
+	"github.com/belphemur/mangal/packer/cbz"
+	"github.com/belphemur/mangal/packer/pdf"
+	"github.com/belphemur/mangal/packer/plain"
+	"github.com/belphemur/mangal/packer/zip"
+	"github.com/belphemur/mangal/source"
 	"github.com/samber/lo"
 	"strings"
 )

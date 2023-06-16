@@ -2,12 +2,12 @@ package source
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/util"
-	"github.com/metafates/mangal/where"
+	"github.com/belphemur/mangal/anilist"
+	"github.com/belphemur/mangal/filesystem"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/log"
+	"github.com/belphemur/mangal/util"
+	"github.com/belphemur/mangal/where"
 	"github.com/samber/lo"
 	"github.com/samber/mo"
 	"github.com/spf13/viper"

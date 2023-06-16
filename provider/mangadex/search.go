@@ -2,9 +2,9 @@ package mangadex
 
 import (
 	"fmt"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/source"
 	"github.com/darylhjd/mangodex"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/source"
 	"github.com/spf13/viper"
 	"log"
 	"net/url"

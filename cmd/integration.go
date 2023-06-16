@@ -3,11 +3,11 @@ package cmd
 import (
 	"fmt"
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/metafates/mangal/icon"
-	"github.com/metafates/mangal/integration/anilist"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/open"
+	"github.com/belphemur/mangal/icon"
+	"github.com/belphemur/mangal/integration/anilist"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/log"
+	"github.com/belphemur/mangal/open"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -29,7 +29,7 @@ var integrationAnilistCmd = &cobra.Command{
 	Use:   "anilist",
 	Short: "Integration with Anilist",
 	Long: `Integration with Anilist.
-See https://github.com/metafates/mangal/wiki/Anilist-Integration for more information`,
+See https://github.com/belphemur/mangal/wiki/Anilist-Integration for more information`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if lo.Must(cmd.Flags().GetBool("disable")) {
 			viper.Set(key.AnilistEnable, false)

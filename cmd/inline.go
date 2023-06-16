@@ -4,16 +4,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/belphemur/mangal/anilist"
+	"github.com/belphemur/mangal/filesystem"
+	"github.com/belphemur/mangal/inline"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/packer"
+	"github.com/belphemur/mangal/provider"
+	"github.com/belphemur/mangal/query"
+	"github.com/belphemur/mangal/source"
+	"github.com/belphemur/mangal/update"
 	"github.com/invopop/jsonschema"
-	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/inline"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/packer"
-	"github.com/metafates/mangal/provider"
-	"github.com/metafates/mangal/query"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/update"
 	"github.com/samber/lo"
 	"github.com/samber/mo"
 	"github.com/spf13/cobra"
@@ -69,7 +69,7 @@ Chapter selectors:
 
 When using the json flag manga selector could be omitted. That way, it will select all mangas`,
 
-	Example: "https://github.com/metafates/mangal/wiki/Inline-mode",
+	Example: "https://github.com/belphemur/mangal/wiki/Inline-mode",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		json, _ := cmd.Flags().GetBool("json")
 

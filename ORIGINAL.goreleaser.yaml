@@ -18,9 +18,9 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -X 'github.com/metafates/mangal/constant.BuiltAt={{ .Date }}'
-      - -X 'github.com/metafates/mangal/constant.BuiltBy={{ .Env.USER }}'
-      - -X 'github.com/metafates/mangal/constant.Revision={{ .ShortCommit }}'
+      - -X 'github.com/belphemur/mangal/constant.BuiltAt={{ .Date }}'
+      - -X 'github.com/belphemur/mangal/constant.BuiltBy={{ .Env.USER }}'
+      - -X 'github.com/belphemur/mangal/constant.Revision={{ .ShortCommit }}'
       - -s
       - -w
 
@@ -148,11 +148,11 @@ release:
 
   footer: |
 
-    **Full Changelog**: https://github.com/metafates/mangal/compare/{{ .PreviousTag }}...{{ .Tag }}
+    **Full Changelog**: https://github.com/belphemur/mangal/compare/{{ .PreviousTag }}...{{ .Tag }}
 
     ---
 
-    Bugs? Suggestions? [Open an issue](https://github.com/metafates/mangal/issues/new/choose)
+    Bugs? Suggestions? [Open an issue](https://github.com/belphemur/mangal/issues/new/choose)
 
 nfpms:
   - file_name_template: "{{ .ConventionalFileName }}"

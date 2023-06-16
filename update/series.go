@@ -3,8 +3,8 @@ package update
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/source"
+	"github.com/belphemur/mangal/filesystem"
+	"github.com/belphemur/mangal/source"
 	"path/filepath"
 )
 

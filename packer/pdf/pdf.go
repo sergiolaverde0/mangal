@@ -1,11 +1,11 @@
 package pdf
 
 import (
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/util"
+	"github.com/belphemur/mangal/constant"
+	"github.com/belphemur/mangal/filesystem"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/source"
+	"github.com/belphemur/mangal/util"
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 	"github.com/pdfcpu/pdfcpu/pkg/log"
 	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu"

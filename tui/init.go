@@ -2,10 +2,10 @@ package tui
 
 import (
 	"fmt"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/provider"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/provider"
 	"github.com/spf13/viper"
 )
 
