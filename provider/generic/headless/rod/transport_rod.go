@@ -1,4 +1,4 @@
-package headless
+package rod
 
 import (
 	"github.com/go-rod/rod"
@@ -24,7 +24,7 @@ func (t TransportRod) Close() error {
 	return t.browser.Close()
 }
 
-func newRod() *TransportRod {
+func NewTransport() *TransportRod {
 	return &TransportRod{}
 }
 
