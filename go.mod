@@ -35,7 +35,7 @@ require (
 	github.com/yuin/gopher-lua v1.1.0
 	golang.org/x/exp v0.0.0-20230113213754-f9f960f08ad4
 	golang.org/x/image v0.8.0
-	golang.org/x/term v0.8.0
+	golang.org/x/term v0.9.0
 )
 
 require (
@@ -98,7 +98,7 @@ require (
 	github.com/yuin/gluamapper v0.0.0-20150323120927-d836955830e7 // indirect
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.8.0 // indirect
+	golang.org/x/sys v0.9.0 // indirect
 	golang.org/x/text v0.10.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
