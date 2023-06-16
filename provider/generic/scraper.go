@@ -1,9 +1,9 @@
 package generic
 
 import (
+	"github.com/belphemur/mangal/provider/cacher"
 	"github.com/belphemur/mangal/source"
 	"github.com/gocolly/colly/v2"
-	"github.com/metafates/mangal/source"
 )
 
 // Scraper is a generic scraper downloads html pages and parses them
@@ -17,8 +17,8 @@ type Scraper struct {
 	pages    map[string][]*source.Page
 
 	cache struct {
-		mangas   *cacher.Cacher[[]*source.Manga]
-		chapters *cacher.Cacher[[]*source.Chapter]
+		mangas   *cacher.Cacher[[]*source.Manga]   `json:"mangas,omitempty"`
+		chapters *cacher.Cacher[[]*source.Chapter] `json:"chapters,omitempty"`
 	}
 
 	config *Configuration

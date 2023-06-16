@@ -2,7 +2,7 @@ package custom
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/provider/cacher"
+	"github.com/belphemur/mangal/provider/cacher"
 	"github.com/belphemur/mangal/source"
 	lua "github.com/yuin/gopher-lua"
 	"time"
