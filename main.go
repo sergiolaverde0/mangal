@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/metafates/mangal/cmd"
-	"github.com/metafates/mangal/config"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/provider/generic/headless"
+	"github.com/belphemur/mangal/cmd"
+	"github.com/belphemur/mangal/config"
+	"github.com/belphemur/mangal/log"
+	"github.com/belphemur/mangal/provider/generic/headless"
 	"github.com/samber/lo"
 )
 

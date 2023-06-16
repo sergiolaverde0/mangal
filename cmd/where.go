@@ -1,13 +1,13 @@
 package cmd
 
 import (
-	"github.com/metafates/mangal/color"
+	"github.com/belphemur/mangal/color"
 	"github.com/samber/mo"
 	"os"
 
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/where"
+	"github.com/belphemur/mangal/constant"
+	"github.com/belphemur/mangal/style"
+	"github.com/belphemur/mangal/where"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 )

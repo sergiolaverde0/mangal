@@ -2,15 +2,15 @@ package downloader
 
 import (
 	"fmt"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/history"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/open"
-	"github.com/metafates/mangal/packer"
-	"github.com/metafates/mangal/source"
-	"github.com/metafates/mangal/style"
+	"github.com/belphemur/mangal/color"
+	"github.com/belphemur/mangal/constant"
+	"github.com/belphemur/mangal/history"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/log"
+	"github.com/belphemur/mangal/open"
+	"github.com/belphemur/mangal/packer"
+	"github.com/belphemur/mangal/source"
+	"github.com/belphemur/mangal/style"
 	"github.com/spf13/viper"
 )
 

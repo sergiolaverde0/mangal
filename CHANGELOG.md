@@ -165,7 +165,7 @@ Inline JSON output is different now.
 - Structure was changed
 - Additional fields were added
 
-See [Inline mode wiki](https://github.com/metafates/mangal/wiki/Inline-mode) for new output schemas.
+See [Inline mode wiki](https://github.com/belphemur/mangal/wiki/Inline-mode) for new output schemas.
 
 Please, consider these changes when migrating your applications that use mangal from 3rd version to 4th.
 </details>
@@ -209,7 +209,7 @@ Enjoy!
 ## 3.14.1
 
 - Mark flags as required for `inline anilist` commands
-- Remove `update` command [Why?](https://github.com/metafates/mangal/discussions/112)
+- Remove `update` command [Why?](https://github.com/belphemur/mangal/discussions/112)
 - `mangal version` will notify if new version is available
 - Use correct page image extension for custom sources #110
 

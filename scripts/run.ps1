@@ -6,7 +6,7 @@ $version = $tag.substring(1)
 $loc = "$HOME\AppData\Local\mangal"
 $url = ""
 $arch = $env:PROCESSOR_ARCHITECTURE
-$releases_api_url = "https://github.com/metafates/mangal/releases/download/$tag/mangal_${version}_Windows"
+$releases_api_url = "https://github.com/belphemur/mangal/releases/download/$tag/mangal_${version}_Windows"
 
 if ($arch -eq "AMD64")
 {

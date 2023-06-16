@@ -1,7 +1,7 @@
 package mangadex
 
 import (
-	"github.com/metafates/mangal/key"
+	"github.com/belphemur/mangal/key"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/spf13/viper"
 	"testing"

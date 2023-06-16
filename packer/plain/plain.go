@@ -1,9 +1,9 @@
 package plain
 
 import (
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/filesystem"
-	"github.com/metafates/mangal/source"
+	"github.com/belphemur/mangal/constant"
+	"github.com/belphemur/mangal/filesystem"
+	"github.com/belphemur/mangal/source"
 	"io"
 	"os"
 	"path/filepath"

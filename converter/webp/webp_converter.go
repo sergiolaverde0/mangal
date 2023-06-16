@@ -3,9 +3,9 @@ package webp
 import (
 	"bytes"
 	"fmt"
-	"github.com/metafates/mangal/constant"
-	"github.com/metafates/mangal/packer"
-	"github.com/metafates/mangal/source"
+	"github.com/belphemur/mangal/constant"
+	"github.com/belphemur/mangal/packer"
+	"github.com/belphemur/mangal/source"
 	"github.com/oliamb/cutter"
 	"golang.org/x/exp/slices"
 	_ "golang.org/x/image/webp"

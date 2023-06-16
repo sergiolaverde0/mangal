@@ -3,8 +3,8 @@ package manganato
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/metafates/mangal/provider/generic"
-	"github.com/metafates/mangal/util"
+	"github.com/belphemur/mangal/provider/generic"
+	"github.com/belphemur/mangal/util"
 	"net/url"
 	"regexp"
 	"strconv"

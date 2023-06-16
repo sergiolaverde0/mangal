@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/metafates/mangal/anilist"
-	"github.com/metafates/mangal/log"
-	"github.com/metafates/mangal/source"
+	"github.com/belphemur/mangal/anilist"
+	"github.com/belphemur/mangal/log"
+	"github.com/belphemur/mangal/source"
 	"net/http"
 	"strconv"
 )

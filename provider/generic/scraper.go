@@ -1,8 +1,8 @@
 package generic
 
 import (
+	"github.com/belphemur/mangal/source"
 	"github.com/gocolly/colly/v2"
-	"github.com/metafates/mangal/provider/cacher"
 	"github.com/metafates/mangal/source"
 )
 

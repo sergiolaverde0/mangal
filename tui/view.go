@@ -2,12 +2,12 @@ package tui
 
 import (
 	"fmt"
+	"github.com/belphemur/mangal/color"
+	"github.com/belphemur/mangal/icon"
+	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/style"
+	"github.com/belphemur/mangal/util"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/metafates/mangal/color"
-	"github.com/metafates/mangal/icon"
-	"github.com/metafates/mangal/key"
-	"github.com/metafates/mangal/style"
-	"github.com/metafates/mangal/util"
 	"github.com/muesli/reflow/wrap"
 	"github.com/spf13/viper"
 	"math/rand"

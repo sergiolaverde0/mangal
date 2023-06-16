@@ -1,8 +1,8 @@
 package mangapill
 
 import (
-	"github.com/metafates/mangal/provider/generic"
-	"github.com/metafates/mangal/util"
+	"github.com/belphemur/mangal/provider/generic"
+	"github.com/belphemur/mangal/util"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )

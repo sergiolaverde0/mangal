@@ -1,7 +1,7 @@
 package packer
 
 import (
-	"github.com/metafates/mangal/source"
+	"github.com/belphemur/mangal/source"
 	"image"
 )
 

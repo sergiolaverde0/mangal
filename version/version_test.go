@@ -1,7 +1,7 @@
 package version
 
 import (
-	"github.com/metafates/mangal/constant"
+	"github.com/belphemur/mangal/constant"
 	. "github.com/smartystreets/goconvey/convey"
 	"regexp"
 	"runtime"
