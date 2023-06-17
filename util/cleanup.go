@@ -6,7 +6,9 @@ import (
 )
 
 func Exit(code int) {
-	transport := headless.GetTransportSingleton()
-	_ = transport.Close()
+	if headless.IsLoaded() {
+		transport := headless.GetTransportSingleton()
+		_ = transport.Close()
+	}
 	os.Exit(code)
 }

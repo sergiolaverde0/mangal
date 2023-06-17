@@ -22,6 +22,11 @@ type TransportHeadless interface {
 	io.Closer
 }
 
+// IsLoaded returns true if the headless transport is loaded
+func IsLoaded() bool {
+	return transportInstance != nil
+}
+
 func GetTransportSingleton() TransportHeadless {
 	once.Do(func() {
 		if viper.GetBool(key.SourceHeadlessUseFlaresolverr) && viper.GetString(key.SourceHeadlessFlaresolverrURL) != "" {
