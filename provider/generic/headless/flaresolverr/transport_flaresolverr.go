@@ -15,16 +15,16 @@ import (
 )
 
 type TransportFlaresolevrr struct {
-	client *http.Client
-	uuid   uuid.UUID
-	mutex  sync.Mutex
+	client      *http.Client
+	uuid        uuid.UUID
+	mutex       sync.Mutex
+	uuidBuilder sync.Once
 }
 
 func NewTransport() *TransportFlaresolevrr {
 
 	return &TransportFlaresolevrr{
 		client: new(http.Client),
-		uuid:   uuid.New(),
 	}
 }
 
@@ -34,6 +34,9 @@ func unmarshalJSON[T any](b []byte) (v T, err error) {
 
 func (t TransportFlaresolevrr) RoundTrip(r *http.Request) (*http.Response, error) {
 
+	t.uuidBuilder.Do(func() {
+		t.uuid = uuid.New()
+	})
 	t.mutex.Lock()
 	defer t.mutex.Unlock()
 
@@ -110,6 +113,9 @@ func (t TransportFlaresolevrr) RoundTrip(r *http.Request) (*http.Response, error
 }
 
 func (t TransportFlaresolevrr) Close() error {
+	if t.uuid == uuid.Nil {
+		return nil
+	}
 	req, err := json.Marshal(request{
 		Cmd:     "sessions.destroy",
 		Session: t.uuid.String(),
