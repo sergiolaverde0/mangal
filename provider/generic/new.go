@@ -25,10 +25,7 @@ func standardizeSpaces(s string) string {
 // New generates a new scraper with given configuration
 func New(conf *Configuration) source.Source {
 	s := Scraper{
-		mangas:   make(map[string][]*source.Manga),
-		chapters: make(map[string][]*source.Chapter),
-		pages:    make(map[string][]*source.Page),
-		config:   conf,
+		config: conf,
 	}
 	s.cache.mangas = cacher.NewCacher[[]*source.Manga](fmt.Sprintf("%s_%s", conf.Name, "mangas"), 6*time.Hour)
 	s.cache.chapters = cacher.NewCacher[[]*source.Chapter](fmt.Sprintf("%s_%s", conf.Name, "chapters"), 6*time.Hour)
@@ -57,8 +54,6 @@ func New(conf *Configuration) source.Source {
 	// Get mangas
 	mangasCollector.OnHTML("html", func(e *colly.HTMLElement) {
 		elements := e.DOM.Find(s.config.MangaExtractor.Selector)
-		path := e.Request.URL.String()
-		s.mangas[path] = make([]*source.Manga, elements.Length())
 
 		elements.Each(func(i int, selection *goquery.Selection) {
 			link := s.config.MangaExtractor.URL(selection)
@@ -74,7 +69,7 @@ func New(conf *Configuration) source.Source {
 			}
 			manga.Metadata.Cover.ExtraLarge = s.config.MangaExtractor.Cover(selection)
 
-			s.mangas[path][i] = &manga
+			s.mangas = append(s.mangas, &manga)
 		})
 	})
 
@@ -96,8 +91,6 @@ func New(conf *Configuration) source.Source {
 	// Get chapters
 	chaptersCollector.OnHTML("html", func(e *colly.HTMLElement) {
 		elements := e.DOM.Find(s.config.ChapterExtractor.Selector)
-		path := e.Request.AbsoluteURL(e.Request.URL.Path)
-		s.chapters[path] = make([]*source.Chapter, elements.Length())
 		manga := e.Request.Ctx.GetAny("manga").(*source.Manga)
 
 		elements.Each(func(i int, selection *goquery.Selection) {
@@ -130,9 +123,9 @@ func New(conf *Configuration) source.Source {
 				Manga:       manga,
 				Volume:      s.config.ChapterExtractor.Volume(selection),
 			}
-			s.chapters[path][i] = &chapter
+			s.chapters = append(s.chapters, &chapter)
 		})
-		manga.Chapters = s.chapters[path]
+		manga.Chapters = s.chapters
 	})
 	_ = chaptersCollector.Limit(&colly.LimitRule{
 		Parallelism: int(s.config.Parallelism),
@@ -151,8 +144,6 @@ func New(conf *Configuration) source.Source {
 	// Get pages
 	pagesCollector.OnHTML("html", func(e *colly.HTMLElement) {
 		elements := e.DOM.Find(s.config.PageExtractor.Selector)
-		path := e.Request.AbsoluteURL(e.Request.URL.Path)
-		s.pages[path] = make([]*source.Page, elements.Length())
 		chapter := e.Request.Ctx.GetAny("chapter").(*source.Chapter)
 
 		elements.Each(func(i int, selection *goquery.Selection) {
@@ -167,9 +158,9 @@ func New(conf *Configuration) source.Source {
 				Chapter:   chapter,
 				Extension: ext,
 			}
-			s.pages[path][i] = &page
+			s.pages = append(s.pages, &page)
 		})
-		chapter.Pages = s.pages[path]
+		chapter.Pages = s.pages
 	})
 	_ = pagesCollector.Limit(&colly.LimitRule{
 		Parallelism: int(s.config.Parallelism),

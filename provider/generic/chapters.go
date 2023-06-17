@@ -17,10 +17,6 @@ func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 		return c, nil
 	}
 
-	if chapters, ok := s.chapters[manga.URL]; ok {
-		return chapters, nil
-	}
-
 	ctx := colly.NewContext()
 	ctx.Put("manga", manga)
 	err := s.chaptersCollector.Request(http.MethodGet, manga.URL, nil, ctx, nil)
@@ -33,7 +29,7 @@ func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 	if s.config.ReverseChapters {
 		// reverse chapters
-		chapters := s.chapters[manga.URL]
+		chapters := s.chapters
 		reversed := make([]*source.Chapter, len(chapters))
 		for i, chapter := range chapters {
 			reversed[len(chapters)-i-1] = chapter
@@ -41,9 +37,9 @@ func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 			chapter.Index++
 		}
 
-		s.chapters[manga.URL] = reversed
+		s.chapters = reversed
 	}
-	_ = s.cache.chapters.Set(manga.URL, s.chapters[manga.URL])
+	_ = s.cache.chapters.Set(manga.URL, s.chapters)
 
-	return s.chapters[manga.URL], nil
+	return s.chapters, nil
 }
