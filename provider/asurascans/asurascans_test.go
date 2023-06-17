@@ -2,11 +2,13 @@ package asurascans
 
 import (
 	"github.com/belphemur/mangal/provider/generic"
+	"github.com/belphemur/mangal/provider/generic/headless"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
 func TestAsurascans(t *testing.T) {
+	defer headless.GetTransportSingleton().Close()
 	Convey("Given a asurascans instance", t, func() {
 		asurascans := generic.New(Config)
 		Convey("When searching for a manga", func() {
