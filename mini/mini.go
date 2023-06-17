@@ -5,7 +5,6 @@ import (
 	"github.com/belphemur/mangal/source"
 	"github.com/belphemur/mangal/util"
 	"github.com/samber/lo"
-	"os"
 )
 
 var (
@@ -113,7 +112,7 @@ func (m *mini) handleState() error {
 	case chaptersDownloadState:
 		return m.handleChaptersDownloadState()
 	case quitState:
-		os.Exit(0)
+		util.Exit(0)
 	}
 
 	return nil
