@@ -3,11 +3,13 @@ package asurascans
 import (
 	"github.com/belphemur/mangal/provider/generic"
 	"github.com/belphemur/mangal/provider/generic/headless"
+	"github.com/belphemur/mangal/util"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
 func TestAsurascans(t *testing.T) {
+	util.SkipCI(t)
 	defer headless.GetTransportSingleton().Close()
 	Convey("Given a asurascans instance", t, func() {
 		asurascans := generic.New(Config)
