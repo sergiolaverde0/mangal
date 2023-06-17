@@ -18,7 +18,7 @@ var Config = &generic.Configuration{
 	Delay:           50 * time.Millisecond,
 	Parallelism:     50,
 	ReverseChapters: true,
-	BaseURL:         "https://ww5.manganelo.tv",
+	BaseURL:         "https://ww6.manganelo.tv/",
 	GenerateSearchURL: func(baseUrl string, query string) string {
 		query = strings.TrimSpace(query)
 		query = strings.ToLower(query)
