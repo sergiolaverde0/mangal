@@ -25,6 +25,7 @@ func NewTransport() *TransportFlaresolevrr {
 
 	return &TransportFlaresolevrr{
 		client: new(http.Client),
+		uuid:   uuid.Nil,
 	}
 }
 
@@ -32,7 +33,7 @@ func unmarshalJSON[T any](b []byte) (v T, err error) {
 	return v, json.Unmarshal(b, &v)
 }
 
-func (t TransportFlaresolevrr) RoundTrip(r *http.Request) (*http.Response, error) {
+func (t *TransportFlaresolevrr) RoundTrip(r *http.Request) (*http.Response, error) {
 
 	t.uuidBuilder.Do(func() {
 		t.uuid = uuid.New()
@@ -112,7 +113,7 @@ func (t TransportFlaresolevrr) RoundTrip(r *http.Request) (*http.Response, error
 	return response, nil
 }
 
-func (t TransportFlaresolevrr) Close() error {
+func (t *TransportFlaresolevrr) Close() error {
 	if t.uuid == uuid.Nil {
 		return nil
 	}
