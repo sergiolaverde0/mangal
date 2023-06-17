@@ -12,9 +12,9 @@ type Scraper struct {
 	chaptersCollector *colly.Collector
 	pagesCollector    *colly.Collector
 
-	mangas   map[string][]*source.Manga
-	chapters map[string][]*source.Chapter
-	pages    map[string][]*source.Page
+	mangas   []*source.Manga
+	chapters []*source.Chapter
+	pages    []*source.Page
 
 	cache struct {
 		mangas   *cacher.Cacher[[]*source.Manga]   `json:"mangas,omitempty"`

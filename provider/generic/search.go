@@ -17,10 +17,6 @@ func (s *Scraper) Search(query string) ([]*source.Manga, error) {
 		return m, nil
 	}
 
-	if urls, ok := s.mangas[address]; ok {
-		return urls, nil
-	}
-
 	err := s.mangasCollector.Visit(address)
 
 	if err != nil {
@@ -29,7 +25,7 @@ func (s *Scraper) Search(query string) ([]*source.Manga, error) {
 
 	s.mangasCollector.Wait()
 
-	_ = s.cache.mangas.Set(address, s.mangas[address])
+	_ = s.cache.mangas.Set(address, s.mangas)
 
-	return s.mangas[address], nil
+	return s.mangas, nil
 }
