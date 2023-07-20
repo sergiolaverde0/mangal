@@ -5,13 +5,14 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/belphemur/mangal/key"
+	key "github.com/belphemur/mangal/key"
 	"github.com/google/uuid"
 	"github.com/spf13/viper"
 	"io"
 	"net/http"
 	"strconv"
 	"sync"
+	"time"
 )
 
 type TransportFlaresolevrr struct {
@@ -43,12 +44,19 @@ func (t *TransportFlaresolevrr) RoundTrip(r *http.Request) (*http.Response, erro
 
 	var req []byte
 	var err error
+	deadline, ok := r.Context().Deadline()
+	var timeout int
+	if ok {
+		timeout = int(deadline.Sub(time.Now()).Milliseconds()) - 1000
+	} else {
+		timeout = 30000
+	}
 	switch r.Method {
 	case "GET":
 		req, err = json.Marshal(request{
 			Cmd:        "request.get",
 			URL:        r.URL.String(),
-			MaxTimeout: 20000,
+			MaxTimeout: timeout,
 			Session:    t.uuid.String(),
 		})
 		break
@@ -60,7 +68,7 @@ func (t *TransportFlaresolevrr) RoundTrip(r *http.Request) (*http.Response, erro
 		req, err = json.Marshal(request{
 			Cmd:        "request.post",
 			URL:        r.URL.String(),
-			MaxTimeout: 20000,
+			MaxTimeout: timeout,
 			Session:    t.uuid.String(),
 			PostData:   string(content),
 		})
@@ -97,6 +105,10 @@ func (t *TransportFlaresolevrr) RoundTrip(r *http.Request) (*http.Response, erro
 
 	if err != nil {
 		return nil, err
+	}
+
+	if flareResponse.Status == "error" {
+		return nil, errors.New(flareResponse.Message)
 	}
 
 	response := &http.Response{
