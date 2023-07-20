@@ -10,7 +10,6 @@ import (
 	"runtime"
 	"strings"
 	"sync"
-	"time"
 )
 
 type TransportRod struct {
@@ -61,7 +60,7 @@ func (t TransportRod) RoundTrip(request *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = page.WaitStable(1*time.Second, 0.5)
+	err = page.WaitLoad()
 
 	if err != nil {
 		return nil, err
