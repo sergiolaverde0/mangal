@@ -1,11 +1,14 @@
 package flaresolverr
 
 import (
+	"context"
 	"github.com/belphemur/mangal/key"
+	"github.com/belphemur/mangal/util"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/spf13/viper"
 	"net/http"
 	"testing"
+	"time"
 )
 
 func init() {
@@ -14,6 +17,8 @@ func init() {
 }
 
 func TestTransportFlaresolevrr(t *testing.T) {
+	util.SkipCI(t)
+
 	transport := NewTransport()
 
 	client := http.Client{
@@ -21,7 +26,8 @@ func TestTransportFlaresolevrr(t *testing.T) {
 	}
 	defer client.CloseIdleConnections()
 	Convey("Flaresolverr can go on ReaperScans", t, func() {
-		req, err := http.NewRequest("GET", "https://www.reaperscans.com", nil)
+		ctx, _ := context.WithTimeout(context.Background(), 120*time.Second)
+		req, err := http.NewRequestWithContext(ctx, "GET", "https://www.reaperscans.com", nil)
 		So(err, ShouldBeNil)
 
 		resp, err := client.Do(req)
