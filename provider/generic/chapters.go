@@ -39,7 +39,10 @@ func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 		s.chapters = reversed
 	}
-	_ = s.cache.chapters.Set(manga.URL, s.chapters)
+	// Only cache if we have chapters
+	if len(s.chapters) > 0 {
+		_ = s.cache.chapters.Set(manga.URL, s.chapters)
+	}
 
 	return s.chapters, nil
 }
