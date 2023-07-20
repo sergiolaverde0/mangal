@@ -8,7 +8,10 @@ import (
 )
 
 func TestMangapill(t *testing.T) {
-	util.SkipCI(t)
+	if util.SkipCI(t) {
+		return
+	}
+
 	Convey("Given a mangapill instance", t, func() {
 		mangapill := generic.New(Config)
 		Convey("When searching for a manga", func() {

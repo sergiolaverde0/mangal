@@ -17,7 +17,9 @@ func init() {
 }
 
 func TestTransportFlaresolevrr(t *testing.T) {
-	util.SkipCI(t)
+	if util.SkipCI(t) {
+		return
+	}
 
 	transport := NewTransport()
 
