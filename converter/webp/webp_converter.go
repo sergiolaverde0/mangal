@@ -28,7 +28,8 @@ func (converter *Converter) Format() (format constant.ConversionFormat) {
 
 func New() *Converter {
 	return &Converter{
-		maxHeight: 16383 / 2,
+		//maxHeight: 16383 / 2,
+		maxHeight: 2000,
 	}
 }
 
