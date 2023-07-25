@@ -13,6 +13,7 @@ func (s *Scraper) LoadChaptersOf(manga *source.Manga) error {
 		for _, chapter := range c {
 			chapter.Manga = manga
 		}
+		manga.Chapters = c
 
 		return nil
 	}
