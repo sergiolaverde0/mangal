@@ -6,15 +6,15 @@ import (
 	"github.com/gocolly/colly/v2"
 )
 
+type MangaResult struct {
+	Mangas []*source.Manga `json:"mangas,omitempty"`
+}
+
 // Scraper is a generic scraper downloads html pages and parses them
 type Scraper struct {
 	mangasCollector   *colly.Collector
 	chaptersCollector *colly.Collector
 	pagesCollector    *colly.Collector
-
-	mangas   []*source.Manga
-	chapters []*source.Chapter
-	pages    []*source.Page
 
 	cache struct {
 		mangas   *cacher.Cacher[[]*source.Manga]   `json:"mangas,omitempty"`

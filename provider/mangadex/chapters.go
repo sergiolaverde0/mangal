@@ -13,13 +13,13 @@ import (
 	"time"
 )
 
-func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
+func (m *Mangadex) LoadChaptersOf(manga *source.Manga) error {
 	if cached, ok := m.cache.chapters.Get(manga.URL).Get(); ok {
 		for _, chapter := range cached {
 			chapter.Manga = manga
 		}
 
-		return cached, nil
+		return nil
 	}
 	avoidDuplicatedChapters := viper.GetBool(key.MangadexAvoidDuplicateChapters)
 
@@ -53,7 +53,7 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 		params.Set("offset", strconv.Itoa(currOffset))
 		list, err := m.client.Chapter.GetMangaChapters(manga.ID, params)
 		if err != nil {
-			return nil, err
+			return err
 		}
 
 		for _, chapter := range list.Data {
@@ -124,5 +124,5 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 	manga.Chapters = chapters
 	_ = m.cache.chapters.Set(manga.URL, chapters)
-	return chapters, nil
+	return nil
 }

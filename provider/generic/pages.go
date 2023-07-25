@@ -7,17 +7,17 @@ import (
 )
 
 // PagesOf given source.Chapter
-func (s *Scraper) PagesOf(chapter *source.Chapter) ([]*source.Page, error) {
+func (s *Scraper) LoadPagesOf(chapter *source.Chapter) error {
 
 	ctx := colly.NewContext()
 	ctx.Put("chapter", chapter)
 	err := s.pagesCollector.Request(http.MethodGet, chapter.URL, nil, ctx, nil)
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	s.pagesCollector.Wait()
 
-	return s.pages, nil
+	return nil
 }

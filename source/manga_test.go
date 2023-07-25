@@ -28,11 +28,11 @@ func (t testSource) Search(string) (mangas []*Manga, err error) {
 	return
 }
 
-func (t testSource) ChaptersOf(*Manga) (chapters []*Chapter, err error) {
+func (t testSource) LoadChaptersOf(*Manga) (err error) {
 	return
 }
 
-func (t testSource) PagesOf(*Chapter) (pages []*Page, err error) {
+func (t testSource) LoadPagesOf(*Chapter) (err error) {
 	return
 }
 

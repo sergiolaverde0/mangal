@@ -30,7 +30,7 @@ func TestMangapill(t *testing.T) {
 					})
 
 					Convey("When gettings chapters for the first manga", func() {
-						chapters, err := mangapill.ChaptersOf(mangas[0])
+						err := mangapill.LoadChaptersOf(mangas[0])
 						Convey("Then the error should be nil", func() {
 							So(err, ShouldBeNil)
 
@@ -46,7 +46,7 @@ func TestMangapill(t *testing.T) {
 								})
 
 								Convey("When getting pages for the first chapter", func() {
-									pages, err := mangapill.PagesOf(chapters[0])
+									err := mangapill.LoadPagesOf(chapters[0])
 									Convey("Then the error should be nil", func() {
 										So(err, ShouldBeNil)
 

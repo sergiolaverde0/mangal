@@ -6,11 +6,11 @@ import (
 	lua "github.com/yuin/gopher-lua"
 )
 
-func (s *luaSource) PagesOf(chapter *source.Chapter) ([]*source.Page, error) {
+func (s *luaSource) LoadPagesOf(chapter *source.Chapter) error {
 	_, err := s.call(constant.ChapterPagesFn, lua.LTTable, lua.LString(chapter.URL))
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	table := s.state.CheckTable(-1)
@@ -34,5 +34,7 @@ func (s *luaSource) PagesOf(chapter *source.Chapter) ([]*source.Page, error) {
 		pages = append(pages, page)
 	})
 
-	return pages, nil
+	chapter.Pages = pages
+
+	return nil
 }

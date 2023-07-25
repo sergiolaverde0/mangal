@@ -8,20 +8,20 @@ import (
 	"strconv"
 )
 
-func (s *luaSource) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
+func (s *luaSource) LoadChaptersOf(manga *source.Manga) error {
 	if chapters := s.cache.chapters.Get(manga.URL); chapters.IsPresent() {
 		c := chapters.MustGet()
 		for _, chapter := range c {
 			chapter.Manga = manga
 		}
 
-		return c, nil
+		return nil
 	}
 
 	_, err := s.call(constant.MangaChaptersFn, lua.LTTable, lua.LString(manga.URL))
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	table := s.state.CheckTable(-1)
@@ -58,5 +58,6 @@ func (s *luaSource) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 	}
 
 	_ = s.cache.chapters.Set(manga.URL, chapters)
-	return chapters, nil
+	manga.Chapters = chapters
+	return nil
 }

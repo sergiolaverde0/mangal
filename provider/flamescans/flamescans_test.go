@@ -25,7 +25,7 @@ func TestFlamescans(t *testing.T) {
 					})
 
 					Convey("When gettings chapters for the first manga", func() {
-						chapters, err := flamescans.ChaptersOf(mangas[0])
+						chapters, err := flamescans.LoadChaptersOf(mangas[0])
 						Convey("Then the error should be nil", func() {
 							So(err, ShouldBeNil)
 
@@ -43,7 +43,7 @@ func TestFlamescans(t *testing.T) {
 								})
 
 								Convey("When getting pages for the first chapter", func() {
-									pages, err := flamescans.PagesOf(chapters[0])
+									err := flamescans.LoadPagesOf(chapters[0])
 									Convey("Then the error should be nil", func() {
 										So(err, ShouldBeNil)
 

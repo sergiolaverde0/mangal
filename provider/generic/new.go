@@ -54,6 +54,7 @@ func New(conf *Configuration) source.Source {
 	// Get mangas
 	mangasCollector.OnHTML("html", func(e *colly.HTMLElement) {
 		elements := e.DOM.Find(s.config.MangaExtractor.Selector)
+		collector := e.Request.Ctx.GetAny("collector").(*MangaResult)
 
 		elements.Each(func(i int, selection *goquery.Selection) {
 			link := s.config.MangaExtractor.URL(selection)
@@ -69,7 +70,7 @@ func New(conf *Configuration) source.Source {
 			}
 			manga.Metadata.Cover.ExtraLarge = s.config.MangaExtractor.Cover(selection)
 
-			s.mangas = append(s.mangas, &manga)
+			collector.Mangas = append(collector.Mangas, &manga)
 		})
 	})
 
@@ -123,9 +124,8 @@ func New(conf *Configuration) source.Source {
 				Manga:       manga,
 				Volume:      s.config.ChapterExtractor.Volume(selection),
 			}
-			s.chapters = append(s.chapters, &chapter)
+			manga.Chapters = append(manga.Chapters, &chapter)
 		})
-		manga.Chapters = s.chapters
 	})
 	_ = chaptersCollector.Limit(&colly.LimitRule{
 		Parallelism: int(s.config.Parallelism),
@@ -158,9 +158,8 @@ func New(conf *Configuration) source.Source {
 				Chapter:   chapter,
 				Extension: ext,
 			}
-			s.pages = append(s.pages, &page)
+			chapter.Pages = append(chapter.Pages, &page)
 		})
-		chapter.Pages = s.pages
 	})
 	_ = pagesCollector.Limit(&colly.LimitRule{
 		Parallelism: int(s.config.Parallelism),
