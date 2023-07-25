@@ -34,7 +34,8 @@ func TestAsurascans(t *testing.T) {
 					})
 
 					Convey("When gettings chapters for the first manga", func() {
-						chapters, err := asurascans.LoadChaptersOf(mangas[0])
+						err := asurascans.LoadChaptersOf(mangas[0])
+						chapters := mangas[0].Chapters
 						Convey("Then the error should be nil", func() {
 							So(err, ShouldBeNil)
 
@@ -52,7 +53,8 @@ func TestAsurascans(t *testing.T) {
 								})
 
 								Convey("When getting pages for the first chapter", func() {
-									pages, err := asurascans.LoadPagesOf(chapters[0])
+									err := asurascans.LoadPagesOf(chapters[0])
+									pages := chapters[0].Pages
 									Convey("Then the error should be nil", func() {
 										So(err, ShouldBeNil)
 
