@@ -34,7 +34,7 @@ func Read(chapter *source.Chapter, progress func(string)) error {
 	log.Infof("downloading %s for reading. Provider is %s", chapter.Name, chapter.Source().ID())
 	log.Infof("getting pages of %s", chapter.Name)
 	progress("Getting pages")
-	pages, err := chapter.Source().PagesOf(chapter)
+	err := chapter.Source().LoadPagesOf(chapter)
 	if err != nil {
 		log.Error(err)
 		return err
@@ -56,7 +56,7 @@ func Read(chapter *source.Chapter, progress func(string)) error {
 	log.Info("converting " + viper.GetString(key.FormatsUse))
 	progress(fmt.Sprintf(
 		"Converting %d pages to %s %s",
-		len(pages),
+		len(chapter.Pages),
 		style.Fg(color.Yellow)(viper.GetString(key.FormatsUse)),
 		style.Faint(chapter.SizeHuman())),
 	)

@@ -25,7 +25,7 @@ func TestManganelo(t *testing.T) {
 					})
 
 					Convey("When gettings chapters for the first manga", func() {
-						chapters, err := manganelo.ChaptersOf(mangas[0])
+						err := manganelo.LoadChaptersOf(mangas[0])
 						Convey("Then the error should be nil", func() {
 							So(err, ShouldBeNil)
 
@@ -43,7 +43,7 @@ func TestManganelo(t *testing.T) {
 								})
 
 								Convey("When getting pages for the first chapter", func() {
-									pages, err := manganelo.PagesOf(chapters[0])
+									err := manganelo.LoadPagesOf(chapters[0])
 									Convey("Then the error should be nil", func() {
 										So(err, ShouldBeNil)
 

@@ -43,12 +43,12 @@ func Download(chapter *source.Chapter, progress func(string)) (string, error) {
 	}
 
 	progress("Getting pages")
-	pages, err := chapter.Source().PagesOf(chapter)
+	err = chapter.Source().LoadPagesOf(chapter)
 	if err != nil {
 		log.Error(err)
 		return "", err
 	}
-	log.Info("found " + fmt.Sprintf("%d", len(pages)) + " pages")
+	log.Info("found " + fmt.Sprintf("%d", len(chapter.Pages)) + " pages")
 
 	err = chapter.DownloadPages(false, progress)
 	if err != nil {
@@ -101,7 +101,7 @@ func Download(chapter *source.Chapter, progress func(string)) (string, error) {
 		log.Info("getting " + conversionFormat + " converter")
 		progress(fmt.Sprintf(
 			"Converting %d pages to %s",
-			len(pages),
+			len(chapter.Pages),
 			style.Fg(color.Yellow)(string(conversionFormat))),
 		)
 		conv, err := converter.Get(conversionFormat)
@@ -119,7 +119,7 @@ func Download(chapter *source.Chapter, progress func(string)) (string, error) {
 	log.Info("getting " + viper.GetString(key.FormatsUse) + " packer")
 	progress(fmt.Sprintf(
 		"Packing %d pages to %s %s",
-		len(pages),
+		len(chapter.Pages),
 		style.Fg(color.Yellow)(viper.GetString(key.FormatsUse)),
 		style.Faint(chapter.SizeHuman())),
 	)

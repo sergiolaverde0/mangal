@@ -130,7 +130,8 @@ func (m *mini) handleChapterSelectState() error {
 	var err error
 
 	erase := progress("Searching Chapters..")
-	m.cachedChapters[m.selectedManga.URL], err = m.selectedSource.ChaptersOf(m.selectedManga)
+	err = m.selectedSource.LoadChaptersOf(m.selectedManga)
+	m.cachedChapters[m.selectedManga.URL] = m.selectedManga.Chapters
 	erase()
 	if err != nil {
 		return err
@@ -404,7 +405,8 @@ func (m *mini) handleHistorySelectState() error {
 		ID:     c.MangaID,
 		Source: s,
 	}
-	chaps, err := m.selectedSource.ChaptersOf(manga)
+	err = m.selectedSource.LoadChaptersOf(manga)
+	chaps := manga.Chapters
 	erase()
 
 	if err != nil {

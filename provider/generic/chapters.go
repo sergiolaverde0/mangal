@@ -7,14 +7,14 @@ import (
 )
 
 // ChaptersOf given source.Manga
-func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
+func (s *Scraper) LoadChaptersOf(manga *source.Manga) error {
 	if chapters := s.cache.chapters.Get(manga.URL); chapters.IsPresent() {
 		c := chapters.MustGet()
 		for _, chapter := range c {
 			chapter.Manga = manga
 		}
 
-		return c, nil
+		return nil
 	}
 
 	ctx := colly.NewContext()
@@ -22,14 +22,14 @@ func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 	err := s.chaptersCollector.Request(http.MethodGet, manga.URL, nil, ctx, nil)
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	s.chaptersCollector.Wait()
 
 	if s.config.ReverseChapters {
 		// reverse chapters
-		chapters := s.chapters
+		chapters := manga.Chapters
 		reversed := make([]*source.Chapter, len(chapters))
 		for i, chapter := range chapters {
 			reversed[len(chapters)-i-1] = chapter
@@ -37,12 +37,12 @@ func (s *Scraper) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 			chapter.Index++
 		}
 
-		s.chapters = reversed
+		manga.Chapters = reversed
 	}
 	// Only cache if we have chapters
-	if len(s.chapters) > 0 {
-		_ = s.cache.chapters.Set(manga.URL, s.chapters)
+	if len(manga.Chapters) > 0 {
+		_ = s.cache.chapters.Set(manga.URL, manga.Chapters)
 	}
 
-	return s.chapters, nil
+	return nil
 }

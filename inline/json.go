@@ -54,11 +54,12 @@ func prepareManga(manga *source.Manga, options *Options) error {
 	}
 
 	if options.ChaptersFilter.IsPresent() {
-		chapters, err := manga.Source.ChaptersOf(manga)
+		err := manga.Source.LoadChaptersOf(manga)
 		if err != nil {
 			return err
 		}
 
+		chapters := manga.Chapters
 		chapters, err = options.ChaptersFilter.MustGet()(chapters)
 		if err != nil {
 			return err
@@ -68,7 +69,7 @@ func prepareManga(manga *source.Manga, options *Options) error {
 
 		if options.PopulatePages {
 			for _, chapter := range chapters {
-				_, err := chapter.Source().PagesOf(chapter)
+				err := chapter.Source().LoadPagesOf(chapter)
 				if err != nil {
 					return err
 				}

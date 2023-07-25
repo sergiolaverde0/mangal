@@ -7,14 +7,14 @@ import (
 	"path/filepath"
 )
 
-func (m *Mangadex) PagesOf(chapter *source.Chapter) ([]*source.Page, error) {
+func (m *Mangadex) LoadPagesOf(chapter *source.Chapter) error {
 	downloader, err := m.client.AtHome.NewMDHomeClient(chapter.ID, "data", false)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	if len(downloader.Pages) == 0 {
-		return nil, errors.New("there were no pages for this chapter")
+		return errors.New("there were no pages for this chapter")
 	}
 
 	var pages = make([]*source.Page, len(downloader.Pages))
@@ -22,11 +22,11 @@ func (m *Mangadex) PagesOf(chapter *source.Chapter) ([]*source.Page, error) {
 	for i, name := range downloader.Pages {
 		image, err := downloader.GetChapterPage(name)
 		if err != nil {
-			return nil, err
+			return err
 		}
 
 		if len(image) == 0 {
-			return nil, errors.New("image is empty")
+			return errors.New("image is empty")
 		}
 
 		page := source.Page{
@@ -41,5 +41,5 @@ func (m *Mangadex) PagesOf(chapter *source.Chapter) ([]*source.Page, error) {
 	}
 
 	chapter.Pages = pages
-	return pages, nil
+	return nil
 }

@@ -31,7 +31,7 @@ func TestMangadex_Search(t *testing.T) {
 						}
 					})
 					Convey("When gettings chapters for the first manga", func() {
-						chapters, err := mangadex.ChaptersOf(mangas[0])
+						err := mangadex.LoadChaptersOf(mangas[0])
 						Convey("Then the error should be nil", func() {
 							So(err, ShouldBeNil)
 

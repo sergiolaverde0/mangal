@@ -190,13 +190,13 @@ func (b *statefulBubble) waitForMangas() tea.Cmd {
 func (b *statefulBubble) getChapters(manga *source.Manga) tea.Cmd {
 	return func() tea.Msg {
 		log.Info("getting chapters of " + manga.Name)
-		chapters, err := manga.Source.ChaptersOf(manga)
+		err := manga.Source.LoadChaptersOf(manga)
 		if err != nil {
 			log.Error(err)
 			b.errorChannel <- err
 		} else {
-			log.Infof("found %s", util.Quantify(len(chapters), "chapter", "chapters"))
-			b.foundChaptersChannel <- chapters
+			log.Infof("found %s", util.Quantify(len(manga.Chapters), "chapter", "chapters"))
+			b.foundChaptersChannel <- manga.Chapters
 		}
 
 		return nil

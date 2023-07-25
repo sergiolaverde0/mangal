@@ -90,11 +90,12 @@ func Run(options *Options) (err error) {
 		return nil
 	}
 
-	chapters, err = manga.Source.ChaptersOf(manga)
+	err = manga.Source.LoadChaptersOf(manga)
 	if err != nil {
 		return err
 	}
 
+	chapters = manga.Chapters
 	if options.ChaptersFilter.IsPresent() {
 		chapters, err = options.ChaptersFilter.MustGet()(chapters)
 		if err != nil {

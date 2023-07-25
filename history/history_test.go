@@ -18,11 +18,11 @@ func (testSource) Search(_ string) ([]*source.Manga, error) {
 	panic("")
 }
 
-func (testSource) ChaptersOf(_ *source.Manga) ([]*source.Chapter, error) {
+func (testSource) LoadChaptersOf(manga *source.Manga) error {
 	panic("")
 }
 
-func (testSource) PagesOf(_ *source.Chapter) ([]*source.Page, error) {
+func (testSource) LoadPagesOf(chapter *source.Chapter) error {
 	panic("")
 }
 
