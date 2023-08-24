@@ -15,7 +15,7 @@ var Config = &generic.Configuration{
 	Parallelism:          15,
 	ReverseChapters:      true,
 	NeedsHeadlessBrowser: true,
-	BaseURL:              "https://asura.gg",
+	BaseURL:              "https://asura.nacm.xyz",
 	GenerateSearchURL: func(baseUrl string, query string) string {
 		query = strings.ReplaceAll(query, "’s", "")
 		query = strings.ReplaceAll(query, "'s", "")
