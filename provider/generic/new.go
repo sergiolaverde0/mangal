@@ -8,6 +8,7 @@ import (
 	"github.com/belphemur/mangal/provider/generic/headless"
 	"github.com/belphemur/mangal/source"
 	"github.com/gocolly/colly/v2"
+	"net/http"
 	"path/filepath"
 	"regexp"
 	"strconv"
@@ -33,6 +34,11 @@ func New(conf *Configuration) source.Source {
 	collectorOptions := []colly.CollectorOption{
 		colly.AllowURLRevisit(),
 		colly.Async(true),
+	}
+
+	err := checkForRedirect(conf)
+	if err != nil {
+		panic(err)
 	}
 
 	baseCollector := colly.NewCollector(collectorOptions...)
@@ -172,6 +178,30 @@ func New(conf *Configuration) source.Source {
 	s.pagesCollector = pagesCollector
 
 	return &s
+}
+
+func checkForRedirect(conf *Configuration) error {
+	client := &http.Client{
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+
+	resp, err := client.Get(conf.BaseURL)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	defer client.CloseIdleConnections()
+
+	if resp.StatusCode == http.StatusMovedPermanently || resp.StatusCode == http.StatusFound {
+		loc, err := resp.Location()
+		if err != nil {
+			return err
+		}
+		conf.BaseURL = loc.String()
+	}
+	return nil
 }
 
 func cleanName(name string) string {

@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	viper.Set(key.SourceHeadlessUseFlaresolverr, true)
+	viper.Set(key.SourceHeadlessUseFlaresolverr, false)
 	viper.Set(key.SourceHeadlessFlaresolverrURL, "http://localhost:8191/v1")
 }
 
