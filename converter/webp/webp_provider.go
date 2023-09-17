@@ -10,6 +10,8 @@ import (
 	"runtime"
 )
 
+const libwebpVersion = "1.3.3"
+
 // NewCWebP creates new CWebP instance.
 func newCWebP(folder string) *webpbin.CWebP {
 	bin := &webpbin.CWebP{
@@ -34,7 +36,7 @@ var DefaultWebPDir = filepath.Join(map[string]string{
 }[runtime.GOOS], "webp", "bin")
 
 func Encode(w io.Writer, m image.Image, quality uint) error {
-	return newCWebP(DefaultWebPDir).
+	return newCWebP(filepath.Join(DefaultWebPDir, libwebpVersion)).
 		Quality(quality).
 		InputImage(m).
 		Output(w).
@@ -45,7 +47,6 @@ func createBinWrapper(dest string) *binwrapper.BinWrapper {
 	base := "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/"
 
 	b := binwrapper.NewBinWrapper().AutoExe()
-	libwebpVersion := "1.3.0"
 
 	b.Src(
 		binwrapper.NewSrc().
