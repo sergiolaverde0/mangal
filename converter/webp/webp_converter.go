@@ -19,7 +19,8 @@ import (
 )
 
 type Converter struct {
-	maxHeight int
+	maxHeight  int
+	cropHeight int
 }
 
 func (converter *Converter) Format() (format constant.ConversionFormat) {
@@ -29,7 +30,8 @@ func (converter *Converter) Format() (format constant.ConversionFormat) {
 func New() *Converter {
 	return &Converter{
 		//maxHeight: 16383 / 2,
-		maxHeight: 2000,
+		maxHeight:  4000,
+		cropHeight: 2000,
 	}
 }
 
@@ -131,23 +133,23 @@ func (converter *Converter) cropImage(img image.Image) ([]image.Image, error) {
 	bounds := img.Bounds()
 	height := bounds.Dy()
 
-	numParts := height / converter.maxHeight
-	if height%converter.maxHeight != 0 {
+	numParts := height / converter.cropHeight
+	if height%converter.cropHeight != 0 {
 		numParts++
 	}
 
 	parts := make([]image.Image, numParts)
 
 	for i := 0; i < numParts; i++ {
-		partHeight := converter.maxHeight
+		partHeight := converter.cropHeight
 		if i == numParts-1 {
-			partHeight = height - i*converter.maxHeight
+			partHeight = height - i*converter.cropHeight
 		}
 
 		part, err := cutter.Crop(img, cutter.Config{
 			Width:  bounds.Dx(),
 			Height: partHeight,
-			Anchor: image.Point{0, i * converter.maxHeight},
+			Anchor: image.Point{0, i * converter.cropHeight},
 			Mode:   cutter.TopLeft,
 		})
 		if err != nil {
