@@ -10,7 +10,7 @@ import (
 	"runtime"
 )
 
-const libwebpVersion = "1.3.3"
+const libwebpVersion = "1.3.2"
 
 // NewCWebP creates new CWebP instance.
 func newCWebP(folder string) *webpbin.CWebP {
@@ -33,10 +33,10 @@ var DefaultWebPDir = filepath.Join(map[string]string{
 	"windows": filepath.Join(os.Getenv("APPDATA")),
 	"darwin":  filepath.Join(os.Getenv("HOME"), ".cache"),
 	"linux":   filepath.Join(os.Getenv("HOME"), ".cache"),
-}[runtime.GOOS], "webp", "bin")
+}[runtime.GOOS], "webp", libwebpVersion, "bin")
 
 func Encode(w io.Writer, m image.Image, quality uint) error {
-	return newCWebP(filepath.Join(DefaultWebPDir, libwebpVersion)).
+	return newCWebP(DefaultWebPDir).
 		Quality(quality).
 		InputImage(m).
 		Output(w).
