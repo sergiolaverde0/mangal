@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
+## 4.5.9
+- Fix conversion of webp
+- Update version of webp
+- Fix issue with cropping image that shouldn't be cropped
 
 ## 4.5.8
 - Fix Asura Scan url changing
