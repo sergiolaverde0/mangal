@@ -52,7 +52,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v5
         with:
           distribution: goreleaser
-          version: latest
+          version: v1.21.0-nightly
           args: release --clean --release-notes changelog-temp.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
