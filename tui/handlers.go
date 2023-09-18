@@ -31,8 +31,8 @@ func (b *statefulBubble) loadScrapers() tea.Cmd {
 		}
 		b.progressStatus = "Scrapers Loaded"
 
-		slices.SortFunc(scrapers, func(a, b *installer.Scraper) bool {
-			return strings.Compare(a.Name, b.Name) < 0
+		slices.SortFunc(scrapers, func(a, b *installer.Scraper) int {
+			return strings.Compare(b.Name, a.Name)
 		})
 
 		var items = make([]list.Item, len(scrapers))

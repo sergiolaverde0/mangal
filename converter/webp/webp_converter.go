@@ -116,11 +116,11 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 	wgConvertedPages.Wait()
 	close(pagesChan)
 
-	slices.SortFunc(pages, func(a, b *source.Page) bool {
+	slices.SortFunc(pages, func(a, b *source.Page) int {
 		if a.Index == b.Index {
-			return a.SplitPartIndex < b.SplitPartIndex
+			return int(b.SplitPartIndex - a.SplitPartIndex)
 		}
-		return a.Index < b.Index
+		return int(b.Index - a.Index)
 	})
 	chapter.UpdatePages(pages)
 
