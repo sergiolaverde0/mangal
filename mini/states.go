@@ -47,8 +47,8 @@ func (m *mini) handleSourceSelectState() error {
 		providers = append(providers, provider.Builtins()...)
 		providers = append(providers, provider.Customs()...)
 
-		slices.SortFunc(providers, func(a *provider.Provider, b *provider.Provider) bool {
-			return strings.Compare(a.String(), b.String()) < 0
+		slices.SortFunc(providers, func(a *provider.Provider, b *provider.Provider) int {
+			return strings.Compare(b.String(), a.String())
 		})
 
 		title("Select Source")

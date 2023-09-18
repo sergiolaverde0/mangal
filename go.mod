@@ -10,7 +10,7 @@ require (
 	github.com/charmbracelet/lipgloss v0.8.0
 	github.com/darylhjd/mangodex v0.0.0-20211231093527-e4a91c518fa0
 	github.com/dustin/go-humanize v1.0.1
-	github.com/go-rod/rod v0.114.0
+	github.com/go-rod/rod v0.114.3
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/google/uuid v1.3.1
 	github.com/invopop/jsonschema v0.8.0
@@ -33,7 +33,7 @@ require (
 	github.com/spf13/viper v1.16.0
 	github.com/ysmood/gson v0.7.3
 	github.com/yuin/gopher-lua v1.1.0
-	golang.org/x/exp v0.0.0-20230113213754-f9f960f08ad4
+	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 	golang.org/x/image v0.12.0
 	golang.org/x/term v0.12.0
 )
@@ -98,12 +98,12 @@ require (
 	github.com/ysmood/got v0.34.1 // indirect
 	github.com/ysmood/leakless v0.8.0 // indirect
 	github.com/yuin/gluamapper v0.0.0-20150323120927-d836955830e7 // indirect
-	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
+	golang.org/x/net v0.15.0 // indirect
+	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/protobuf v1.30.0 // indirect
+	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/xmlpath.v2 v2.0.0-20150820204837-860cbeca3ebc // indirect

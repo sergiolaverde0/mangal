@@ -296,10 +296,10 @@ func (b *statefulBubble) loadProviders() tea.Cmd {
 			internal: p,
 		})
 	}
-	slices.SortFunc(items, func(a, b list.Item) bool {
+	slices.SortFunc(items, func(a, b list.Item) int {
 		// temporary workaround for placing mangadex second because it is not stable for now
 		// but, you know, there is nothing more permanent than a temporary solution
-		return strings.Compare(a.FilterValue(), b.FilterValue()) > 0
+		return strings.Compare(a.FilterValue(), b.FilterValue())
 	})
 
 	var customItems []list.Item
@@ -308,8 +308,8 @@ func (b *statefulBubble) loadProviders() tea.Cmd {
 			internal: p,
 		})
 	}
-	slices.SortFunc(customItems, func(a, b list.Item) bool {
-		return strings.Compare(a.FilterValue(), b.FilterValue()) < 0
+	slices.SortFunc(customItems, func(a, b list.Item) int {
+		return strings.Compare(b.FilterValue(), a.FilterValue())
 	})
 
 	// built-in providers should come first
@@ -323,11 +323,11 @@ func (b *statefulBubble) loadHistory() (tea.Cmd, error) {
 	}
 
 	chapters := lo.Values(saved)
-	slices.SortFunc(chapters, func(a, b *history.SavedChapter) bool {
+	slices.SortFunc(chapters, func(a, b *history.SavedChapter) int {
 		if a.MangaName == b.MangaName {
-			return a.Name < b.Name
+			return strings.Compare(b.Name, a.Name)
 		}
-		return a.MangaName < b.MangaName
+		return strings.Compare(b.MangaName, a.MangaName)
 	})
 
 	var items []list.Item

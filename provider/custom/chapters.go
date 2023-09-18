@@ -49,8 +49,8 @@ func (s *luaSource) LoadChaptersOf(manga *source.Manga) error {
 
 		chapters = append(chapters, chapter)
 	})
-	slices.SortFunc(chapters, func(a, b *source.Chapter) bool {
-		return a.Number < b.Number
+	slices.SortFunc(chapters, func(a, b *source.Chapter) int {
+		return int(b.Number - a.Number)
 	})
 
 	for i, chapter := range chapters {

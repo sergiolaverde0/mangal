@@ -118,8 +118,8 @@ func (m *Mangadex) LoadChaptersOf(manga *source.Manga) error {
 		}
 	}
 
-	slices.SortFunc(chapters, func(a, b *source.Chapter) bool {
-		return a.Index < b.Index
+	slices.SortFunc(chapters, func(a, b *source.Chapter) int {
+		return int(b.Index - a.Index)
 	})
 
 	manga.Chapters = chapters
