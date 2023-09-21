@@ -87,7 +87,6 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 
 			splitNeeded, img, format, err := converter.checkPageNeedsSplit(page)
 			if err != nil {
-				fmt.Println(err)
 				return
 			}
 
@@ -98,7 +97,6 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 			}
 			images, err := converter.cropImage(img)
 			if err != nil {
-				fmt.Println(err)
 				return
 			}
 
