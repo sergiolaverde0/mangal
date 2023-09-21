@@ -2,9 +2,11 @@ package anilist
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/belphemur/mangal/log"
+	openapiclient "github.com/belphemur/mangal/mangaupdates"
 	"github.com/belphemur/mangal/network"
 	"github.com/belphemur/mangal/query"
 	"github.com/samber/lo"
@@ -157,6 +159,13 @@ func SearchByName(name string) ([]*Manga, error) {
 
 	mangas := response.Data.Page.Media
 	log.Infof("Got response from Anilist, found %d results", len(mangas))
+	if len(mangas) == 0 {
+		mangas, err = searchMangaUpdates(name)
+		if err != nil {
+			return nil, err
+		}
+		log.Infof("Got response from Manga Updates, found %d results", len(mangas))
+	}
 	ids := make([]int, len(mangas))
 	for i, manga := range mangas {
 		ids[i] = manga.ID
@@ -164,4 +173,56 @@ func SearchByName(name string) ([]*Manga, error) {
 	}
 	_ = searchCacher.Set(name, ids)
 	return mangas, nil
+}
+
+func searchMangaUpdates(name string) ([]*Manga, error) {
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+
+	searchResults, resp, err := apiClient.SeriesAPI.SearchSeriesPost(context.Background()).SeriesSearchRequestV1(openapiclient.SeriesSearchRequestV1{
+		Search: openapiclient.PtrString(name),
+	}).Execute()
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		log.Error("MangaUpdates returned status code " + strconv.Itoa(resp.StatusCode))
+		return nil, fmt.Errorf("invalid response code %d", resp.StatusCode)
+	}
+
+	var mangas []*Manga
+
+	for _, result := range searchResults.Results {
+		manga := transformToManga(*result.Record)
+		mangas = append(mangas, manga)
+	}
+
+	return mangas, nil
+}
+
+func transformToManga(series openapiclient.SeriesModelSearchV1) *Manga {
+	var manga Manga
+
+	// Assuming the title in SeriesModelSearchV1 is in English
+	manga.Title.English = *series.Title
+	manga.ID = int(*series.SeriesId)
+	manga.Description = *series.Description
+	manga.CoverImage.ExtraLarge = *series.Image.Url.Original
+	manga.CoverImage.Large = *series.Image.Url.Original
+	manga.CoverImage.Medium = *series.Image.Url.Original
+	manga.SiteURL = *series.Url
+
+	// Assuming the genres in SeriesModelSearchV1 are in English
+	for _, genre := range series.Genres {
+		manga.Genres = append(manga.Genres, *genre.Genre)
+	}
+
+	manga.Chapters = 0
+	// Assuming the latest chapter in SeriesModelSearchV1 is the total number of chapters
+	if series.LatestChapter != nil {
+		manga.Chapters = int(*series.LatestChapter)
+	}
+
+	return &manga
 }
