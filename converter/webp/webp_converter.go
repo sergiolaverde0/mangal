@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/belphemur/mangal/constant"
+	"github.com/belphemur/mangal/log"
 	"github.com/belphemur/mangal/packer"
 	"github.com/belphemur/mangal/source"
 	"github.com/oliamb/cutter"
@@ -87,6 +88,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 
 			splitNeeded, img, format, err := converter.checkPageNeedsSplit(page)
 			if err != nil {
+				log.Error(fmt.Sprintf("error checking if page %d of manga %s needs split: %v", page.Index, page.Chapter.Manga.Name, err))
 				return
 			}
 
@@ -97,6 +99,7 @@ func (converter *Converter) ConvertChapter(chapter *source.Chapter, quality uint
 			}
 			images, err := converter.cropImage(img)
 			if err != nil {
+				log.Error(fmt.Sprintf("error converting page %d of manga %s to webp: %v", page.Index, page.Chapter.Manga.Name, err))
 				return
 			}
 
