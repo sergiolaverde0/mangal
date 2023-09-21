@@ -4,6 +4,7 @@ import (
 	"github.com/belphemur/mangal/key"
 	"github.com/belphemur/mangal/provider/generic"
 	"github.com/belphemur/mangal/provider/generic/headless"
+	"github.com/belphemur/mangal/util"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/spf13/viper"
 	"testing"
@@ -15,6 +16,7 @@ func init() {
 }
 
 func TestAsurascans(t *testing.T) {
+	util.SkipCI(t)
 	defer headless.GetTransportSingleton().Close()
 	Convey("Given a asurascans instance", t, func() {
 		asurascans := generic.New(Config)
