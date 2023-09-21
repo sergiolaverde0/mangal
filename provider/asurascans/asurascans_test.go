@@ -19,7 +19,7 @@ func TestAsurascans(t *testing.T) {
 	Convey("Given a asurascans instance", t, func() {
 		asurascans := generic.New(Config)
 		Convey("When searching for a manga", func() {
-			mangas, err := asurascans.Search("Solo")
+			mangas, err := asurascans.Search("Boundless")
 			Convey("Then the error should be nil", func() {
 				So(err, ShouldBeNil)
 
