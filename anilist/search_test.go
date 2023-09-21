@@ -20,3 +20,18 @@ func TestSearch(t *testing.T) {
 		})
 	})
 }
+func TestSearchMangaUpdates(t *testing.T) {
+	Convey(`Given a query "Death Note"`, t, func() {
+		query := "Insanely-Talented Player"
+		Convey(`When I search for it`, func() {
+			results, err := SearchByName(query)
+			Convey(`Then I should get a result`, func() {
+				So(err, ShouldBeNil)
+				So(results, ShouldNotBeEmpty)
+				Convey(`And the first result should be "Insanely-Talented Player"`, func() {
+					So(results[0].Title.English, ShouldEqual, "Insanely Talented Player")
+				})
+			})
+		})
+	})
+}
