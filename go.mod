@@ -31,7 +31,7 @@ require (
 	github.com/spf13/afero v1.9.5
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
-	github.com/stretchr/testify v1.8.3
+	github.com/stretchr/testify v1.8.4
 	github.com/ysmood/gson v0.7.3
 	github.com/yuin/gopher-lua v1.1.0
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
