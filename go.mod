@@ -25,7 +25,7 @@ require (
 	github.com/oliamb/cutter v0.2.2
 	github.com/pdfcpu/pdfcpu v0.3.13
 	github.com/samber/lo v1.38.1
-	github.com/samber/mo v1.10.0
+	github.com/samber/mo v1.11.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/smartystreets/goconvey v1.8.1
 	github.com/spf13/afero v1.10.0
