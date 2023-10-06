@@ -35,7 +35,7 @@ require (
 	github.com/ysmood/gson v0.7.3
 	github.com/yuin/gopher-lua v1.1.0
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
-	golang.org/x/image v0.12.0
+	golang.org/x/image v0.13.0
 	golang.org/x/term v0.12.0
 )
 
