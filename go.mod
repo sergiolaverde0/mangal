@@ -12,7 +12,7 @@ require (
 	github.com/dustin/go-humanize v1.0.1
 	github.com/go-rod/rod v0.114.3
 	github.com/gocolly/colly/v2 v2.1.0
-	github.com/google/uuid v1.3.1
+	github.com/google/uuid v1.4.0
 	github.com/invopop/jsonschema v0.12.0
 	github.com/ivanpirog/coloredcobra v1.0.1
 	github.com/ka-weihe/fast-levenshtein v0.0.0-20201227151214-4c99ee36a1ba
