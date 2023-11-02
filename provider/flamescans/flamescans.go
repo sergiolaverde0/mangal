@@ -14,7 +14,7 @@ var Config = &generic.Configuration{
 	Delay:           50 * time.Millisecond,
 	Parallelism:     15,
 	ReverseChapters: true,
-	BaseURL:         "https://flamescans.org",
+	BaseURL:         "https://flamecomics.com",
 	GenerateSearchURL: func(baseUrl string, query string) string {
 		query = strings.ReplaceAll(query, "’s", "")
 		query = strings.ReplaceAll(query, "'s", "")
