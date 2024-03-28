@@ -80,7 +80,7 @@ func (b *statefulBubble) viewSearch() string {
 			"",
 			fmt.Sprintf("Search %s ?", style.Fg(color.Yellow)(b.searchSuggestion.MustGet())),
 			"",
-			fmt.Sprintf("Press %s to accept", style.Bold(style.Faint(b.keymap.acceptSearchSuggestion.Help().Key))),
+			fmt.Sprintf("Press %s to accept", style.Bold(b.keymap.acceptSearchSuggestion.Help().Key)),
 		)
 	}
 

@@ -100,12 +100,12 @@ func Execute() {
 		// colored cobra injection
 		cc.Init(&cc.Config{
 			RootCmd:       rootCmd,
-			Headings:      cc.HiCyan + cc.Bold + cc.Underline,
-			Commands:      cc.HiYellow + cc.Bold,
+			Headings:      cc.Cyan + cc.Bold + cc.Underline,
+			Commands:      cc.Yellow + cc.Bold,
 			Example:       cc.Italic,
-			ExecName:      cc.Bold,
-			Flags:         cc.Bold,
-			FlagsDataType: cc.Italic + cc.HiBlue,
+			ExecName:      cc.Green + cc.Bold,
+			Flags:         cc.Green + cc.Bold,
+			FlagsDataType: cc.Italic + cc.Blue,
 		})
 	}
 

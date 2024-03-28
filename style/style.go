@@ -6,16 +6,16 @@ func New() lipgloss.Style {
 	return lipgloss.NewStyle()
 }
 
-func NewColored(foreground, background lipgloss.Color) lipgloss.Style {
+func NewColored(foreground, background lipgloss.TerminalColor) lipgloss.Style {
 	return New().Foreground(foreground).Background(background)
 }
 
 func Fg(color lipgloss.Color) func(string) string {
-	return NewColored(color, "").Render
+	return NewColored(color, lipgloss.NoColor{}).Render
 }
 
 func Bg(color lipgloss.Color) func(string) string {
-	return NewColored("", color).Render
+	return NewColored(lipgloss.NoColor{}, color).Render
 }
 
 func Truncate(max int) func(string) string {
