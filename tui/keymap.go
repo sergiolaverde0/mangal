@@ -75,7 +75,7 @@ func newStatefulKeymap() *statefulKeymap {
 		),
 		read: k(
 			keys("r"),
-			help(style.Fg(color.Orange)("r"), style.Fg(color.Orange)("read")),
+			help(style.Fg(color.Yellow)("r"), style.Fg(color.Yellow)("read")),
 		),
 		acceptSearchSuggestion: k(
 			keys("tab"),

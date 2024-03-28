@@ -6,8 +6,8 @@ import (
 )
 
 var (
-	Title      = NewColored(color.New("230"), color.New("62")).Padding(0, 1).Render
-	ErrorTitle = NewColored(color.New("230"), color.Red).Padding(0, 1).Render
+	Title      = NewColored(color.Purple, color.HiBg).Padding(0, 1).Render
+	ErrorTitle = NewColored(color.Red, color.HiBg).Padding(0, 1).Render
 )
 
 func Tag(foreground, background lipgloss.Color) func(string) string {

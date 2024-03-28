@@ -48,7 +48,7 @@ var sourcesListCmd = &cobra.Command{
 	Short: "List an available sources",
 	Run: func(cmd *cobra.Command, args []string) {
 		printHeader := !lo.Must(cmd.Flags().GetBool("raw"))
-		headerStyle := style.New().Foreground(color.HiBlue).Bold(true).Render
+		headerStyle := style.New().Foreground(color.Blue).Bold(true).Render
 		h := func(s string) {
 			if printHeader {
 				cmd.Println(headerStyle(s))

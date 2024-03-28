@@ -78,7 +78,7 @@ func (b *statefulBubble) viewSearch() string {
 		lines = append(
 			lines,
 			"",
-			fmt.Sprintf("Search %s ?", style.Fg(color.Orange)(b.searchSuggestion.MustGet())),
+			fmt.Sprintf("Search %s ?", style.Fg(color.Yellow)(b.searchSuggestion.MustGet())),
 			"",
 			fmt.Sprintf("Press %s to accept", style.Bold(style.Faint(b.keymap.acceptSearchSuggestion.Help().Key))),
 		)
@@ -121,7 +121,7 @@ func (b *statefulBubble) downloadingChapterMetainfo() string {
 	// I assume that it's because View() is called before Update()
 	if b.currentDownloadingChapter != nil {
 		metainfo.WriteString("From ")
-		metainfo.WriteString(style.Fg(color.Orange)(b.currentDownloadingChapter.Source().Name()))
+		metainfo.WriteString(style.Fg(color.Yellow)(b.currentDownloadingChapter.Source().Name()))
 		metainfo.WriteString(" as ")
 	}
 

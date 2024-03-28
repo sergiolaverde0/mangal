@@ -200,10 +200,10 @@ func newBubble() *statefulBubble {
 		delegate.ShowDescription = description
 		delegate.Styles.SelectedTitle = lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder(), false, false, false, true).
-			BorderForeground(lipgloss.Color("5")).
-			Foreground(lipgloss.Color("5")).
+			BorderForeground(color.Purple).
+			Foreground(color.Purple).
 			Padding(0, 0, 0, 1)
-		delegate.Styles.NormalTitle = delegate.Styles.NormalTitle.Copy().Foreground(lipgloss.Color("7"))
+		delegate.Styles.NormalTitle = delegate.Styles.NormalTitle.Copy().Foreground(color.Fg)
 
 		delegate.Styles.SelectedDesc = delegate.Styles.SelectedTitle.Copy()
 
@@ -229,7 +229,7 @@ func newBubble() *statefulBubble {
 
 	bubble.spinnerC = spinner.New()
 	bubble.spinnerC.Spinner = spinner.Dot
-	bubble.spinnerC.Style = lipgloss.NewStyle().Foreground(lipgloss.Color("4"))
+	bubble.spinnerC.Style = lipgloss.NewStyle().Foreground(color.Blue)
 
 	bubble.inputC = textinput.New()
 	bubble.inputC.Placeholder = "Search"
@@ -240,7 +240,7 @@ func newBubble() *statefulBubble {
 
 	bubble.scrapersInstallC = makeList("Install Scrapers", true, &listOptions{
 		TitleStyle: mo.Some(
-			style.NewColored("#212529", "#ced4da").Padding(0, 1),
+			style.NewColored(color.Blue, color.HiBg).Padding(0, 1),
 		),
 	})
 	bubble.scrapersInstallC.SetStatusBarItemName("scraper", "scrapers")
@@ -250,7 +250,7 @@ func newBubble() *statefulBubble {
 
 	bubble.sourcesC = makeList("Select Source", true, &listOptions{
 		TitleStyle: mo.Some(
-			style.NewColored("#fefae0", "#bc6c25").Padding(0, 1),
+			style.NewColored(color.Red, color.HiBg).Padding(0, 1),
 		),
 	})
 	bubble.sourcesC.SetStatusBarItemName("source", "sources")
@@ -258,21 +258,21 @@ func newBubble() *statefulBubble {
 	showURLs := viper.GetBool(key2.TUIShowURLs)
 	bubble.mangasC = makeList("Mangas", showURLs, &listOptions{
 		TitleStyle: mo.Some(
-			style.NewColored("#f2e8cf", "#386641").Padding(0, 1),
+			style.NewColored(color.Green, color.HiBg).Padding(0, 1),
 		),
 	})
 	bubble.mangasC.SetStatusBarItemName("manga", "mangas")
 
 	bubble.chaptersC = makeList("Chapters", showURLs, &listOptions{
 		TitleStyle: mo.Some(
-			style.NewColored("#000814", color.Orange).Padding(0, 1),
+			style.NewColored(color.Cyan, color.HiBg).Padding(0, 1),
 		),
 	})
 	bubble.chaptersC.SetStatusBarItemName("chapter", "chapters")
 
 	bubble.anilistC = makeList("Anilist Mangas", showURLs, &listOptions{
 		TitleStyle: mo.Some(
-			style.NewColored("#bcbedc", "#2b2d42").Padding(0, 1),
+			style.NewColored(color.Purple, color.HiBg).Padding(0, 1),
 		),
 	})
 	bubble.anilistC.SetStatusBarItemName("manga", "mangas")

@@ -52,9 +52,9 @@ var icons = map[Icon]*iconDef{
 	Mark: {
 		emoji:   "🦐",
 		nerd:    style.Fg(color.Green)("\uF6D9"),
-		plain:   style.New().Bold(true).Foreground(color.Orange).Render("*"),
+		plain:   style.New().Bold(true).Foreground(color.Yellow).Render("*"),
 		kaomoji: style.New().Bold(true).Foreground(color.Red).Render("炎"),
-		squares: style.New().Bold(true).Foreground(color.Orange).Render("■"),
+		squares: style.New().Bold(true).Foreground(color.Yellow).Render("■"),
 	},
 	Question: {
 		emoji:   "🤨",
