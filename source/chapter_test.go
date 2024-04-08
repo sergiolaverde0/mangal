@@ -13,7 +13,7 @@ import (
 
 func init() {
 	filesystem.SetMemMapFs()
-	viper.Set(key.FormatsUse, constant.FormatPDF)
+	viper.Set(key.FormatsUse, constant.FormatCBZ)
 }
 
 var testChapter = Chapter{
