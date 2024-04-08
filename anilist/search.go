@@ -207,10 +207,15 @@ func transformToManga(series openapiclient.SeriesModelSearchV1) *Manga {
 	// Assuming the title in SeriesModelSearchV1 is in English
 	manga.Title.English = *series.Title
 	manga.ID = int(*series.SeriesId)
-	manga.Description = *series.Description
-	manga.CoverImage.ExtraLarge = *series.Image.Url.Original
-	manga.CoverImage.Large = *series.Image.Url.Original
-	manga.CoverImage.Medium = *series.Image.Url.Original
+	manga.Description = ""
+	if series.Description != nil {
+		manga.Description = *series.Description
+	}
+	if series.Image.Url.Original != nil {
+		manga.CoverImage.ExtraLarge = *series.Image.Url.Original
+		manga.CoverImage.Large = *series.Image.Url.Original
+		manga.CoverImage.Medium = *series.Image.Url.Original
+	}
 	manga.SiteURL = *series.Url
 
 	// Assuming the genres in SeriesModelSearchV1 are in English
