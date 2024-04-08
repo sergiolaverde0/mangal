@@ -169,9 +169,7 @@ func (converter *Converter) checkPageNeedsSplit(page *source.Page) (bool, image.
 	if err != nil {
 		return false, nil, format, err
 	}
-	if format == "webp" {
-		return false, img, format, nil
-	}
+
 	bounds := img.Bounds()
 	height := bounds.Dy()
 
