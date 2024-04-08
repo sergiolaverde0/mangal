@@ -35,7 +35,7 @@ func TestChapter_Filename(t *testing.T) {
 				filename := testChapter.Filename()
 
 				Convey("It should match the given template", func() {
-					So(filename, ShouldEqual, util.SanitizeFilename(fmt.Sprintf("&%d! %s// %s 28922@ %s.pdf", testChapter.Index, testChapter.Name, testChapter.Volume, testChapter.Manga.Name)))
+					So(filename, ShouldEqual, util.SanitizeFilename(fmt.Sprintf("&%d! %s// %s 28922@ %s.cbz", testChapter.Index, testChapter.Name, testChapter.Volume, testChapter.Manga.Name)))
 				})
 			})
 		})
