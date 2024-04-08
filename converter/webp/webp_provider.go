@@ -10,7 +10,7 @@ import (
 	"runtime"
 )
 
-const libwebpVersion = "1.3.2"
+const libwebpVersion = "1.4.0-rc1"
 
 // NewCWebP creates new CWebP instance.
 func newCWebP(folder string) *webpbin.CWebP {
