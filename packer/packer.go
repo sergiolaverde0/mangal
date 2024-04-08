@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/belphemur/mangal/constant"
 	"github.com/belphemur/mangal/packer/cbz"
-	"github.com/belphemur/mangal/packer/pdf"
 	"github.com/belphemur/mangal/packer/plain"
 	"github.com/belphemur/mangal/packer/zip"
 	"github.com/belphemur/mangal/source"
@@ -23,7 +22,6 @@ type Packer interface {
 var packers = map[string]Packer{
 	constant.FormatPlain: plain.New(),
 	constant.FormatCBZ:   cbz.New(),
-	constant.FormatPDF:   pdf.New(),
 	constant.FormatZIP:   zip.New(),
 }
 
