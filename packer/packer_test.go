@@ -27,7 +27,7 @@ func TestAvailable(t *testing.T) {
 		packers := Available()
 		Convey("Then the available packers should be returned", func() {
 			So(packers, ShouldNotBeNil)
-			So(len(packers), ShouldEqual, 4)
+			So(len(packers), ShouldEqual, 3)
 		})
 	})
 }
