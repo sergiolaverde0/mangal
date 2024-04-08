@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.7.2
+- Update webp lib
+- Crop image all the time when using webp converter
+- fix issue with mangaupdate when data isn't available
+
 ## 4.6.2
 - Fix flamescans source to use the new domain name (flamecomics)
 
