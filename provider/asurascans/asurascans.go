@@ -61,7 +61,7 @@ var Config = &generic.Configuration{
 		},
 	},
 	PageExtractor: &generic.PageExtractor{
-		Selector: "div.w-full > img",
+		Selector: "div.w-full > img.mx-auto",
 		URL: func(selection *goquery.Selection) string {
 			return selection.AttrOr("src", "")
 		},
