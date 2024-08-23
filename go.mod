@@ -1,6 +1,6 @@
 module github.com/belphemur/mangal
 
-go 1.21
+go 1.23
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
@@ -10,7 +10,7 @@ require (
 	github.com/charmbracelet/lipgloss v0.10.0
 	github.com/darylhjd/mangodex v0.0.0-20211231093527-e4a91c518fa0
 	github.com/dustin/go-humanize v1.0.1
-	github.com/go-rod/rod v0.114.8
+	github.com/go-rod/rod v0.116.2
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/google/uuid v1.6.0
 	github.com/invopop/jsonschema v0.12.0
@@ -99,8 +99,8 @@ require (
 	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
 	github.com/ysmood/fetchup v0.2.4 // indirect
 	github.com/ysmood/goob v0.4.0 // indirect
-	github.com/ysmood/got v0.39.4 // indirect
-	github.com/ysmood/leakless v0.8.0 // indirect
+	github.com/ysmood/got v0.40.0 // indirect
+	github.com/ysmood/leakless v0.9.0 // indirect
 	github.com/yuin/gluamapper v0.0.0-20150323120927-d836955830e7 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
