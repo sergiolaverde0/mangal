@@ -42,7 +42,7 @@ func setExtraHeaders(p *rod.Page, headers http.Header) (func(), error) {
 func (t TransportRod) RoundTrip(request *http.Request) (*http.Response, error) {
 
 	t.browserBuilder.Do(func() {
-		u := launcher.New().Leakless(runtime.GOOS == "linux").Revision(1131003).Set(flags.Headless, "new").MustLaunch()
+		u := launcher.New().Leakless(runtime.GOOS == "linux").Set(flags.Headless, "new").MustLaunch()
 		t.browser = rod.New().ControlURL(u).MustConnect()
 	})
 	page, err := t.browser.Context(request.Context()).Page(proto.TargetCreateTarget{URL: ""})
@@ -60,7 +60,7 @@ func (t TransportRod) RoundTrip(request *http.Request) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = page.WaitLoad()
+	page.WaitNavigation(proto.PageLifecycleEventNameNetworkAlmostIdle)()
 
 	if err != nil {
 		return nil, err

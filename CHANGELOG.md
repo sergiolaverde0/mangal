@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.7.5
+- Fix downloading chapter from asura scans
+
+## 4.7.4
+- Fix downloading chapter from asura scans
+
+## 4.7.3
+- Fix asura scans source
+
 ## 4.7.2
 - Update webp lib
 - Crop image all the time when using webp converter

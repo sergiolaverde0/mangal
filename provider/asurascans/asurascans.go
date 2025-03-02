@@ -2,12 +2,11 @@ package asurascans
 
 import (
 	"github.com/PuerkitoBio/goquery"
+	"github.com/araddon/dateparse"
 	"github.com/belphemur/mangal/provider/generic"
 	"strings"
 	"time"
 )
-
-const dateLayout = "January 2, 2006"
 
 var Config = &generic.Configuration{
 	Name:                 "AsuraScans",
@@ -15,18 +14,18 @@ var Config = &generic.Configuration{
 	Parallelism:          15,
 	ReverseChapters:      true,
 	NeedsHeadlessBrowser: true,
-	BaseURL:              "https://asuratoon.com",
+	BaseURL:              "https://asuracomic.net/",
 	GenerateSearchURL: func(baseUrl string, query string) string {
 		query = strings.ReplaceAll(query, "’s", "")
 		query = strings.ReplaceAll(query, "'s", "")
 		query = strings.ReplaceAll(query, "’ll", "")
 		query = strings.ReplaceAll(query, "'ll", "")
-		return baseUrl + "/?s=" + query
+		return baseUrl + "series?page=1&name=" + query
 	},
 	MangaExtractor: &generic.MangaExtractor{
-		Selector: ".bsx > a",
+		Selector: ".grid > a",
 		Name: func(selection *goquery.Selection) string {
-			return strings.TrimSpace(selection.AttrOr("title", ""))
+			return strings.TrimSpace(selection.Find("div:nth-of-type(2) > span:nth-of-type(1)").Text())
 		},
 		URL: func(selection *goquery.Selection) string {
 			return selection.AttrOr("href", "")
@@ -36,16 +35,16 @@ var Config = &generic.Configuration{
 		},
 	},
 	ChapterExtractor: &generic.ChapterExtractor{
-		Selector: "#chapterlist > ul li",
+		Selector: "div.pl-4.py-2.border.rounded-md.group.w-full",
 		Name: func(selection *goquery.Selection) string {
-			name := selection.Find(".chapternum").Text()
+			name := selection.Find("h3:nth-of-type(1)").Text()
 			return name
 		},
 		URL: func(selection *goquery.Selection) string {
 			return selection.Find("a").AttrOr("href", "")
 		},
 		Volume: func(selection *goquery.Selection) string {
-			name := selection.Find(".chapternum").Text()
+			name := selection.Find("h3:nth-of-type(1)").Text()
 			if strings.HasPrefix(name, "Vol.") {
 				splitted := strings.Split(name, " ")
 				return splitted[0]
@@ -53,8 +52,8 @@ var Config = &generic.Configuration{
 			return ""
 		},
 		Date: func(selection *goquery.Selection) *time.Time {
-			date := selection.Find(".chapterdate").Text()
-			t, err := time.Parse(dateLayout, date)
+			date := selection.Find("h3:nth-of-type(2)").Text()
+			t, err := dateparse.ParseAny(date)
 			if err != nil {
 				return nil
 			}
@@ -62,7 +61,7 @@ var Config = &generic.Configuration{
 		},
 	},
 	PageExtractor: &generic.PageExtractor{
-		Selector: "#readerarea img",
+		Selector: "div.w-full > img.mx-auto",
 		URL: func(selection *goquery.Selection) string {
 			return selection.AttrOr("src", "")
 		},
