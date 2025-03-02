@@ -2,8 +2,8 @@ package mini
 
 import (
 	"errors"
-	"github.com/belphemur/mangal/source"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/source"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/samber/lo"
 )
 

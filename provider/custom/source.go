@@ -2,8 +2,8 @@ package custom
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/provider/cacher"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/provider/cacher"
+	"github.com/sergiolaverde0/mangal/source"
 	lua "github.com/yuin/gopher-lua"
 	"time"
 )

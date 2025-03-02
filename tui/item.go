@@ -2,13 +2,13 @@ package tui
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/anilist"
-	"github.com/belphemur/mangal/history"
-	"github.com/belphemur/mangal/icon"
-	"github.com/belphemur/mangal/installer"
-	"github.com/belphemur/mangal/provider"
-	"github.com/belphemur/mangal/source"
-	"github.com/belphemur/mangal/style"
+	"github.com/sergiolaverde0/mangal/anilist"
+	"github.com/sergiolaverde0/mangal/history"
+	"github.com/sergiolaverde0/mangal/icon"
+	"github.com/sergiolaverde0/mangal/installer"
+	"github.com/sergiolaverde0/mangal/provider"
+	"github.com/sergiolaverde0/mangal/source"
+	"github.com/sergiolaverde0/mangal/style"
 	"strings"
 )
 

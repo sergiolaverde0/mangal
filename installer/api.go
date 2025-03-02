@@ -3,7 +3,7 @@ package installer
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/util"
 	"io"
 	"net/http"
 )

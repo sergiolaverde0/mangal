@@ -2,7 +2,7 @@ package flaresolverr
 
 import (
 	"context"
-	"github.com/belphemur/mangal/key"
+	"github.com/sergiolaverde0/mangal/key"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/spf13/viper"
 	"net/http"

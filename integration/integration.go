@@ -1,8 +1,8 @@
 package integration
 
 import (
-	"github.com/belphemur/mangal/integration/anilist"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/integration/anilist"
+	"github.com/sergiolaverde0/mangal/source"
 )
 
 // Integrator is the interface that wraps the basic integration methods.

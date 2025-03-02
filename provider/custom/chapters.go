@@ -1,8 +1,8 @@
 package custom
 
 import (
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/source"
 	lua "github.com/yuin/gopher-lua"
 	"golang.org/x/exp/slices"
 	"strconv"

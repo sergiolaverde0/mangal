@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/belphemur/mangal/provider/generic/headless"
+	"github.com/sergiolaverde0/mangal/provider/generic/headless"
 	"os"
 )
 

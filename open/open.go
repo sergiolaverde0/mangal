@@ -2,7 +2,7 @@ package open
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/constant"
+	"github.com/sergiolaverde0/mangal/constant"
 	"os"
 	"os/exec"
 	"path/filepath"

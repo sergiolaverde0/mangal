@@ -3,9 +3,9 @@ package log
 import (
 	"errors"
 	"fmt"
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/where"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/where"
 	"github.com/samber/lo"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"

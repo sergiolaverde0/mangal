@@ -2,7 +2,7 @@ package custom
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/source"
 	"github.com/samber/lo"
 	lua "github.com/yuin/gopher-lua"
 	"net/url"

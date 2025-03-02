@@ -3,8 +3,8 @@ package manganelo
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/belphemur/mangal/provider/generic"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/provider/generic"
+	"github.com/sergiolaverde0/mangal/util"
 	"net/url"
 	"regexp"
 	"strconv"

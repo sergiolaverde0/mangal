@@ -1,7 +1,7 @@
 package mangadex
 
 import (
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/source"
 	"github.com/darylhjd/mangodex"
 )
 

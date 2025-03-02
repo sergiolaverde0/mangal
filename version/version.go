@@ -3,9 +3,9 @@ package version
 import (
 	"encoding/json"
 	"errors"
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/util"
-	"github.com/belphemur/mangal/where"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/util"
+	"github.com/sergiolaverde0/mangal/where"
 	"github.com/metafates/gache"
 	"net/http"
 	"path/filepath"

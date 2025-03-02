@@ -1,7 +1,7 @@
 package packer
 
 import (
-	"github.com/belphemur/mangal/constant"
+	"github.com/sergiolaverde0/mangal/constant"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )

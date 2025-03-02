@@ -1,7 +1,7 @@
 package query
 
 import (
-	"github.com/belphemur/mangal/key"
+	"github.com/sergiolaverde0/mangal/key"
 	"github.com/lithammer/fuzzysearch/fuzzy"
 	"github.com/samber/lo"
 	"github.com/samber/mo"

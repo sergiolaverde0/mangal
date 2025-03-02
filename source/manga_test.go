@@ -1,8 +1,8 @@
 package source
 
 import (
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/samber/lo"
 	. "github.com/smartystreets/goconvey/convey"
 	"os"

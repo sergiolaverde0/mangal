@@ -1,9 +1,9 @@
 package update
 
 import (
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/log"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/log"
 	"os"
 	"path/filepath"
 )

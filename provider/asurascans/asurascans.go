@@ -3,7 +3,7 @@ package asurascans
 import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/araddon/dateparse"
-	"github.com/belphemur/mangal/provider/generic"
+	"github.com/sergiolaverde0/mangal/provider/generic"
 	"strings"
 	"time"
 )

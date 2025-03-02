@@ -2,8 +2,8 @@ package tui
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/provider"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/provider"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/viper"

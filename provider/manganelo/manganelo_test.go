@@ -1,7 +1,7 @@
 package manganelo
 
 import (
-	"github.com/belphemur/mangal/provider/generic"
+	"github.com/sergiolaverde0/mangal/provider/generic"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )

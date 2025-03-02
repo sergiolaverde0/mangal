@@ -2,10 +2,10 @@ package source
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/util"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/spf13/viper"
 	"testing"

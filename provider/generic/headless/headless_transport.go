@@ -1,10 +1,10 @@
 package headless
 
 import (
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/log"
-	"github.com/belphemur/mangal/provider/generic/headless/flaresolverr"
-	"github.com/belphemur/mangal/provider/generic/headless/rod"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/log"
+	"github.com/sergiolaverde0/mangal/provider/generic/headless/flaresolverr"
+	"github.com/sergiolaverde0/mangal/provider/generic/headless/rod"
 	"github.com/spf13/viper"
 	"io"
 	"net/http"

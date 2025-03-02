@@ -2,12 +2,12 @@ package version
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/color"
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/icon"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/style"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/color"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/icon"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/style"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/spf13/viper"
 )
 
@@ -34,7 +34,7 @@ func Notify() {
 		style.Fg(color.Green)("▇▇▇"),
 		style.Bold(version),
 		style.Faint(fmt.Sprintf("(You're on %s)", constant.Version)),
-		style.Faint("https://github.com/belphemur/mangal/releases/tag/v"+version),
+		style.Faint("https://github.com/sergiolaverde0/mangal/releases/tag/v"+version),
 	)
 
 }

@@ -11,7 +11,7 @@ package openapi
 
 import (
 	"context"
-	openapiclient "github.com/belphemur/mangal/mangaupdates"
+	openapiclient "github.com/sergiolaverde0/mangal/mangaupdates"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"

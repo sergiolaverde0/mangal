@@ -1,8 +1,8 @@
 package none
 
 import (
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/source"
 )
 
 type Converter struct {

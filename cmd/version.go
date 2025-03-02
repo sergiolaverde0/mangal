@@ -1,16 +1,16 @@
 package cmd
 
 import (
-	"github.com/belphemur/mangal/color"
-	"github.com/belphemur/mangal/style"
-	"github.com/belphemur/mangal/version"
+	"github.com/sergiolaverde0/mangal/color"
+	"github.com/sergiolaverde0/mangal/style"
+	"github.com/sergiolaverde0/mangal/version"
 	"github.com/samber/lo"
 	"os"
 	"runtime"
 	"strings"
 	"text/template"
 
-	"github.com/belphemur/mangal/constant"
+	"github.com/sergiolaverde0/mangal/constant"
 	"github.com/spf13/cobra"
 )
 

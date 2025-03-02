@@ -1,11 +1,11 @@
 package provider
 
 import (
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/provider/custom"
-	"github.com/belphemur/mangal/source"
-	"github.com/belphemur/mangal/util"
-	"github.com/belphemur/mangal/where"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/provider/custom"
+	"github.com/sergiolaverde0/mangal/source"
+	"github.com/sergiolaverde0/mangal/util"
+	"github.com/sergiolaverde0/mangal/where"
 	"github.com/samber/lo"
 	"os"
 	"path/filepath"

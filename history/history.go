@@ -1,12 +1,12 @@
 package history
 
 import (
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/integration"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/log"
-	"github.com/belphemur/mangal/source"
-	"github.com/belphemur/mangal/where"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/integration"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/log"
+	"github.com/sergiolaverde0/mangal/source"
+	"github.com/sergiolaverde0/mangal/where"
 	"github.com/metafates/gache"
 	"github.com/spf13/viper"
 )

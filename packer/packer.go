@@ -2,11 +2,11 @@ package packer
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/packer/cbz"
-	"github.com/belphemur/mangal/packer/plain"
-	"github.com/belphemur/mangal/packer/zip"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/packer/cbz"
+	"github.com/sergiolaverde0/mangal/packer/plain"
+	"github.com/sergiolaverde0/mangal/packer/zip"
+	"github.com/sergiolaverde0/mangal/source"
 	"github.com/samber/lo"
 	"strings"
 )

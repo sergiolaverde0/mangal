@@ -1,14 +1,14 @@
 package provider
 
 import (
-	"github.com/belphemur/mangal/provider/asurascans"
-	"github.com/belphemur/mangal/provider/flamescans"
-	"github.com/belphemur/mangal/provider/generic"
-	"github.com/belphemur/mangal/provider/mangadex"
-	"github.com/belphemur/mangal/provider/manganato"
-	"github.com/belphemur/mangal/provider/manganelo"
-	"github.com/belphemur/mangal/provider/mangapill"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/provider/asurascans"
+	"github.com/sergiolaverde0/mangal/provider/flamescans"
+	"github.com/sergiolaverde0/mangal/provider/generic"
+	"github.com/sergiolaverde0/mangal/provider/mangadex"
+	"github.com/sergiolaverde0/mangal/provider/manganato"
+	"github.com/sergiolaverde0/mangal/provider/manganelo"
+	"github.com/sergiolaverde0/mangal/provider/mangapill"
+	"github.com/sergiolaverde0/mangal/source"
 )
 
 const CustomProviderExtension = ".lua"

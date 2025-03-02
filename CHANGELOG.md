@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to
 [Semantic Versioning](https://semver.org).
 
+## 4.8.0
+- Added support for light mode terminals
+- Fixed icons when using NerdFonts
+
 ## 4.7.5
 - Fix downloading chapter from asura scans
 

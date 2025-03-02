@@ -1,8 +1,8 @@
 package mangadex
 
 import (
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/where"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/where"
 	"github.com/metafates/gache"
 	"github.com/samber/mo"
 	"path/filepath"

@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	key "github.com/belphemur/mangal/key"
+	key "github.com/sergiolaverde0/mangal/key"
 	"github.com/google/uuid"
 	"github.com/spf13/viper"
 	"io"

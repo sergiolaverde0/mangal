@@ -1,10 +1,10 @@
 package asurascans
 
 import (
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/provider/generic"
-	"github.com/belphemur/mangal/provider/generic/headless"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/provider/generic"
+	"github.com/sergiolaverde0/mangal/provider/generic/headless"
+	"github.com/sergiolaverde0/mangal/util"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/spf13/viper"
 	"testing"

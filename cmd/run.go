@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/belphemur/mangal/provider/custom"
+	"github.com/sergiolaverde0/mangal/provider/custom"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 )

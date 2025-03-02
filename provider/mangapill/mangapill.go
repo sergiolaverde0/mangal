@@ -3,7 +3,7 @@ package mangapill
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/belphemur/mangal/provider/generic"
+	"github.com/sergiolaverde0/mangal/provider/generic"
 	"net/url"
 	"strings"
 	"time"

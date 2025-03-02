@@ -1,8 +1,8 @@
 package installer
 
 import (
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"path/filepath"

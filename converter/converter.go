@@ -2,10 +2,10 @@ package converter
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/converter/none"
-	"github.com/belphemur/mangal/converter/webp"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/converter/none"
+	"github.com/sergiolaverde0/mangal/converter/webp"
+	"github.com/sergiolaverde0/mangal/source"
 	"github.com/samber/lo"
 	"strings"
 )

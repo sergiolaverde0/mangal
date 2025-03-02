@@ -2,8 +2,8 @@ package inline
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/source"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/source"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/samber/lo"
 	"github.com/samber/mo"
 	"io"

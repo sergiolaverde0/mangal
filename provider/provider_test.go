@@ -1,7 +1,7 @@
 package provider
 
 import (
-	"github.com/belphemur/mangal/provider/manganelo"
+	"github.com/sergiolaverde0/mangal/provider/manganelo"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )

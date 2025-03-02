@@ -2,9 +2,9 @@ package plain
 
 import (
 	"bytes"
-	"github.com/belphemur/mangal/config"
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/config"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/source"
 	"github.com/samber/lo"
 	. "github.com/smartystreets/goconvey/convey"
 	"io/fs"

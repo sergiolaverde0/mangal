@@ -2,10 +2,10 @@ package config
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/where"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/where"
 	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"os"

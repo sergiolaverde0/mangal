@@ -2,11 +2,11 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/color"
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/tui"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/color"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/tui"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/spf13/viper"
 	"os"
 	"os/user"
@@ -14,11 +14,11 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/icon"
-	"github.com/belphemur/mangal/provider"
-	"github.com/belphemur/mangal/style"
-	"github.com/belphemur/mangal/where"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/icon"
+	"github.com/sergiolaverde0/mangal/provider"
+	"github.com/sergiolaverde0/mangal/style"
+	"github.com/sergiolaverde0/mangal/where"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 )

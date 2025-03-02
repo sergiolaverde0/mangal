@@ -2,11 +2,11 @@ package tui
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/color"
-	"github.com/belphemur/mangal/icon"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/style"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/color"
+	"github.com/sergiolaverde0/mangal/icon"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/style"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/muesli/reflow/wrap"
 	"github.com/spf13/viper"

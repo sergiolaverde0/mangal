@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/belphemur/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/filesystem"
 	"github.com/samber/lo"
 	. "github.com/smartystreets/goconvey/convey"
 	"path/filepath"

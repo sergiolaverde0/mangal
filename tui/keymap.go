@@ -1,8 +1,8 @@
 package tui
 
 import (
-	"github.com/belphemur/mangal/color"
-	"github.com/belphemur/mangal/style"
+	"github.com/sergiolaverde0/mangal/color"
+	"github.com/sergiolaverde0/mangal/style"
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 )

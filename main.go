@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/cmd"
-	"github.com/belphemur/mangal/config"
-	"github.com/belphemur/mangal/log"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/cmd"
+	"github.com/sergiolaverde0/mangal/config"
+	"github.com/sergiolaverde0/mangal/log"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/samber/lo"
 )
 

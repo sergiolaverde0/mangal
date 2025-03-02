@@ -2,12 +2,12 @@ package mini
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/downloader"
-	"github.com/belphemur/mangal/history"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/provider"
-	"github.com/belphemur/mangal/source"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/downloader"
+	"github.com/sergiolaverde0/mangal/history"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/provider"
+	"github.com/sergiolaverde0/mangal/source"
+	"github.com/sergiolaverde0/mangal/util"
 	"github.com/samber/lo"
 	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"

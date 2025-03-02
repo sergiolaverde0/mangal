@@ -1,7 +1,7 @@
 package style
 
 import (
-	"github.com/belphemur/mangal/color"
+	"github.com/sergiolaverde0/mangal/color"
 	"github.com/charmbracelet/lipgloss"
 )
 

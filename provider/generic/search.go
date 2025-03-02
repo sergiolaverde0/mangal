@@ -1,7 +1,7 @@
 package generic
 
 import (
-	"github.com/belphemur/mangal/source"
+	"github.com/sergiolaverde0/mangal/source"
 	"github.com/gocolly/colly/v2"
 )
 

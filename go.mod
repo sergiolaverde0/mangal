@@ -1,4 +1,4 @@
-module github.com/belphemur/mangal
+module github.com/sergiolaverde0/mangal
 
 go 1.23
 

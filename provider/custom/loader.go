@@ -2,9 +2,9 @@ package custom
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/filesystem"
-	"github.com/belphemur/mangal/source"
-	"github.com/belphemur/mangal/util"
+	"github.com/sergiolaverde0/mangal/filesystem"
+	"github.com/sergiolaverde0/mangal/source"
+	"github.com/sergiolaverde0/mangal/util"
 	libs "github.com/metafates/mangal-lua-libs"
 	lua "github.com/yuin/gopher-lua"
 	"github.com/yuin/gopher-lua/parse"

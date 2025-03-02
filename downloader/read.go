@@ -2,15 +2,15 @@ package downloader
 
 import (
 	"fmt"
-	"github.com/belphemur/mangal/color"
-	"github.com/belphemur/mangal/constant"
-	"github.com/belphemur/mangal/history"
-	"github.com/belphemur/mangal/key"
-	"github.com/belphemur/mangal/log"
-	"github.com/belphemur/mangal/open"
-	"github.com/belphemur/mangal/packer"
-	"github.com/belphemur/mangal/source"
-	"github.com/belphemur/mangal/style"
+	"github.com/sergiolaverde0/mangal/color"
+	"github.com/sergiolaverde0/mangal/constant"
+	"github.com/sergiolaverde0/mangal/history"
+	"github.com/sergiolaverde0/mangal/key"
+	"github.com/sergiolaverde0/mangal/log"
+	"github.com/sergiolaverde0/mangal/open"
+	"github.com/sergiolaverde0/mangal/packer"
+	"github.com/sergiolaverde0/mangal/source"
+	"github.com/sergiolaverde0/mangal/style"
 	"github.com/spf13/viper"
 )
 
